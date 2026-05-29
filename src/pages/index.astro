@@ -1,11 +1,500 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import '../styles/home.css';
+import '../styles/index.css';
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Inicio | Convierte tu saldo a efectivo">
+  <div class="hero-container" id="hero-section">
+    <!-- Columna Izquierda: Información y Botones -->
+    <div class="hero-content">
+      <!-- Badge de Estado -->
+      <span class="badge" id="hero-badge">RÁPIDO, SEGURO Y CONFIABLE</span>
+
+      <!-- Título Principal -->
+      <h1 class="hero-title" id="hero-main-title">
+        Tu dinero,<br />
+        cuando más lo<br />
+        <span class="text-gradient">necesites.</span>
+      </h1>
+
+      <!-- Subtítulo / Descripción -->
+      <p class="hero-description" id="hero-desc">
+        Convierte el saldo de tu tarjeta de crédito en efectivo al instante, de forma segura y sin vueltas.
+      </p>
+
+      <!-- Lista de Beneficios Rápidos (Horizontal) -->
+      <div class="features-grid">
+        <div class="feature-item">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <path d="m9 11 2 2 4-4"/>
+            </svg>
+          </div>
+          <div>
+            <h3>100% Seguro</h3>
+            <p>Protegemos tus datos en cada operación.</p>
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="m13 2-2 10h9L9 22l2-10H2L13 2z"/>
+            </svg>
+          </div>
+          <div>
+            <h3>Al instante</h3>
+            <p>Recibe tu dinero en minutos.</p>
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="m9 12 2 2 4-4"/>
+            </svg>
+          </div>
+          <div>
+            <h3>Sin vueltas</h3>
+            <p>Proceso simple, claro y sin complicaciones.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botones de Acción de Inicio -->
+      <div class="hero-actions">
+        <a href="/simulador" class="btn btn-hero-gradient" id="btn-simular">
+          Simular Retiro
+          <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+        <a href="#como-funciona" class="btn btn-hero-outline" id="btn-como-funciona">
+          Cómo Funciona
+          <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Columna Derecha: Composición Visual (Tarjeta 3D + Notificación) -->
+    <div class="hero-visual">
+      <div class="visual-wrapper">
+        <!-- Luces de Fondo del Portal -->
+        <div class="portal-light"></div>
+        <div class="laser-lines">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+        <!-- Pedestal / Base 3D -->
+        <div class="pedestal">
+          <div class="pedestal-top"></div>
+          <div class="pedestal-glow"></div>
+        </div>
+
+        <!-- Tarjeta de Crédito Premium Flotante (3D) -->
+        <div class="floating-card">
+          <div class="card-glass-shine"></div>
+          <div class="card-chip"></div>
+          <div class="card-contactless">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 8a9 9 0 0 1 0 8" />
+              <path d="M8 6a12 12 0 0 1 0 12" />
+              <path d="M11 4a15 15 0 0 1 0 16" />
+            </svg>
+          </div>
+          <div class="card-number">1234 5678 9012 3456</div>
+          <div class="card-info">
+            <div class="card-holder">
+              <span>TU TARJETA</span>
+            </div>
+            <div class="card-date">
+              <span>EXP</span>
+              <span>12/28</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ventana Flotante de Transferencia Exitosa -->
+        <div class="success-widget">
+          <span class="widget-title">Dinero en tu cuenta</span>
+          <span class="widget-amount">$250.000</span>
+          <div class="widget-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span>Transferencia exitosa</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Barra de Confianza (Trust Bar) -->
+  <div class="trust-bar" id="trust-bar">
+    <div class="trust-item" id="trust-item-seguridad">
+      <div class="trust-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          <circle cx="12" cy="16" r="1.5"></circle>
+        </svg>
+      </div>
+      <div class="trust-text">
+        <h4>Seguridad Bancaria</h4>
+        <p>Usamos Tecnología de cifrado de nivel bancario.</p>
+      </div>
+    </div>
+
+    <div class="trust-item" id="trust-item-transparencia">
+      <div class="trust-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          <polyline points="9 11 11 13 15 9"></polyline>
+        </svg>
+      </div>
+      <div class="trust-text">
+        <h4>Transparencia Total</h4>
+        <p>Sin costos ocultos. Sabes lo que pagas.</p>
+      </div>
+    </div>
+
+    <div class="trust-item" id="trust-item-soporte">
+      <div class="trust-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          <circle cx="12" cy="12" r="1"></circle>
+          <circle cx="8" cy="12" r="1"></circle>
+          <circle cx="16" cy="12" r="1"></circle>
+        </svg>
+      </div>
+      <div class="trust-text">
+        <h4>Soporte 24/7</h4>
+        <p>Estamos para ayudarte cuando lo necesites.</p>
+      </div>
+    </div>
+
+    <div class="trust-item" id="trust-item-disponibilidad">
+      <div class="trust-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+      </div>
+      <div class="trust-text">
+        <h4>Disponibilidad Total</h4>
+        <p>Solicita tu retiro cuando y donde quieras.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sección: Proceso de Retiro -->
+  <section class="process-section" id="proceso-retiro-section">
+    <h2 class="process-title" id="process-main-title">
+      Proceso de <span class="text-gradient">Retiro</span>
+    </h2>
+    <p class="process-subtitle" id="process-sub-desc">
+      Retira tu dinero de forma rápida, segura y transparente en solo unos pasos
+    </p>
+
+    <div class="process-cards">
+      <!-- Card 1: Registrate -->
+      <div class="process-card" id="card-registrate">
+        <div class="avatar-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </div>
+        <h3>Registrate</h3>
+        <p>Crea tu cuenta y verifica tu identidad en minutos para comenzar.</p>
+      </div>
+
+      <!-- Card 2: Recibe tu dinero -->
+      <div class="process-card" id="card-recibe-dinero">
+        <div class="avatar-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </div>
+        <h3>Recibe tu dinero</h3>
+        <p>Transferimos el dinero directamente a tu cuenta bancaria de forma segura.</p>
+      </div>
+
+      <!-- Card 3: Simula tu retiro -->
+      <div class="process-card" id="card-simula-retiro">
+        <div class="avatar-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </div>
+        <h3>Simula tu retiro</h3>
+        <p>Elige el monto y revisa exactamente cuando lo recibirás.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Carrusel de Bancos (Marquee Infinito de izquierda a derecha) -->
+  <div class="bank-carousel-container" id="bancos-carousel">
+    <div class="carousel-track">
+      <!-- Grupo 1 -->
+      <div class="carousel-slide">
+        <!-- Reemplaza esta imagen en tu proyecto en: src/assets/bancos/scotiabank.svg -->
+        <img src="/src/assets/bancos/scotiabank.svg" alt="Scotiabank" class="bank-logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        <span class="bank-logo-fallback text-scotiabank">Scotiabank</span>
+      </div>
+      <div class="carousel-slide">
+        <!-- Reemplaza esta imagen en tu proyecto en: src/assets/bancos/banbif.svg -->
+        <img src="/src/assets/bancos/banbif.svg" alt="BanBif" class="bank-logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        <span class="bank-logo-fallback text-banbif">BanBif</span>
+      </div>
+      <div class="carousel-slide">
+        <!-- Reemplaza esta imagen en tu proyecto en: src/assets/bancos/interbank.svg -->
+        <img src="/src/assets/bancos/interbank.svg" alt="Interbank" class="bank-logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        <span class="bank-logo-fallback text-interbank">Interbank</span>
+      </div>
+      <div class="carousel-slide">
+        <!-- Reemplaza esta imagen en tu proyecto en: src/assets/bancos/bbva.svg -->
+        <img src="/src/assets/bancos/bbva.svg" alt="BBVA" class="bank-logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        <span class="bank-logo-fallback text-bbva">BBVA</span>
+      </div>
+      <div class="carousel-slide">
+        <!-- Reemplaza esta imagen en tu proyecto en: src/assets/bancos/bcp.svg -->
+        <img src="/src/assets/bancos/bcp.svg" alt="BCP" class="bank-logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        <span class="bank-logo-fallback text-bcp">BCP</span>
+      </div>
+
+      <!-- Grupo 2 (Duplicado para efecto de carrusel continuo) -->
+      <div class="carousel-slide">
+        <img src="/src/assets/bancos/scotiabank.svg" alt="Scotiabank" class="bank-logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        <span class="bank-logo-fallback text-scotiabank">Scotiabank</span>
+      </div>
+      <div class="carousel-slide">
+        <img src="/src/assets/bancos/banbif.svg" alt="BanBif" class="bank-logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        <span class="bank-logo-fallback text-banbif">BanBif</span>
+      </div>
+      <div class="carousel-slide">
+        <img src="/src/assets/bancos/interbank.svg" alt="Interbank" class="bank-logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        <span class="bank-logo-fallback text-interbank">Interbank</span>
+      </div>
+      <div class="carousel-slide">
+        <img src="/src/assets/bancos/bbva.svg" alt="BBVA" class="bank-logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        <span class="bank-logo-fallback text-bbva">BBVA</span>
+      </div>
+      <div class="carousel-slide">
+        <img src="/src/assets/bancos/bcp.svg" alt="BCP" class="bank-logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        <span class="bank-logo-fallback text-bcp">BCP</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sección: Maximiza tus Beneficios -->
+  <section class="benefits-section" id="maximiza-beneficios">
+    <h2 class="benefits-section-title">
+      Máximiza tus <span class="text-gradient">Beneficios</span>
+    </h2>
+    
+    <!-- Fila Superior: 3 Cards -->
+    <div class="benefits-row top-row">
+      <!-- Card 1: Rentabilidad -->
+      <div class="benefit-row-card" id="card-rentabilidad">
+        <div class="benefit-img-container">
+          <!-- Reemplaza esta imagen en tu proyecto en: src/assets/beneficios/rentabilidad.png -->
+          <img src="/src/assets/beneficios/rentabilidad.png" alt="Rentabilidad" class="benefit-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <!-- Icono SVG temporal (Teléfono + Escudo) -->
+          <div class="benefit-img-fallback icon-rentabilidad">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+              <path d="M12 18h.01"></path>
+              <path d="M12 6v6l4 2"></path>
+            </svg>
+          </div>
+        </div>
+        <div class="benefit-info">
+          <h3>Rentabilidad</h3>
+          <p>Maximice sus fondos de forma directa.</p>
+        </div>
+      </div>
+
+      <!-- Card 2: Tasa Preferencial -->
+      <div class="benefit-row-card" id="card-tasa-preferencial">
+        <div class="benefit-img-container">
+          <!-- Reemplaza esta imagen en tu proyecto en: src/assets/beneficios/tasa-preferencial.png -->
+          <img src="/src/assets/beneficios/tasa-preferencial.png" alt="Tasa Preferencial" class="benefit-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <!-- Icono SVG temporal (%) -->
+          <div class="benefit-img-fallback icon-tasa">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="19" y1="5" x2="5" y2="19"></line>
+              <circle cx="6.5" cy="6.5" r="2.5"></circle>
+              <circle cx="17.5" cy="17.5" r="2.5"></circle>
+            </svg>
+          </div>
+        </div>
+        <div class="benefit-info">
+          <h3>Tasa Preferencial</h3>
+          <p>Solicite condiciones preferenciales vía WhatsApp.</p>
+        </div>
+      </div>
+
+      <!-- Card 3: Beneficios -->
+      <div class="benefit-row-card" id="card-beneficios-fest">
+        <div class="benefit-img-container">
+          <!-- Reemplaza esta imagen en tu proyecto en: src/assets/beneficios/beneficios.png -->
+          <img src="/src/assets/beneficios/beneficios.png" alt="Beneficios" class="benefit-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <!-- Icono SVG temporal (Regalo) -->
+          <div class="benefit-img-fallback icon-regalo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 12 20 22 4 22 4 12"></polyline>
+              <rect x="2" y="7" width="20" height="5"></rect>
+              <line x1="12" y1="22" x2="12" y2="7"></line>
+              <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path>
+              <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path>
+            </svg>
+          </div>
+        </div>
+        <div class="benefit-info">
+          <h3>Beneficios</h3>
+          <p>Descuentos y accesos exclusivos en Capital Fest.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fila Inferior: 2 Cards -->
+    <div class="benefits-row bottom-row">
+      <!-- Card 4: Red de Contactos -->
+      <div class="benefit-row-card" id="card-red-contactos">
+        <div class="benefit-img-container">
+          <!-- Reemplaza esta imagen en tu proyecto en: src/assets/beneficios/red-contactos.png -->
+          <img src="/src/assets/beneficios/red-contactos.png" alt="Red de Contactos" class="benefit-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <!-- Icono SVG temporal (Apretón de manos) -->
+          <div class="benefit-img-fallback icon-red">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 8a3 3 0 0 0-3-3H5a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V8Z"></path>
+              <path d="M10 12h4"></path>
+              <path d="M12 10v4"></path>
+            </svg>
+          </div>
+        </div>
+        <div class="benefit-info">
+          <h3>Red de Contactos</h3>
+          <p>Conexión directa con nuestra comunidad ejecutiva.</p>
+        </div>
+      </div>
+
+      <!-- Card 5: Soporte Continuo -->
+      <div class="benefit-row-card" id="card-soporte-continuo">
+        <div class="benefit-img-container">
+          <!-- Reemplaza esta imagen en tu proyecto en: src/assets/beneficios/soporte-continuo.png -->
+          <img src="/src/assets/beneficios/soporte-continuo.png" alt="Soporte Continuo" class="benefit-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <!-- Icono SVG temporal (Soporte/Escudo) -->
+          <div class="benefit-img-fallback icon-soporte">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              <path d="M12 8v8"></path>
+              <path d="M9 11h6"></path>
+            </svg>
+          </div>
+        </div>
+        <div class="benefit-info">
+          <h3>Soporte Continuo</h3>
+          <p>Atención y respaldo institucional 24/7.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección: Nuestros Clientes -->
+  <section class="clients-section" id="nuestros-clientes">
+    <h2 class="clients-title">
+      Nuestros <span class="text-gradient">Clientes</span>
+    </h2>
+
+    <div class="clients-cards">
+      <!-- Tarjeta Cliente 1 -->
+      <div class="process-card" id="cliente-1">
+        <div class="avatar-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </div>
+        <span class="client-pill">Nombre Apellido</span>
+        <p class="client-quote">
+          Ser la plataforma financiera de referencia en Perú para el acceso rápido y seguro a efectivo, ofreciendo una experiencia moderna, transparente y sin complicaciones. ofreciendo una experiencia moderna, transparente y sin complicaciones.
+        </p>
+      </div>
+
+      <!-- Tarjeta Cliente 2 -->
+      <div class="process-card" id="cliente-2">
+        <div class="avatar-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </div>
+        <span class="client-pill">Nombre Apellido</span>
+        <p class="client-quote">
+          Ser la plataforma financiera de referencia en Perú para el acceso rápido y seguro a efectivo, ofreciendo una experiencia moderna, transparente y sin complicaciones. ofreciendo una experiencia moderna, transparente y sin complicaciones.
+        </p>
+      </div>
+
+      <!-- Tarjeta Cliente 3 -->
+      <div class="process-card" id="cliente-3">
+        <div class="avatar-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </div>
+        <span class="client-pill">Nombre Apellido</span>
+        <p class="client-quote">
+          Ser la plataforma financiera de referencia en Perú para el acceso rápido y seguro a efectivo, ofreciendo una experiencia moderna, transparente y sin complicaciones. ofreciendo una experiencia moderna, transparente y sin complicaciones.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección: Banner de Llamado a la Acción (CTA) -->
+  <section class="cta-banner-section" id="cta-banner">
+    <div class="cta-card">
+      <span class="badge">RÁPIDO, SEGURO Y CONFIABLE</span>
+      
+      <h2 class="cta-title">
+        Obtén efectivo en <span class="text-gradient">minutos.</span>
+      </h2>
+      
+      <p class="cta-description">
+        Convierte el saldo de tu tarjeta de crédito al instante, de forma segura y sin problemas.
+      </p>
+
+      <div class="cta-actions">
+        <a href="/simulador" class="btn btn-hero-gradient" id="cta-btn-simular">
+          Simular retiro
+          <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+        <a href="#como-funciona" class="btn-cta-outline" id="cta-btn-como-funciona">
+          Cómo funciona
+          <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+        </a>
+      </div>
+
+      <div class="cta-footer-text">
+        100% Seguro • Sin complicaciones • Respuesta inmediata
+      </div>
+    </div>
+  </section>
 </Layout>

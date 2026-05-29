@@ -1,0 +1,226 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Legal | Términos y Condiciones">
+  <div class="page-container" id="legal-page">
+    <!-- Encabezado de Página -->
+    <div class="page-header">
+      <span class="badge">LEGALIDAD Y TRANSPARENCIA</span>
+      <h1 class="page-title">
+        Marco <span class="text-gradient">Legal</span>
+      </h1>
+      <p class="page-subtitle">
+        Consulta los acuerdos, políticas de privacidad y condiciones que regulan el uso de nuestros servicios financieros digitales.
+      </p>
+    </div>
+
+    <!-- Contenido del Documento Legal -->
+    <div class="legal-layout">
+      <!-- Menú Lateral de Documentos -->
+      <aside class="legal-sidebar">
+        <ul class="sidebar-links">
+          <li><a href="#terminos" class="sidebar-link active">1. Términos de Servicio</a></li>
+          <li><a href="#privacidad" class="sidebar-link">2. Política de Privacidad</a></li>
+          <li><a href="#cookies" class="sidebar-link">3. Política de Cookies</a></li>
+          <li><a href="#riesgos" class="sidebar-link">4. Descargo de Responsabilidad</a></li>
+        </ul>
+      </aside>
+
+      <!-- Cuerpo del Documento -->
+      <div class="legal-content">
+        <!-- Sección 1 -->
+        <section id="terminos" class="legal-section">
+          <h2>1. Términos de Servicio</h2>
+          <p class="date">Última actualización: Mayo 2026</p>
+          <p>Al acceder y utilizar esta plataforma, usted acepta estar sujeto a los presentes Términos y Condiciones de Uso. El servicio ofrecido consiste exclusivamente en la intermediación para la obtención de liquidez a través de la conversión del cupo de compras de sus tarjetas de crédito autorizadas.</p>
+          <p>El usuario declara bajo la gravedad de juramento que es el titular legítimo de las tarjetas utilizadas en la plataforma y que los fondos correspondientes no provienen de ninguna actividad ilícita.</p>
+        </section>
+
+        <!-- Sección 2 -->
+        <section id="privacidad" class="legal-section">
+          <h2>2. Política de Privacidad</h2>
+          <p>Nos comprometemos a proteger su privacidad. Toda la información personal recopilada durante los procesos de simulación y registro se procesa bajo rigurosas medidas de seguridad técnica y administrativa, de conformidad con la ley de protección de datos personales vigente (Habeas Data).</p>
+          <p>No compartimos, vendemos ni alquilamos su información personal a terceros con fines comerciales sin su consentimiento expreso, excepto cuando sea requerido por autoridades judiciales competentes.</p>
+        </section>
+
+        <!-- Sección 3 -->
+        <section id="cookies" class="legal-section">
+          <h2>3. Política de Cookies</h2>
+          <p>Utilizamos cookies esenciales y tecnologías similares para optimizar el rendimiento del sitio web, analizar el tráfico del usuario y garantizar una experiencia segura de navegación. Puede configurar su navegador para rechazar las cookies no esenciales, lo cual no afectará las funciones de simulación de retiros.</p>
+        </section>
+
+        <!-- Sección 4 -->
+        <section id="riesgos" class="legal-section">
+          <h2>4. Descargo de Responsabilidad</h2>
+          <p>El uso del cupo de crédito para la obtención de dinero en efectivo constituye una operación financiera que devengará los intereses ordinarios y tarifas fijados de forma independiente por la entidad emisora de su tarjeta de crédito.</p>
+          <p>Nuestra plataforma no es una entidad bancaria ni captadora de ahorros públicos. Animamos a todos los usuarios a utilizar el servicio de forma responsable y acorde con su capacidad de pago mensual.</p>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  /* Contenedor General */
+  .page-container {
+    padding: 60px 0 100px 0;
+  }
+
+  .page-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .badge {
+    background: rgba(124, 58, 237, 0.12);
+    color: #a78bfa;
+    border: 1px solid rgba(124, 58, 237, 0.25);
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    display: inline-block;
+  }
+
+  .page-title {
+    font-size: 48px;
+    font-weight: 800;
+    margin-bottom: 20px;
+    letter-spacing: -1.5px;
+  }
+
+  .text-gradient {
+    background: linear-gradient(90deg, #7c3aed 0%, #ea580c 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .page-subtitle {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+    max-width: 650px;
+    margin: 0 auto;
+  }
+
+  /* Layout Legal (Columnas) */
+  .legal-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 50px;
+    align-items: start;
+  }
+
+  /* Sidebar */
+  .legal-sidebar {
+    position: sticky;
+    top: 140px;
+  }
+
+  .sidebar-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .sidebar-link {
+    display: block;
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-left: 2px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+  }
+
+  .sidebar-link:hover {
+    color: #ffffff;
+    border-left-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .sidebar-link.active {
+    color: #ffffff;
+    border-left-color: #7c3aed;
+    font-weight: 600;
+    background: linear-gradient(90deg, rgba(124, 58, 237, 0.04) 0%, transparent 100%);
+  }
+
+  /* Contenido */
+  .legal-content {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  .legal-section {
+    background: rgba(255, 255, 255, 0.01);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 20px;
+    padding: 36px;
+    scroll-margin-top: 140px; /* Evita que el navbar tape la sección al hacer scroll */
+  }
+
+  .legal-section h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #ffffff;
+  }
+
+  .legal-section .date {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.4);
+    margin-bottom: 24px;
+  }
+
+  .legal-section p {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+
+  .legal-section p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Responsivo */
+  @media (max-width: 900px) {
+    .legal-layout {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+
+    .legal-sidebar {
+      position: static;
+    }
+
+    .sidebar-links {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .sidebar-link {
+      border-left: none;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.05);
+      padding: 6px 12px;
+    }
+
+    .sidebar-link.active {
+      border-left: none;
+      border-bottom-color: #7c3aed;
+      background: none;
+    }
+
+    .page-title {
+      font-size: 36px;
+    }
+  }
+</style>

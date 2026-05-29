@@ -1,0 +1,340 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Ayuda | Centro de Soporte">
+  <div class="page-container" id="ayuda-page">
+    <!-- Encabezado de Página -->
+    <div class="page-header">
+      <span class="badge">CENTRO DE SOPORTE</span>
+      <h1 class="page-title">
+        ¿Cómo podemos <span class="text-gradient">ayudarte?</span>
+      </h1>
+      <p class="page-subtitle">
+        Encuentra respuestas rápidas a las preguntas más frecuentes sobre el uso de nuestra plataforma o ponte en contacto con nuestro equipo técnico.
+      </p>
+
+      <!-- Barra de Búsqueda Simulada -->
+      <div class="search-bar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="search-icon">
+          <circle cx="11" cy="11" r="8"/>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <input type="text" placeholder="Busca tu duda (ej. tiempo de transferencia, comisiones...)" disabled />
+      </div>
+    </div>
+
+    <!-- Preguntas Frecuentes (FAQ) -->
+    <div class="faq-section">
+      <h2 class="section-title">Preguntas Frecuentes</h2>
+
+      <div class="faq-list">
+        <!-- FAQ 1 -->
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3>¿Cómo funciona el proceso de retiro de saldo?</h3>
+          </div>
+          <div class="faq-answer">
+            <p>Es muy sencillo: 1) Ingresas a nuestro simulador, 2) Defines el monto que deseas retirar, 3) Completas la verificación de seguridad, 4) Realizas el pago digital como si fuera una compra ordinaria en internet y 5) En pocos minutos recibes la transferencia en tu cuenta bancaria registrada.</p>
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3>¿Qué tarjetas de crédito puedo utilizar?</h3>
+          </div>
+          <div class="faq-answer">
+            <p>Aceptamos la gran mayoría de tarjetas de crédito nacionales e internacionales de las franquicias Visa, Mastercard, American Express y Diners Club emitidas por cualquier entidad bancaria.</p>
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3>¿Cuánto tiempo tarda en llegar el dinero a mi cuenta?</h3>
+          </div>
+          <div class="faq-answer">
+            <p>El proceso suele completarse en un plazo de 10 a 15 minutos desde que la transacción de pago es autorizada por tu banco. En algunos casos excepcionales por validaciones de seguridad adicionales, puede tomar hasta 1 hora.</p>
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3>¿Cuáles son los costos o comisiones aplicadas?</h3>
+          </div>
+          <div class="faq-answer">
+            <p>Cobramos una comisión fija transparente que se calcula dinámicamente según el monto de retiro y la franquicia de tu tarjeta. Puedes ver el desglose exacto antes de realizar cualquier pago utilizando nuestra herramienta de simulación sin ningún compromiso.</p>
+          </div>
+        </div>
+
+        <!-- FAQ 5 -->
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3>¿Es seguro registrar mis datos en la plataforma?</h3>
+          </div>
+          <div class="faq-answer">
+            <p>Absolutamente. Contamos con protocolos de encriptación de datos SSL de 256 bits y trabajamos con pasarelas de pago certificadas bajo la norma PCI-DSS Nivel 1, lo que asegura que tu información financiera nunca queda expuesta ni almacenada en nuestros servidores públicos.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección de Contacto -->
+    <div class="contact-section">
+      <h3>¿No encontraste lo que buscabas?</h3>
+      <p>Nuestro equipo de soporte humano está disponible para asistirte de inmediato.</p>
+      <div class="contact-buttons">
+        <a href="https://wa.me/ejemplo" class="btn btn-whatsapp">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.458L0 24zm6.59-4.846c1.6.95 2.766 1.498 4.796 1.499 5.53.003 10.03-4.494 10.034-10.024.002-2.679-1.04-5.197-2.933-7.093-1.892-1.893-4.408-2.934-7.086-2.936-5.533 0-10.036 4.499-10.04 10.03-.001 1.942.5 3.398 1.43 4.969l-.949 3.47 3.57-.935z"/>
+          </svg>
+          Soporte por WhatsApp
+        </a>
+        <a href="mailto:soporte@ejemplo.com" class="btn btn-email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+          Enviar un Correo
+        </a>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  /* Contenedor General */
+  .page-container {
+    padding: 60px 0 100px 0;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .page-header {
+    text-align: center;
+    margin-bottom: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .badge {
+    background: rgba(124, 58, 237, 0.12);
+    color: #a78bfa;
+    border: 1px solid rgba(124, 58, 237, 0.25);
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    display: inline-block;
+  }
+
+  .page-title {
+    font-size: 48px;
+    font-weight: 800;
+    margin-bottom: 20px;
+    letter-spacing: -1.5px;
+  }
+
+  .text-gradient {
+    background: linear-gradient(90deg, #7c3aed 0%, #ea580c 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .page-subtitle {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+    max-width: 650px;
+    margin-bottom: 32px;
+  }
+
+  /* Barra de búsqueda simulada */
+  .search-bar {
+    width: 100%;
+    max-width: 580px;
+    position: relative;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+    transition: border-color 0.3s ease;
+  }
+
+  .search-bar:focus-within {
+    border-color: rgba(124, 58, 237, 0.4);
+  }
+
+  .search-icon {
+    width: 20px;
+    height: 20px;
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  .search-bar input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #ffffff;
+    font-size: 15px;
+    width: 100%;
+    font-family: inherit;
+  }
+
+  .search-bar input::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+  }
+
+  /* FAQ */
+  .faq-section {
+    margin-bottom: 80px;
+  }
+
+  .section-title {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 36px;
+    text-align: center;
+    letter-spacing: -0.5px;
+  }
+
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .faq-item {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 24px;
+    transition: all 0.3s ease;
+  }
+
+  .faq-item:hover {
+    border-color: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .faq-question h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 12px;
+  }
+
+  .faq-answer p {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.65);
+    line-height: 1.6;
+  }
+
+  /* Contacto */
+  .contact-section {
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.05) 0%, rgba(234, 88, 12, 0.03) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 24px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  }
+
+  .contact-section h3 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .contact-section p {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 28px;
+  }
+
+  .contact-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .btn-whatsapp {
+    background: #25d366;
+    color: #ffffff;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.2);
+    transition: all 0.3s ease;
+  }
+
+  .btn-whatsapp:hover {
+    background: #20ba59;
+    transform: translateY(-2px);
+  }
+
+  .btn-whatsapp svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .btn-email {
+    background: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 12px 28px;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .btn-email:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+  }
+
+  .btn-email svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* Responsivo */
+  @media (max-width: 640px) {
+    .contact-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .btn-whatsapp,
+    .btn-email {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .page-title {
+      font-size: 36px;
+    }
+  }
+</style>

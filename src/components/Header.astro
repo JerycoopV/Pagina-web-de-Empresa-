@@ -1,0 +1,257 @@
+---
+interface Props {
+  // Add optional props here if needed
+}
+
+const pathname = Astro.url.pathname;
+// Normalize pathname to prevent trailing slash mismatches
+const currentPath = pathname.endsWith('/') && pathname.length > 1 ? pathname.slice(0, -1) : pathname;
+
+const navItems = [
+  { name: 'Inicio', href: '/' },
+  { name: 'Nosotros', href: '/nosotros' },
+  { name: 'Beneficios', href: '/beneficios' },
+  { name: 'Ayuda', href: '/ayuda' },
+  { name: 'Legal', href: '/legal' }
+];
+---
+
+<header class="header-container">
+  <nav class="navbar" id="main-navbar">
+    <!-- Logotipo Premium -->
+    <a href="/" class="logo-link" aria-label="Ir a Inicio" id="nav-logo">
+      <div class="logo-wrapper">
+        <svg class="logo-svg" viewBox="0 0 50 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#4f46e5" /> <!-- Indigo/Blue -->
+              <stop offset="50%" stop-color="#a855f7" /> <!-- Purple -->
+              <stop offset="100%" stop-color="#ea580c" /> <!-- Orange -->
+            </linearGradient>
+          </defs>
+          <!-- Stylized C & F monogram representing the icon in the reference -->
+          <path 
+            d="M16 10C16 10 25 5 35 11C37.5 12.5 38.5 15.5 36.5 17.5C34.5 19.5 31.5 18.5 29.5 17.5C23.5 14.5 19 16.5 19 21.5C19 26.5 23.5 28.5 29.5 25.5C31.5 24.5 34.5 23.5 36.5 25.5C38.5 27.5 37.5 30.5 35 32C25 38 16 33 16 33" 
+            stroke="url(#logo-gradient)" 
+            stroke-width="5" 
+            stroke-linecap="round"
+          />
+          <path 
+            d="M26 21.5H39" 
+            stroke="url(#logo-gradient)" 
+            stroke-width="5" 
+            stroke-linecap="round"
+          />
+        </svg>
+      </div>
+    </a>
+
+    <!-- Enlaces de Navegación -->
+    <ul class="nav-links">
+      {navItems.map(item => {
+        const isActive = currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href));
+        return (
+          <li>
+            <a 
+              href={item.href} 
+              class={`nav-link ${isActive ? 'active' : ''}`}
+              id={`nav-link-${item.name.toLowerCase()}`}
+            >
+              {item.name}
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+
+    <!-- Botones de Acción -->
+    <div class="actions">
+      <a href="/login" class="btn btn-outline" id="btn-ingresar">Ingresar</a>
+      <a href="/register" class="btn btn-gradient" id="btn-crear-cuenta">Crear Cuenta</a>
+    </div>
+  </nav>
+</header>
+
+<style>
+  /* Contenedor del Header flotante */
+  .header-container {
+    position: fixed;
+    top: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 1100px;
+    z-index: 1000;
+    pointer-events: none; /* Permite clicks a través del contenedor en áreas vacías */
+  }
+
+  /* Barra de Navegación Estilo Cápsula de Cristal */
+  .navbar {
+    pointer-events: auto; /* Vuelve a habilitar clicks en la barra en sí */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(10, 10, 10, 0.65);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 100px;
+    padding: 10px 24px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Efecto hover general de la barra */
+  .navbar:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+    background: rgba(12, 12, 12, 0.75);
+    box-shadow: 0 20px 50px rgba(124, 58, 237, 0.1), 0 20px 40px rgba(0, 0, 0, 0.8);
+  }
+
+  /* Enlace del logo */
+  .logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+  }
+
+  .logo-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+  }
+
+  .logo-wrapper:hover {
+    transform: scale(1.05);
+  }
+
+  .logo-svg {
+    height: 38px;
+    width: auto;
+  }
+
+  /* Lista de Enlaces */
+  .nav-links {
+    display: flex;
+    list-style: none;
+    gap: 32px;
+    align-items: center;
+  }
+
+  /* Enlaces individuales */
+  .nav-link {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 8px 4px;
+    position: relative;
+    transition: color 0.3s ease;
+  }
+
+  .nav-link:hover {
+    color: #ffffff;
+  }
+
+  /* Enlace activo */
+  .nav-link.active {
+    color: #ffffff;
+    font-weight: 600;
+  }
+
+  /* Subrayado animado para el link activo */
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--gradient-accent, linear-gradient(90deg, #7c3aed, #ea580c));
+    border-radius: 2px;
+    transform: translateX(-50%);
+    transition: width 0.3s ease;
+  }
+
+  .nav-link.active::after {
+    width: 100%;
+  }
+
+  .nav-link:hover::after {
+    width: 60%;
+  }
+
+  /* Botones de acción */
+  .actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 24px;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Botón Ingresar */
+  .btn-outline {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .btn-outline:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+  }
+
+  /* Botón Crear Cuenta */
+  .btn-gradient {
+    color: #ffffff;
+    background: linear-gradient(90deg, #7c3aed 0%, #ea580c 100%);
+    border: none;
+    box-shadow: 0 4px 15px rgba(124, 58, 237, 0.2);
+  }
+
+  .btn-gradient:hover {
+    background: linear-gradient(90deg, #8b5cf6 0%, #f97316 100%);
+    box-shadow: 0 6px 20px rgba(234, 88, 12, 0.3);
+    transform: translateY(-1px);
+  }
+
+  /* Responsivo para móviles */
+  @media (max-width: 768px) {
+    .header-container {
+      width: 95%;
+      top: 16px;
+    }
+    
+    .navbar {
+      padding: 8px 16px;
+      border-radius: 30px;
+    }
+
+    .nav-links {
+      display: none; /* En una versión final podríamos agregar un menú hamburguesa */
+    }
+
+    .logo-svg {
+      height: 32px;
+    }
+
+    .btn {
+      padding: 8px 16px;
+      font-size: 13px;
+    }
+  }
+</style>
