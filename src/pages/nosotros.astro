@@ -1,237 +1,82 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import '../styles/nosotros.css';
 ---
 
-<Layout title="Nosotros | Quiénes Somos">
-  <div class="page-container" id="nosotros-page">
-    <!-- Encabezado de Página -->
-    <div class="page-header">
-      <span class="badge">NUESTRA HISTORIA</span>
-      <h1 class="page-title">
-        Quiénes <span class="text-gradient">Somos</span>
-      </h1>
-      <p class="page-subtitle">
-        Somos una plataforma fintech diseñada para darte libertad financiera, permitiéndote disponer de tu cupo de crédito cuando más lo necesitas.
-      </p>
-    </div>
-
-    <!-- Rejilla de Información en Tarjetas Glassmorphic -->
-    <div class="info-grid">
-      <div class="info-card">
-        <div class="card-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="2" y1="12" x2="22" y2="12"/>
-            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-          </svg>
+<Layout title="Nosotros | Capital Fest">
+  <div class="nosotros-page-container">
+    <div class="nosotros-grid">
+      <!-- Columna Izquierda: Título, Textos e Imagen -->
+      <div class="nosotros-content">
+        <div class="nosotros-title-container">
+          <h1 class="nosotros-title">Nosotros</h1>
         </div>
-        <h2>Nuestra Misión</h2>
-        <p>Facilitar soluciones financieras inmediatas de forma transparente, eliminando los trámites burocráticos y empoderando a las personas con el manejo inteligente de sus tarjetas de crédito.</p>
+        
+        <p class="nosotros-desc">
+          Capital Fest es una solución financiera <br class="desktop-br" />
+          que te permite acceder a efectivo desde <br class="desktop-br" />
+          tu tarjeta de crédito de forma rápida, <br class="desktop-br" />
+          simple y segura cuando lo necesitas.
+        </p>
+        
+        <p class="nosotros-desc">
+          Nuestro objetivo es facilitar el acceso a <br class="desktop-br" />
+          tu dinero sin complicaciones, ofreciendo <br class="desktop-br" />
+          una alternativa práctica para resolver <br class="desktop-br" />
+          necesidades inmediatas.
+        </p>
+        
+        <div class="nosotros-image-container">
+          <img src="/assets/tarjeta-nosotro3.webp" alt="Capital Fest - Tarjeta en pedestal con monedas flotantes" class="nosotros-image" />
+        </div>
       </div>
 
-      <div class="info-card">
-        <div class="card-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M2 12h20"/>
-            <path d="M20 12v8H4v-8"/>
-            <path d="m4 12 8-8 8 8"/>
-          </svg>
+      <!-- Columna Derecha: Tarjeta Glassmorphic de Información -->
+      <div class="nosotros-glass-card">
+        <div class="nosotros-info-item">
+          <h2 class="nosotros-info-title">¿Por qué elegirnos?</h2>
+          <p class="nosotros-info-text">
+            Brindamos una atención personalizada basada en la transparencia, la confianza y la rapidez, acompañándote en cada etapa del proceso con responsabilidad, seguridad y el compromiso de ofrecerte una experiencia financiera clara, eficiente y confiable.
+          </p>
         </div>
-        <h2>Nuestra Visión</h2>
-        <p>Convertirnos en la plataforma líder de liquidez inmediata en toda Latinoamérica, reconocida por su seguridad, velocidad y el impacto positivo en la economía de nuestros usuarios.</p>
+
+        <div class="nosotros-info-item">
+          <h2 class="nosotros-info-title">Misión</h2>
+          <p class="nosotros-info-text">
+            Transformamos tu línea de crédito en efectivo inmediato mediante una experiencia rápida, simple y segura, diseñada para brindarte total confianza,
+          </p>
+        </div>
+
+        <div class="nosotros-info-item">
+          <h2 class="nosotros-info-title">Visión</h2>
+          <p class="nosotros-info-text">
+            Transformamos tu línea de crédito en efectivo inmediato mediante una experiencia rápida, simple y segura, diseñada para brindarte total confianza,
+          </p>
+        </div>
+
+        <div class="nosotros-info-item">
+          <h2 class="nosotros-info-title">Horario</h2>
+          <ul class="nosotros-schedule-list">
+            <li>Lunes a sábado: 8:00am a 6:00pm</li>
+          </ul>
+        </div>
       </div>
     </div>
 
-    <!-- Valores de la Empresa -->
-    <div class="values-section">
-      <h2 class="section-title">Valores que nos definen</h2>
-      <div class="values-grid">
-        <div class="value-item">
-          <div class="value-number">01</div>
-          <h3>Transparencia</h3>
-          <p>Sin tarifas ocultas ni letra pequeña. Conoces el costo de tu operación desde el primer momento.</p>
+    <!-- Sección Bancos Afiliados -->
+    <div class="nosotros-bancos-section">
+      <h2 class="nosotros-bancos-title">Bancos <span class="text-gradient nosotros-bancos-title-span">Afiliados</span></h2>
+      <div class="nosotros-bancos-card">
+        <div class="bancos-grid-row row-1">
+          <img src="/assets/banco3.webp" alt="Scotiabank" class="nosotros-banco-logo" />
+          <img src="/assets/banco4.webp" alt="BanBif" class="nosotros-banco-logo" />
+          <img src="/assets/banco2.webp" alt="Interbank" class="nosotros-banco-logo" />
         </div>
-        <div class="value-item">
-          <div class="value-number">02</div>
-          <h3>Seguridad</h3>
-          <p>Utilizamos encriptación de grado bancario para que tus transacciones y datos estén siempre protegidos.</p>
-        </div>
-        <div class="value-item">
-          <div class="value-number">03</div>
-          <h3>Innovación</h3>
-          <p>Buscamos constantemente mejorar nuestro producto para ofrecerte un servicio cada vez más rápido y sencillo.</p>
+        <div class="bancos-grid-row row-2">
+          <img src="/assets/banco1.webp" alt="BBVA" class="nosotros-banco-logo" />
+          <img src="/assets/banco5.webp" alt="BCP" class="nosotros-banco-logo" />
         </div>
       </div>
     </div>
   </div>
 </Layout>
-
-<style>
-  /* Contenedor General */
-  .page-container {
-    padding: 60px 0 100px 0;
-    max-width: 900px;
-    margin: 0 auto;
-  }
-
-  .page-header {
-    text-align: center;
-    margin-bottom: 60px;
-  }
-
-  .badge {
-    background: rgba(124, 58, 237, 0.12);
-    color: #a78bfa;
-    border: 1px solid rgba(124, 58, 237, 0.25);
-    padding: 6px 16px;
-    border-radius: 50px;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    margin-bottom: 20px;
-    display: inline-block;
-  }
-
-  .page-title {
-    font-size: 48px;
-    font-weight: 800;
-    margin-bottom: 20px;
-    letter-spacing: -1.5px;
-  }
-
-  .text-gradient {
-    background: linear-gradient(90deg, #7c3aed 0%, #ea580c 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .page-subtitle {
-    font-size: 18px;
-    color: rgba(255, 255, 255, 0.7);
-    line-height: 1.6;
-    max-width: 650px;
-    margin: 0 auto;
-  }
-
-  /* Grid de Información */
-  .info-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
-    margin-bottom: 80px;
-  }
-
-  .info-card {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 20px;
-    padding: 36px;
-    backdrop-filter: blur(10px);
-    transition: transform 0.3s ease, border-color 0.3s ease;
-  }
-
-  .info-card:hover {
-    transform: translateY(-5px);
-    border-color: rgba(124, 58, 237, 0.2);
-    background: rgba(124, 58, 237, 0.02);
-  }
-
-  .card-icon {
-    width: 48px;
-    height: 48px;
-    background: rgba(124, 58, 237, 0.1);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #a78bfa;
-    margin-bottom: 24px;
-  }
-
-  .card-icon svg {
-    width: 24px;
-    height: 24px;
-  }
-
-  .info-card h2 {
-    font-size: 24px;
-    font-weight: 700;
-    margin-bottom: 16px;
-  }
-
-  .info-card p {
-    font-size: 15px;
-    color: rgba(255, 255, 255, 0.6);
-    line-height: 1.6;
-  }
-
-  /* Sección de Valores */
-  .values-section {
-    text-align: center;
-  }
-
-  .section-title {
-    font-size: 32px;
-    font-weight: 800;
-    margin-bottom: 48px;
-    letter-spacing: -0.5px;
-  }
-
-  .values-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-  }
-
-  .value-item {
-    background: rgba(255, 255, 255, 0.01);
-    border: 1px solid rgba(255, 255, 255, 0.04);
-    border-radius: 16px;
-    padding: 30px 20px;
-    text-align: left;
-    transition: all 0.3s ease;
-  }
-
-  .value-item:hover {
-    background: rgba(255, 255, 255, 0.03);
-    border-color: rgba(234, 88, 12, 0.2);
-  }
-
-  .value-number {
-    font-size: 36px;
-    font-weight: 800;
-    background: linear-gradient(135deg, #7c3aed 0%, #ea580c 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 16px;
-  }
-
-  .value-item h3 {
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 12px;
-  }
-
-  .value-item p {
-    font-size: 13px;
-    color: rgba(255, 255, 255, 0.5);
-    line-height: 1.5;
-  }
-
-  /* Responsivo */
-  @media (max-width: 768px) {
-    .info-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .values-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .page-title {
-      font-size: 36px;
-    }
-  }
-</style>

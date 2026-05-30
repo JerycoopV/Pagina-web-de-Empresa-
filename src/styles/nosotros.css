@@ -1,0 +1,363 @@
+/* --- ESTILOS DE LA PÁGINA DE NOSOTROS --- */
+
+.nosotros-page-container {
+  padding: 40px 0 100px 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* Rejilla Principal de dos columnas */
+.nosotros-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+@media (min-width: 1024px) {
+  .nosotros-grid {
+    grid-template-columns: 0.9fr 1.3fr;
+    gap: 0;
+    align-items: center;
+  }
+}
+
+/* --- COLUMNA IZQUIERDA (INFORMACIÓN E IMAGEN) --- */
+.nosotros-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .nosotros-content {
+    padding-right: 48px;
+    z-index: 2;
+  }
+}
+
+.nosotros-title-container {
+  margin-bottom: 28px;
+  position: relative;
+}
+
+.nosotros-title {
+  font-size: 48px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: -1.5px;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 12px;
+}
+
+.nosotros-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #7c3aed 0%, #ea580c 100%);
+  border-radius: 4px;
+}
+
+.nosotros-desc {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.65;
+  margin-bottom: 20px;
+  width: 100%;
+  font-weight: 300;
+}
+
+@media (min-width: 1024px) {
+  .nosotros-desc {
+    max-width: 385px;
+  }
+}
+
+.desktop-br {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .desktop-br {
+    display: inline;
+  }
+}
+
+.nosotros-desc:last-of-type {
+  margin-bottom: 0;
+}
+
+/* Contenedor de la Imagen */
+.nosotros-image-container {
+  width: 100%;
+  margin-top: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.nosotros-image {
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 30px rgba(124, 58, 237, 0.15));
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 20px;
+}
+
+@media (min-width: 1024px) {
+  .nosotros-image-container {
+    width: 135%;
+    max-width: 600px;
+    margin-right: -140px;
+    z-index: 1;
+    margin-top: -20px;
+    align-self: center;
+  }
+  
+  .nosotros-image {
+    max-width: 100%;
+  }
+}
+
+.nosotros-image:hover {
+  transform: translateY(-8px) scale(1.02);
+}
+
+/* --- COLUMNA DERECHA (CAJA GLASSMORPHIC) --- */
+.nosotros-glass-card {
+  background: transparent;
+  border-radius: 28px;
+  padding: 32px;
+  position: relative;
+  box-shadow: 
+    0 30px 60px rgba(0, 0, 0, 0.6), 
+    0 0 40px rgba(124, 58, 237, 0.05);
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 3;
+}
+
+@media (min-width: 768px) {
+  .nosotros-glass-card {
+    padding: 48px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .nosotros-glass-card {
+    padding: 48px 48px 48px 96px;
+  }
+}
+
+/* Borde con gradiente brillante y fino */
+.nosotros-glass-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 28px;
+  padding: 1.5px; /* Grosor del borde */
+  background: linear-gradient(
+    135deg, 
+    rgba(124, 58, 237, 0.55) 0%, 
+    rgba(124, 58, 237, 0.05) 50%, 
+    rgba(124, 58, 237, 0.45) 100%
+  );
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Bloques de Información Internos */
+.nosotros-info-item {
+  padding: 24px 0;
+}
+
+.nosotros-info-item:first-child {
+  padding-top: 0;
+}
+
+.nosotros-info-item:last-child {
+  padding-bottom: 0;
+}
+
+.nosotros-info-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 12px 0;
+  letter-spacing: -0.5px;
+}
+
+.nosotros-info-text {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+  margin: 0;
+  font-weight: 300;
+}
+
+/* Horario y viñetas */
+.nosotros-schedule-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nosotros-schedule-list li {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.7);
+  position: relative;
+  padding-left: 20px;
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+.nosotros-schedule-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #a78bfa;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 1;
+  top: 1px;
+}
+
+/* --- SECCIÓN BANCOS AFILIADOS --- */
+.text-gradient {
+  background: linear-gradient(90deg, #7c3aed 0%, #ea580c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+}
+
+.nosotros-bancos-section {
+  margin-top: 80px;
+  text-align: center;
+  width: 100%;
+}
+
+.nosotros-bancos-title {
+  font-size: 44px;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 44px;
+  letter-spacing: -1.5px;
+}
+
+.nosotros-bancos-title-span {
+  margin-left: 16px;
+}
+
+.nosotros-bancos-card {
+  background: rgba(10, 5, 20, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 24px;
+  padding: 48px;
+  position: relative;
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.5), 
+    0 0 30px rgba(124, 58, 237, 0.03);
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  align-items: center;
+  justify-content: center;
+}
+
+.nosotros-bancos-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 24px;
+  padding: 1.5px; /* Grosor del borde */
+  background: linear-gradient(
+    135deg, 
+    rgba(124, 58, 237, 0.55) 0%, 
+    rgba(124, 58, 237, 0.05) 50%, 
+    rgba(124, 58, 237, 0.45) 100%
+  );
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.bancos-grid-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 48px;
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .bancos-grid-row.row-1 {
+    gap: 110px;
+  }
+  .bancos-grid-row.row-2 {
+    gap: 160px;
+  }
+}
+
+.nosotros-banco-logo {
+  max-width: 190px;
+  height: 46px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  opacity: 0.9;
+  transition: all 0.3s ease;
+}
+
+.nosotros-banco-logo:hover {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+@media (max-width: 640px) {
+  .nosotros-bancos-card {
+    padding: 32px 20px;
+    gap: 24px;
+  }
+  .bancos-grid-row {
+    gap: 28px;
+  }
+  .nosotros-banco-logo {
+    max-width: 110px;
+    height: 28px;
+  }
+  .nosotros-bancos-title {
+    font-size: 28px;
+    margin-bottom: 28px;
+  }
+}
+
