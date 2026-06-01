@@ -21,7 +21,7 @@ const navItems = [
     <!-- Logotipo Premium -->
     <a href="/" class="logo-link" aria-label="Ir a Inicio" id="nav-logo">
       <div class="logo-wrapper">
-        <svg class="logo-svg" viewBox="0 0 50 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg class="logo-svg" viewBox="0 0 50 40" width="50" height="40" fill="none" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stop-color="#4f46e5" /> <!-- Indigo/Blue -->
@@ -64,15 +64,47 @@ const navItems = [
       })}
     </ul>
 
-    <!-- Botones de Acción -->
+    <!-- Botones de Acción (Desktop) -->
     <div class="actions">
       <a href="/login" class="btn btn-outline" id="btn-ingresar">Ingresar</a>
       <a href="/register" class="btn btn-gradient" id="btn-crear-cuenta">Crear Cuenta</a>
     </div>
+
+    <!-- Botón de Menú Móvil (Hamburger) -->
+    <button class="mobile-menu-btn" aria-label="Abrir menú de navegación" id="mobile-menu-toggle">
+      <svg class="menu-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="4" y1="6" x2="20" y2="6" class="line-1"></line>
+        <line x1="4" y1="12" x2="20" y2="12" class="line-2"></line>
+        <line x1="4" y1="18" x2="20" y2="18" class="line-3"></line>
+      </svg>
+    </button>
   </nav>
+
+  <!-- Menú Móvil Desplegable Premium -->
+  <div class="mobile-menu-dropdown" id="mobile-menu">
+    <ul class="mobile-nav-links">
+      {navItems.map(item => {
+        const isActive = currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href));
+        return (
+          <li>
+            <a 
+              href={item.href} 
+              class={`mobile-nav-link ${isActive ? 'active' : ''}`}
+            >
+              {item.name}
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+    <div class="mobile-actions">
+      <a href="/login" class="btn btn-outline mobile-btn" id="mobile-btn-ingresar">Ingresar</a>
+      <a href="/register" class="btn btn-gradient mobile-btn" id="mobile-btn-crear-cuenta">Crear Cuenta</a>
+    </div>
+  </div>
 </header>
 
-<style>
+<style is:global>
   /* Contenedor del Header flotante */
   .header-container {
     position: fixed;
@@ -82,12 +114,11 @@ const navItems = [
     width: 90%;
     max-width: 1100px;
     z-index: 1000;
-    pointer-events: none; /* Permite clicks a través del contenedor en áreas vacías */
+    position: fixed;
   }
 
   /* Barra de Navegación Estilo Cápsula de Cristal */
   .navbar {
-    pointer-events: auto; /* Vuelve a habilitar clicks en la barra en sí */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -99,6 +130,8 @@ const navItems = [
     padding: 10px 24px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.1);
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    z-index: 1002;
   }
 
   /* Efecto hover general de la barra */
@@ -229,6 +262,108 @@ const navItems = [
     transform: translateY(-1px);
   }
 
+  /* --- MENU MOVIL (HAMBURGER) --- */
+  .mobile-menu-btn {
+    display: none;
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    padding: 6px;
+    z-index: 1003;
+    outline: none;
+  }
+
+  .menu-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .menu-icon line {
+    transition: transform 0.3s ease, opacity 0.2s ease;
+    transform-origin: center;
+  }
+
+  /* Efecto animación de X al abrir */
+  .mobile-menu-btn.open .line-1 {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  .mobile-menu-btn.open .line-2 {
+    opacity: 0;
+  }
+  .mobile-menu-btn.open .line-3 {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+
+  /* Dropdown móvil con glassmorphism premium */
+  .mobile-menu-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 28px;
+    padding: 24px;
+    margin-top: 10px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 30px rgba(124, 58, 237, 0.05);
+    flex-direction: column;
+    gap: 24px;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 1001;
+  }
+
+  .mobile-menu-dropdown.open {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .mobile-nav-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 0;
+    margin: 0;
+  }
+
+  .mobile-nav-link {
+    display: block;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 12px 16px;
+    border-radius: 14px;
+    transition: all 0.3s ease;
+  }
+
+  .mobile-nav-link:hover,
+  .mobile-nav-link.active {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .mobile-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 20px;
+  }
+
+  .mobile-btn {
+    width: 100%;
+    text-align: center;
+    padding: 12px;
+  }
+
   /* Responsivo para móviles */
   @media (max-width: 768px) {
     .header-container {
@@ -237,21 +372,42 @@ const navItems = [
     }
     
     .navbar {
-      padding: 8px 16px;
+      padding: 8px 16px 8px 20px;
       border-radius: 30px;
     }
 
-    .nav-links {
-      display: none; /* En una versión final podríamos agregar un menú hamburguesa */
+    .nav-links,
+    .navbar > .actions {
+      display: none; /* Oculta enlaces de desktop y botones principales */
+    }
+
+    .mobile-menu-btn {
+      display: block; /* Muestra el botón de hamburguesa */
     }
 
     .logo-svg {
       height: 32px;
     }
-
-    .btn {
-      padding: 8px 16px;
-      font-size: 13px;
-    }
   }
 </style>
+
+<script>
+  const toggleBtn = document.getElementById('mobile-menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  if (toggleBtn && mobileMenu) {
+    toggleBtn.addEventListener('click', () => {
+      const isOpen = toggleBtn.classList.toggle('open');
+      mobileMenu.classList.toggle('open', isOpen);
+    });
+
+    // Cierra el menú al hacer click en cualquier link
+    const links = mobileMenu.querySelectorAll('.mobile-nav-link');
+    links.forEach(link => {
+      link.addEventListener('click', () => {
+        toggleBtn.classList.remove('open');
+        mobileMenu.classList.remove('open');
+      });
+    });
+  }
+</script>

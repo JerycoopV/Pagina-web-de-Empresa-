@@ -417,9 +417,7 @@
    ANIMACIONES COMUNES DE ENTRADA Y FLOTACIÓN
    ============================================ */
 .benefit-row-card {
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeInUp 0.5s ease forwards;
+  /* Animación de entrada por defecto removida para permitir Intersection Observer en scroll */
 }
 
 @keyframes floatCard {

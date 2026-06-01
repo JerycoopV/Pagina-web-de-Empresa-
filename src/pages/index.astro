@@ -9,24 +9,24 @@ import '../styles/index.css';
     <!-- Columna Izquierda: Información y Botones -->
     <div class="hero-content">
       <!-- Badge de Estado -->
-      <span class="badge" id="hero-badge">RÁPIDO, SEGURO Y CONFIABLE</span>
+      <span class="badge animate-on-load" id="hero-badge">RÁPIDO, SEGURO Y CONFIABLE</span>
 
       <!-- Título Principal -->
-      <h1 class="hero-title" id="hero-main-title">
+      <h1 class="hero-title animate-on-load delay-1" id="hero-main-title">
         Tu dinero,<br />
         cuando más lo<br />
         <span class="text-gradient">necesites.</span>
       </h1>
 
       <!-- Subtítulo / Descripción -->
-      <p class="hero-description" id="hero-desc">
+      <p class="hero-description animate-on-load delay-2" id="hero-desc">
         Convierte el saldo de tu tarjeta de crédito en<br />
         efectivo al instante, de forma segura y sin<br />
         vueltas.
       </p>
 
       <!-- Lista de Beneficios Rápidos (Horizontal) -->
-      <div class="features-grid">
+      <div class="features-grid animate-on-load delay-3">
         <div class="feature-item">
           <div class="feature-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -67,7 +67,7 @@ import '../styles/index.css';
       </div>
 
       <!-- Botones de Acción de Inicio -->
-      <div class="hero-actions">
+      <div class="hero-actions animate-on-load delay-4">
         <a href="/simulador" class="btn btn-hero-gradient" id="btn-simular">
           Simular Retiro
           <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
@@ -85,14 +85,14 @@ import '../styles/index.css';
     </div>
 
     <!-- Columna Derecha: Composición Visual (Tarjeta 3D + Notificación) -->
-    <div class="hero-visual">
+    <div class="hero-visual animate-on-load delay-5">
         <!-- Imagen de Tarjeta de Inicio Flotante (Pre-renderizada con pedestal y luces) -->
         <img src="/assets/TARJETA-INICIO.webp" alt="Tarjeta Inicio Premium" class="hero-image-floating" />
     </div>
   </div>
 
   <!-- Barra de Confianza (Trust Bar) -->
-  <div class="trust-bar" id="trust-bar">
+  <div class="trust-bar animate-on-scroll" id="trust-bar">
     <div class="trust-item" id="trust-item-seguridad">
       <div class="trust-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -150,16 +150,16 @@ import '../styles/index.css';
 
   <!-- Sección: Proceso de Retiro -->
   <section class="process-section" id="proceso-retiro-section">
-    <h2 class="process-title" id="process-main-title">
+    <h2 class="process-title animate-on-scroll" id="process-main-title">
       Proceso de <span class="text-gradient">Retiro</span>
     </h2>
-    <p class="process-subtitle" id="process-sub-desc">
+    <p class="process-subtitle animate-on-scroll" id="process-sub-desc">
       Retira tu dinero de forma rápida, segura y transparente en solo unos pasos
     </p>
 
-    <div class="process-cards">
+    <div class="process-cards stagger-container">
       <!-- Card 1: Registrate -->
-      <div class="process-card" id="card-registrate">
+      <div class="process-card animate-on-scroll" id="card-registrate">
         <div class="avatar-box">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -171,7 +171,7 @@ import '../styles/index.css';
       </div>
 
       <!-- Card 2: Recibe tu dinero -->
-      <div class="process-card" id="card-recibe-dinero">
+      <div class="process-card animate-on-scroll" id="card-recibe-dinero">
         <div class="avatar-box">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -183,7 +183,7 @@ import '../styles/index.css';
       </div>
 
       <!-- Card 3: Simula tu retiro -->
-      <div class="process-card" id="card-simula-retiro">
+      <div class="process-card animate-on-scroll" id="card-simula-retiro">
         <div class="avatar-box">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -237,14 +237,14 @@ import '../styles/index.css';
 
   <!-- Sección: Maximiza tus Beneficios -->
   <section class="benefits-section" id="maximiza-beneficios">
-    <h2 class="benefits-section-title">
+    <h2 class="benefits-section-title animate-on-scroll">
       Máximiza tus <span class="text-gradient">Beneficios</span>
     </h2>
     
     <!-- Fila Superior: 3 Cards -->
-    <div class="benefits-row top-row">
+    <div class="benefits-row top-row stagger-container">
       <!-- Card 1: Rentabilidad -->
-      <div class="benefit-row-card" id="card-rentabilidad">
+      <div class="benefit-row-card animate-on-scroll" id="card-rentabilidad">
         <div class="benefit-img-container">
           <img src="/assets/rentabilidad.webp" alt="Rentabilidad" class="benefit-img" />
         </div>
@@ -255,7 +255,7 @@ import '../styles/index.css';
       </div>
 
       <!-- Card 2: Tasa Preferencial -->
-      <div class="benefit-row-card" id="card-tasa-preferencial">
+      <div class="benefit-row-card animate-on-scroll" id="card-tasa-preferencial">
         <div class="benefit-img-container">
           <img src="/assets/tasa.webp" alt="Tasa Preferencial" class="benefit-img" />
         </div>
@@ -266,7 +266,7 @@ import '../styles/index.css';
       </div>
 
       <!-- Card 3: Beneficios -->
-      <div class="benefit-row-card" id="card-beneficios-fest">
+      <div class="benefit-row-card animate-on-scroll" id="card-beneficios-fest">
         <div class="benefit-img-container">
           <img src="/assets/beneficios.webp" alt="Beneficios" class="benefit-img" />
         </div>
@@ -278,9 +278,9 @@ import '../styles/index.css';
     </div>
 
     <!-- Fila Inferior: 2 Cards -->
-    <div class="benefits-row bottom-row">
+    <div class="benefits-row bottom-row stagger-container">
       <!-- Card 4: Red de Contactos -->
-      <div class="benefit-row-card" id="card-red-contactos">
+      <div class="benefit-row-card animate-on-scroll" id="card-red-contactos">
         <div class="benefit-img-container">
           <img src="/assets/red.webp" alt="Red de Contactos" class="benefit-img" />
         </div>
@@ -291,7 +291,7 @@ import '../styles/index.css';
       </div>
 
       <!-- Card 5: Soporte Continuo -->
-      <div class="benefit-row-card" id="card-soporte-continuo">
+      <div class="benefit-row-card animate-on-scroll" id="card-soporte-continuo">
         <div class="benefit-img-container">
           <img src="/assets/soporte.webp" alt="Soporte Continuo" class="benefit-img" />
         </div>
@@ -305,13 +305,13 @@ import '../styles/index.css';
 
   <!-- Sección: Nuestros Clientes -->
   <section class="clients-section" id="nuestros-clientes">
-    <h2 class="clients-title">
+    <h2 class="clients-title animate-on-scroll">
       Nuestros <span class="text-gradient">Clientes</span>
     </h2>
 
-    <div class="clients-cards">
+    <div class="clients-cards stagger-container">
       <!-- Tarjeta Cliente 1 -->
-      <div class="process-card" id="cliente-1">
+      <div class="process-card animate-on-scroll" id="cliente-1">
         <div class="avatar-box">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -325,7 +325,7 @@ import '../styles/index.css';
       </div>
 
       <!-- Tarjeta Cliente 2 -->
-      <div class="process-card" id="cliente-2">
+      <div class="process-card animate-on-scroll" id="cliente-2">
         <div class="avatar-box">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -339,7 +339,7 @@ import '../styles/index.css';
       </div>
 
       <!-- Tarjeta Cliente 3 -->
-      <div class="process-card" id="cliente-3">
+      <div class="process-card animate-on-scroll" id="cliente-3">
         <div class="avatar-box">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -355,7 +355,7 @@ import '../styles/index.css';
   </section>
 
   <!-- Sección: Banner de Llamado a la Acción (CTA) -->
-  <section class="cta-banner-section" id="cta-banner">
+  <section class="cta-banner-section animate-on-scroll" id="cta-banner">
     <div class="cta-card">
       <span class="badge">RÁPIDO, SEGURO Y CONFIABLE</span>
       
@@ -381,4 +381,27 @@ import '../styles/index.css';
       </div>
     </div>
   </section>
+
+  <!-- Script de Intersección para Animaciones de Scroll Premium -->
+  <script>
+    // Configuración del Observador de Intersección
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px 0px -80px 0px', // Activa la animación un poco antes de que entre del todo en pantalla
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target); // Solo animar una vez al entrar
+        }
+      });
+    }, observerOptions);
+
+    // Observar todos los elementos designados para animarse al deslizar
+    const scrollElements = document.querySelectorAll('.animate-on-scroll');
+    scrollElements.forEach(el => observer.observe(el));
+  </script>
 </Layout>
