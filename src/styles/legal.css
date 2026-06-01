@@ -1,0 +1,163 @@
+/* --- ESTILOS DE LA PÁGINA LEGAL (TÉRMINOS Y CONDICIONES) --- */
+
+/* Contenedor General */
+.legal-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 0 120px 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Título Centrado y Premium */
+.legal-title {
+  font-size: 54px;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 90px;
+  letter-spacing: -2px;
+  color: #ffffff;
+  width: 100%;
+  display: block;
+}
+
+/* Contenido Alineado a la Izquierda */
+.legal-content-clean {
+  display: flex;
+  flex-direction: column;
+  gap: 48px; /* Espaciado entre secciones */
+  text-align: left;
+  width: 100%;
+}
+
+.legal-section-block {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  align-items: flex-start;
+}
+
+.legal-ruc {
+  font-size: 16px;
+  color: #ffffff;
+  font-weight: 500;
+  margin-bottom: 16px;
+  letter-spacing: 0.5px;
+  text-align: left;
+}
+
+.legal-paragraph {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.75;
+  font-weight: 300;
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.legal-paragraph:last-child {
+  margin-bottom: 0;
+}
+
+.legal-subtitle {
+  font-size: 26px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.35;
+  letter-spacing: -0.5px;
+  margin-top: 12px;
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+/* Listado de Definiciones */
+.definitions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  text-align: left;
+}
+
+.definition-item {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.7;
+  font-weight: 300;
+  margin: 0;
+  text-align: left;
+}
+
+.definition-term {
+  color: #ffffff;
+  font-weight: 500;
+}
+
+/* Responsivo para móviles y tabletas */
+@media (max-width: 768px) {
+  .legal-container {
+    padding: 30px 16px 80px 16px;
+  }
+  
+  .legal-title {
+    font-size: 38px;
+    margin-bottom: 60px;
+  }
+
+  .legal-content-clean {
+    gap: 36px;
+  }
+
+  .legal-subtitle {
+    font-size: 22px;
+    margin-bottom: 16px;
+  }
+
+  .legal-paragraph,
+  .legal-ruc,
+  .definition-item,
+  .legal-list li {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .legal-title {
+    font-size: 32px;
+    margin-bottom: 48px;
+  }
+}
+
+/* Listados Generales con Viñetas */
+.legal-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  text-align: left;
+}
+
+.legal-list li {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.7;
+  font-weight: 300;
+  position: relative;
+  padding-left: 24px;
+  text-align: left;
+}
+
+.legal-list li::before {
+  content: "•";
+  position: absolute;
+  left: 4px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 16px;
+  line-height: 1;
+  top: 1px;
+}

@@ -1,219 +1,120 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import '../styles/home.css';
+import '../styles/index.css';
+import '../styles/nosotros.css';
 ---
 
-<Layout title="Beneficios | Por qué elegirnos">
-  <div class="page-container" id="beneficios-page">
-    <!-- Encabezado de Página -->
-    <div class="page-header">
-      <span class="badge">VENTAJAS CLAVE</span>
-      <h1 class="page-title">
-        Beneficios <span class="text-gradient">Exclusivos</span>
-      </h1>
-      <p class="page-subtitle">
-        Descubre por qué miles de usuarios confían en nosotros para obtener efectivo de manera rápida y segura utilizando el saldo de sus tarjetas.
-      </p>
+<Layout title="Beneficios | Capital Fest">
+  <!-- Sección: Maximiza tus Beneficios -->
+  <section class="benefits-section" id="maximiza-beneficios" style="margin-top: 40px;">
+    <h2 class="benefits-section-title">
+      Máximiza tus <span class="text-gradient">Beneficios</span>
+    </h2>
+    
+    <!-- Fila Superior: 3 Cards -->
+    <div class="benefits-row top-row">
+      <!-- Card 1: Rentabilidad -->
+      <div class="benefit-row-card" id="card-rentabilidad">
+        <div class="benefit-img-container">
+          <img src="/assets/rentabilidad.webp" alt="Rentabilidad" class="benefit-img" />
+        </div>
+        <div class="benefit-info">
+          <h3>Rentabilidad</h3>
+          <p>Maximice sus fondos de forma directa.</p>
+        </div>
+      </div>
+
+      <!-- Card 2: Tasa Preferencial -->
+      <div class="benefit-row-card" id="card-tasa-preferencial">
+        <div class="benefit-img-container">
+          <img src="/assets/tasa.webp" alt="Tasa Preferencial" class="benefit-img" />
+        </div>
+        <div class="benefit-info">
+          <h3>Tasa Preferencial</h3>
+          <p>Solicite condiciones preferenciales vía WhatsApp.</p>
+        </div>
+      </div>
+
+      <!-- Card 3: Beneficios -->
+      <div class="benefit-row-card" id="card-beneficios-fest">
+        <div class="benefit-img-container">
+          <img src="/assets/beneficios.webp" alt="Beneficios" class="benefit-img" />
+        </div>
+        <div class="benefit-info">
+          <h3>Beneficios</h3>
+          <p>Descuentos y accesos exclusivos en Capital Fest.</p>
+        </div>
+      </div>
     </div>
 
-    <!-- Grid de Beneficios (3 Columnas) -->
-    <div class="benefits-grid">
-      <!-- Beneficio 1: Inmediatez -->
-      <div class="benefit-card">
-        <div class="benefit-icon icon-purple">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/>
-            <polyline points="12 6 12 12 16 14"/>
-          </svg>
+    <!-- Fila Inferior: 2 Cards -->
+    <div class="benefits-row bottom-row">
+      <!-- Card 4: Red de Contactos -->
+      <div class="benefit-row-card" id="card-red-contactos">
+        <div class="benefit-img-container">
+          <img src="/assets/red.webp" alt="Red de Contactos" class="benefit-img" />
         </div>
-        <h3>Efectivo en Minutos</h3>
-        <p>Olvídate de esperar días. Una vez aprobada tu simulación, transferimos el dinero directamente a tu cuenta bancaria en menos de 15 minutos.</p>
+        <div class="benefit-info">
+          <h3>Red de Contactos</h3>
+          <p>Conexión directa con nuestra comunidad ejecutiva.</p>
+        </div>
       </div>
 
-      <!-- Beneficio 2: 100% Online -->
-      <div class="benefit-card">
-        <div class="benefit-icon icon-orange">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
-            <line x1="8" y1="21" x2="16" y2="21"/>
-            <line x1="12" y1="17" x2="12" y2="21"/>
-          </svg>
+      <!-- Card 5: Soporte Continuo -->
+      <div class="benefit-row-card" id="card-soporte-continuo">
+        <div class="benefit-img-container">
+          <img src="/assets/soporte.webp" alt="Soporte Continuo" class="benefit-img" />
         </div>
-        <h3>Sin Papeleos ni Filas</h3>
-        <p>Realiza todo el proceso cómodamente desde tu celular o computadora. No necesitas presentar extractos, contratos físicos ni hacer largas filas.</p>
+        <div class="benefit-info">
+          <h3>Soporte Continuo</h3>
+          <p>Atención y respaldo institucional 24/7.</p>
+        </div>
       </div>
+    </div>
+  </section>
 
-      <!-- Beneficio 3: Disponibilidad -->
-      <div class="benefit-card">
-        <div class="benefit-icon icon-purple">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 12a9 9 0 0 1-9 9m9-9a9 9 0 0 0-9-9m9 9H3m9 9a9 9 0 0 1-9-9m9-9c1.658 0 3 3.582 3 8 0 4.418-1.342 8-3 8m0-16c-1.658 0-3 3.582-3 8 0 4.418 1.342 8 3 8"/>
-          </svg>
-        </div>
-        <h3>Disponible 24/7</h3>
-        <p>Nuestro sistema automatizado y equipo de soporte están disponibles a cualquier hora, los 365 días del año. Tu dinero no tiene horarios.</p>
+  <!-- Sección Bancos Afiliados -->
+  <div class="nosotros-bancos-section" style="margin-top: 80px;">
+    <h2 class="nosotros-bancos-title">Bancos <span class="text-gradient nosotros-bancos-title-span">Afiliados</span></h2>
+    <div class="nosotros-bancos-card">
+      <div class="bancos-grid-row row-1">
+        <img src="/assets/banco3.webp" alt="Scotiabank" class="nosotros-banco-logo" />
+        <img src="/assets/banco4.webp" alt="BanBif" class="nosotros-banco-logo" />
+        <img src="/assets/banco2.webp" alt="Interbank" class="nosotros-banco-logo" />
       </div>
-
-      <!-- Beneficio 4: Seguridad -->
-      <div class="benefit-card">
-        <div class="benefit-icon icon-orange">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-          </svg>
-        </div>
-        <h3>Seguridad Garantizada</h3>
-        <p>Cumplimos con las regulaciones de protección de datos más estrictas. Tus transacciones están cifradas de extremo a extremo.</p>
-      </div>
-
-      <!-- Beneficio 5: Flexibilidad de Pago -->
-      <div class="benefit-card">
-        <div class="benefit-icon icon-purple">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
-            <line x1="1" y1="10" x2="23" y2="10"/>
-          </svg>
-        </div>
-        <h3>Flexibilidad con tu Banco</h3>
-        <p>Dado que la operación se procesa como una compra regular, puedes diferir el saldo en las cuotas que prefieras directamente con tu banco.</p>
-      </div>
-
-      <!-- Beneficio 6: Historial -->
-      <div class="benefit-card">
-        <div class="benefit-icon icon-orange">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-            <polyline points="22 4 12 14.01 9 11.01"/>
-          </svg>
-        </div>
-        <h3>Sin Afectar tu Buró</h3>
-        <p>No realizamos consultas perjudiciales en las centrales de riesgo. Tu historial crediticio se mantiene intacto tras cada retiro.</p>
+      <div class="bancos-grid-row row-2">
+        <img src="/assets/banco1.webp" alt="BBVA" class="nosotros-banco-logo" />
+        <img src="/assets/banco5.webp" alt="BCP" class="nosotros-banco-logo" />
       </div>
     </div>
   </div>
+
+  <!-- Sección: Banner de Llamado a la Acción (CTA) -->
+  <section class="cta-banner-section" id="cta-banner" style="margin-top: 80px; margin-bottom: 60px;">
+    <div class="cta-card">
+      <span class="badge">RÁPIDO, SEGURO Y CONFIABLE</span>
+      
+      <h2 class="cta-title">
+        Obtén efectivo en <span class="text-gradient">minutos.</span>
+      </h2>
+      
+      <p class="cta-description">
+        Convierte el saldo de tu tarjeta de crédito al instante, de forma segura y sin problemas.
+      </p>
+
+      <div class="cta-actions">
+        <a href="/simulador" class="btn btn-hero-gradient" id="cta-btn-simular">
+          Simular retiro
+        </a>
+        <a href="/#como-funciona" class="btn-cta-outline" id="cta-btn-como-funciona">
+          Cómo funciona
+        </a>
+      </div>
+
+      <div class="cta-footer-text">
+        100% Seguro • Sin complicaciones • Respuesta inmediata
+      </div>
+    </div>
+  </section>
 </Layout>
-
-<style>
-  /* Contenedor General */
-  .page-container {
-    padding: 60px 0 100px 0;
-  }
-
-  .page-header {
-    text-align: center;
-    margin-bottom: 60px;
-  }
-
-  .badge {
-    background: rgba(124, 58, 237, 0.12);
-    color: #a78bfa;
-    border: 1px solid rgba(124, 58, 237, 0.25);
-    padding: 6px 16px;
-    border-radius: 50px;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    margin-bottom: 20px;
-    display: inline-block;
-  }
-
-  .page-title {
-    font-size: 48px;
-    font-weight: 800;
-    margin-bottom: 20px;
-    letter-spacing: -1.5px;
-  }
-
-  .text-gradient {
-    background: linear-gradient(90deg, #7c3aed 0%, #ea580c 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .page-subtitle {
-    font-size: 18px;
-    color: rgba(255, 255, 255, 0.7);
-    line-height: 1.6;
-    max-width: 650px;
-    margin: 0 auto;
-  }
-
-  /* Grid de Beneficios */
-  .benefits-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
-  }
-
-  .benefit-card {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 24px;
-    padding: 32px;
-    backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
-  }
-
-  .benefit-card:hover {
-    transform: translateY(-5px);
-    border-color: rgba(255, 255, 255, 0.12);
-    background: rgba(255, 255, 255, 0.04);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
-  }
-
-  /* Iconos de Beneficios */
-  .benefit-icon {
-    width: 44px;
-    height: 44px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 24px;
-  }
-
-  .benefit-icon svg {
-    width: 22px;
-    height: 22px;
-  }
-
-  .icon-purple {
-    background: rgba(124, 58, 237, 0.1);
-    color: #a78bfa;
-  }
-
-  .icon-orange {
-    background: rgba(234, 88, 12, 0.1);
-    color: #fdba74;
-  }
-
-  .benefit-card h3 {
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 12px;
-    color: #ffffff;
-  }
-
-  .benefit-card p {
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.6);
-    line-height: 1.5;
-  }
-
-  /* Responsivo */
-  @media (max-width: 1024px) {
-    .benefits-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (max-width: 640px) {
-    .benefits-grid {
-      grid-template-columns: 1fr;
-    }
-    
-    .page-title {
-      font-size: 36px;
-    }
-  }
-</style>

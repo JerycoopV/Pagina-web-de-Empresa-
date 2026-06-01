@@ -1,5 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import '../styles/home.css';
+import '../styles/index.css';
 import '../styles/nosotros.css';
 ---
 
@@ -78,5 +80,33 @@ import '../styles/nosotros.css';
         </div>
       </div>
     </div>
+
+    <!-- Sección: Banner de Llamado a la Acción (CTA) -->
+    <section class="cta-banner-section" id="cta-banner" style="margin-top: 80px;">
+      <div class="cta-card">
+        <span class="badge">RÁPIDO, SEGURO Y CONFIABLE</span>
+        
+        <h2 class="cta-title">
+          Obtén efectivo en <span class="text-gradient">minutos.</span>
+        </h2>
+        
+        <p class="cta-description">
+          Convierte el saldo de tu tarjeta de crédito al instante, de forma segura y sin problemas.
+        </p>
+
+        <div class="cta-actions">
+          <a href="/simulador" class="btn btn-hero-gradient" id="cta-btn-simular">
+            Simular retiro
+          </a>
+          <a href="/#como-funciona" class="btn-cta-outline" id="cta-btn-como-funciona">
+            Cómo funciona
+          </a>
+        </div>
+
+        <div class="cta-footer-text">
+          100% Seguro • Sin complicaciones • Respuesta inmediata
+        </div>
+      </div>
+    </section>
   </div>
 </Layout>

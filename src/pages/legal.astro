@@ -1,226 +1,237 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import '../styles/home.css';
+import '../styles/legal.css';
 ---
 
 <Layout title="Legal | Términos y Condiciones">
-  <div class="page-container" id="legal-page">
-    <!-- Encabezado de Página -->
-    <div class="page-header">
-      <span class="badge">LEGALIDAD Y TRANSPARENCIA</span>
-      <h1 class="page-title">
-        Marco <span class="text-gradient">Legal</span>
-      </h1>
-      <p class="page-subtitle">
-        Consulta los acuerdos, políticas de privacidad y condiciones que regulan el uso de nuestros servicios financieros digitales.
-      </p>
-    </div>
+  <div class="legal-container">
+    <!-- Título Principal Centrado -->
+    <h1 class="legal-title">
+      Términos y <span class="text-gradient">condiciones</span>
+    </h1>
 
-    <!-- Contenido del Documento Legal -->
-    <div class="legal-layout">
-      <!-- Menú Lateral de Documentos -->
-      <aside class="legal-sidebar">
-        <ul class="sidebar-links">
-          <li><a href="#terminos" class="sidebar-link active">1. Términos de Servicio</a></li>
-          <li><a href="#privacidad" class="sidebar-link">2. Política de Privacidad</a></li>
-          <li><a href="#cookies" class="sidebar-link">3. Política de Cookies</a></li>
-          <li><a href="#riesgos" class="sidebar-link">4. Descargo de Responsabilidad</a></li>
+    <!-- Contenido del Documento Legal Alineado a la Izquierda -->
+    <div class="legal-content-clean">
+      <!-- Sección Intro -->
+      <div class="legal-section-block">
+        <p class="legal-ruc">Fest corporation s.a.c. con RUC N.° XXXXXXXX</p>
+        <p class="legal-paragraph">
+          La página web es propiedad y exclusiva de fest corporation s.a.c., está página web ofrece al usuario, persona las tura recaudo l o jurídica el servicio de recepción de pagos mediante opciones de de los bancos (pago de servicios) poder cambiar el saldo de la tarjeta de crédito en efectivo. Únicamente se utilizarán canales virtuales como aplicaciones y páginas web.
+        </p>
+        <p class="legal-paragraph">
+          Todo registro en capital fest es totalmente gratuito y de forma electrónica, todas las personas mayores de 18 años o personas jurídicas pueden registrarse en capital fest. Al ser sitio virtual, capital fest no se hace responsable de la información errónea en su registro. Al aceptar los términos y condiciones, el usuario acepta haber leído, entendido, aceptado y declara tener la capacidad de estar sujeto a estos términos.
+        </p>
+      </div>
+
+      <!-- Sección Definiciones -->
+      <div class="legal-section-block">
+        <h2 class="legal-subtitle">Definiciones</h2>
+        <div class="definitions-list">
+          <p class="definition-item">
+            <span class="definition-term">Uso personal de la tarjeta:</span> la tarjeta es propiedad y uso exclusivo del titular y así mismo siendo responsable de todas las operaciones realizadas.
+          </p>
+          <p class="definition-item">
+            <span class="definition-term">Fecha de corte y pago:</span> La fecha de corte indica el cierre del periodo de compras, y la fecha de pago es el límite para pagar sin generar intereses moratorios.
+          </p>
+          <p class="definition-item">
+            <span class="definition-term">Página web:</span> documento digital multimedia (videos, páginas, enlaces, textos e imágenes) diseñado para visualizarse en navegadores de internet y alojado en un servidor.
+          </p>
+          <p class="definition-item">
+            <span class="definition-term">Días hábiles:</span> los horarios de servicio son de lunes a sábado de 8:00 AM a 6:00 PM.
+          </p>
+        </div>
+      </div>
+
+      <!-- Sección Riesgos -->
+      <div class="legal-section-block">
+        <h2 class="legal-subtitle">Riesgos tecnológicos existentes</h2>
+        <p class="legal-paragraph">
+          Está página web ofrece medidas razonables de seguridad, el usuario reconoce que existen estos riesgos tecnológicos . Sin embargo, ningún sistema es 100% seguro, sin garantizar la ausencia de errores.
+        </p>
+      </div>
+
+      <!-- Sección Servicios principales -->
+      <div class="legal-section-block">
+        <h2 class="legal-subtitle">Servicios principales</h2>
+        <ul class="legal-list">
+          <li>Recaudación de pagos mediante canales virtuales.</li>
+          <li>Efectivización del saldo de la tarjeta de crédito.</li>
+          <li>Ofrecerle soluciones personalizadas resolviendo dudas y problemas con empatía y rapidez, ayudar a ordenar sus actividades financieras, mejorar procesos y reducir costos.</li>
         </ul>
-      </aside>
+      </div>
 
-      <!-- Cuerpo del Documento -->
-      <div class="legal-content">
-        <!-- Sección 1 -->
-        <section id="terminos" class="legal-section">
-          <h2>1. Términos de Servicio</h2>
-          <p class="date">Última actualización: Mayo 2026</p>
-          <p>Al acceder y utilizar esta plataforma, usted acepta estar sujeto a los presentes Términos y Condiciones de Uso. El servicio ofrecido consiste exclusivamente en la intermediación para la obtención de liquidez a través de la conversión del cupo de compras de sus tarjetas de crédito autorizadas.</p>
-          <p>El usuario declara bajo la gravedad de juramento que es el titular legítimo de las tarjetas utilizadas en la plataforma y que los fondos correspondientes no provienen de ninguna actividad ilícita.</p>
-        </section>
+      <!-- Sección Datos importantes -->
+      <div class="legal-section-block">
+        <h2 class="legal-subtitle">Datos importantes</h2>
+        <ul class="legal-list">
+          <li>El registro es importante por parte del usuario para validar su identidad.</li>
+          <li>En algunos casos se requerirá alguna verificación (documentación) por medio del correo electrónico.</li>
+          <li>El usuario afirma ser el titular de las tarjetas registradas en la plataforma lo cual cualquier uso ilícito, incorrecto,ilegal e inadecuado será responsabilidad del usuario.</li>
+          <li>La empresa tiene derecho a retener el capital (depósitos) en caso de cualquier sospecha de fraude o examinar información documental pendiente o hasta que se registre una cuenta de su posesión con la información de su identidad registrada.</li>
+          <li>Toda transacción será realizada únicamente al titular.</li>
+        </ul>
+      </div>
 
-        <!-- Sección 2 -->
-        <section id="privacidad" class="legal-section">
-          <h2>2. Política de Privacidad</h2>
-          <p>Nos comprometemos a proteger su privacidad. Toda la información personal recopilada durante los procesos de simulación y registro se procesa bajo rigurosas medidas de seguridad técnica y administrativa, de conformidad con la ley de protección de datos personales vigente (Habeas Data).</p>
-          <p>No compartimos, vendemos ni alquilamos su información personal a terceros con fines comerciales sin su consentimiento expreso, excepto cuando sea requerido por autoridades judiciales competentes.</p>
-        </section>
+      <!-- Sección Actualización -->
+      <div class="legal-section-block">
+        <h2 class="legal-subtitle">Actualización de los terminos y condiciones</h2>
+        <p class="legal-paragraph">
+          Toda actualización de los términos puede efectuarse sin necesidad de aviso previo. Toda información estará en la página web.
+        </p>
+      </div>
 
-        <!-- Sección 3 -->
-        <section id="cookies" class="legal-section">
-          <h2>3. Política de Cookies</h2>
-          <p>Utilizamos cookies esenciales y tecnologías similares para optimizar el rendimiento del sitio web, analizar el tráfico del usuario y garantizar una experiencia segura de navegación. Puede configurar su navegador para rechazar las cookies no esenciales, lo cual no afectará las funciones de simulación de retiros.</p>
-        </section>
+      <!-- Sección Tiempo de respuesta -->
+      <div class="legal-section-block">
+        <h2 class="legal-subtitle">Tiempo de respuesta</h2>
+        <ul class="legal-list">
+          <li>Toda transferencia diferida puede tardar más allá del tiempo establecido.</li>
+          <li>Toda transferencia inmediata es entre 10 minutos a 1 hora.</li>
+        </ul>
+      </div>
 
-        <!-- Sección 4 -->
-        <section id="riesgos" class="legal-section">
-          <h2>4. Descargo de Responsabilidad</h2>
-          <p>El uso del cupo de crédito para la obtención de dinero en efectivo constituye una operación financiera que devengará los intereses ordinarios y tarifas fijados de forma independiente por la entidad emisora de su tarjeta de crédito.</p>
-          <p>Nuestra plataforma no es una entidad bancaria ni captadora de ahorros públicos. Animamos a todos los usuarios a utilizar el servicio de forma responsable y acorde con su capacidad de pago mensual.</p>
-        </section>
+      <!-- Sección Tarifa -->
+      <div class="legal-section-block">
+        <h2 class="legal-subtitle">Tarifa de servicio y horario</h2>
+        <ul class="legal-list">
+          <li>Tarifa mínima por operación: 14 soles</li>
+          <li>Tarifa por operación: 1% y 2% del monto.</li>
+          <li>Horario de atención: lunes a sábados de 8:00 AM a 6:00 PM</li>
+          <li>Feriados: -</li>
+        </ul>
+      </div>
+
+      <!-- Sección Soporte de servicio -->
+      <div class="legal-section-block">
+        <h2 class="legal-subtitle">Soporte de servicio</h2>
+        <ul class="legal-list">
+          <li>Horario: 8:00 AM a 6:00 PM</li>
+          <li>Días de la semana: lunes a sábado</li>
+          <li>Correo: festcorporation.peru@gmail.com</li>
+          <li>Teléfono: XXXXXXXX</li>
+          <li>Pagina web: XXXXXXXX</li>
+          <li>Redes sociales: facebook, tiktok e Instagram</li>
+        </ul>
+      </div>
+
+      <!-- Título Política de Seguridad y Privacidad Centrado -->
+      <h1 class="legal-title" style="margin-top: 100px; margin-bottom: 60px;">
+        Política de seguridad <br /> y <span class="text-gradient">privacidad</span>
+      </h1>
+
+      <!-- Contenido Política de Seguridad y Privacidad -->
+      <div class="legal-content-clean">
+        <p class="legal-paragraph">
+          Fest corporation s.a.c. garantiza la máxima reserva y protección de los datos personal de usuarios registrados en la página web
+        </p>
+        <p class="legal-paragraph">
+          Fest Corporation s.a.c. RUC XXXXXXXX tiene como política de privacidad y seguridad el objetivo de informar a los usuarios sobre el manejo de sus datos personales.
+        </p>
+        <p class="legal-paragraph">
+          La página web fue elaborada, planificada con el propósito de que fest corporation publique la manera como trabajamos y los beneficios que brindamos a los usuarios y somos conscientes de la elevada consideración que tienes sus datos personales y así mismo con esa elevada consideración nos comprometemos a proteger esa reservada información con respeto.
+        </p>
+        <p class="legal-paragraph">
+          De acuerdo a los principios de fest corporation s.a.c rechazamos cualquier información personal de nuestros usuarios de cualquier medio engañoso, falso, desleal, fraudulento o ilícito.
+        </p>
+        <p class="legal-paragraph">
+          La información de los datos personales que son facilitados por los usuarios serán conocidos y manejados únicamente por el personal autorizado de Fest Corporation S.A.C. estos datos personales serán tratados de forma transparente y lícita.
+        </p>
+      </div>
+
+      <!-- Calidad de datos personales -->
+      <div class="legal-section-block">
+        <h2 class="legal-subtitle">Calidad de datos personales</h2>
+        <p class="legal-paragraph">
+          La información de los datos personales de los usuarios deben de ser correctos.
+        </p>
+      </div>
+
+      <!-- Duración de datos personales -->
+      <div class="legal-section-block">
+        <h2 class="legal-subtitle">Duración de datos personales</h2>
+        <p class="legal-paragraph">
+          Toda información será almacenada dentro de nuestro archivo de datos por el periodo de 2 años o cuando el usuario solicite el uso de sus derechos en festcorporation.peru@gmail.com poniendo “requerimiento de datos personales”.
+        </p>
+        <p class="legal-paragraph">
+          Toda información solicitada en el registro es con el objetivo de prevenir cualquier riesgo de suplantación de identidad.
+        </p>
+      </div>
+
+      <!-- Actualización o modificación -->
+      <div class="legal-section-block">
+        <h2 class="legal-subtitle">Actualización o modificación</h2>
+        <p class="legal-paragraph">
+          Toda actualización de nuestra política de seguridad y privacidad puede efectuarse sin necesidad de aviso previo. Toda información estará en la página web.
+        </p>
+      </div>
+
+      <!-- Importancia de datos recopiladosz -->
+      <div class="legal-section-block">
+        <h2 class="legal-subtitle">Importancia de datos recopiladosz</h2>
+        <p class="legal-paragraph">
+          El usuario al momento de registrarse en la plataforma u otros canales autorizados nos brinda sus datos personales directa, libre, consciente y voluntariamente.
+        </p>
+        <p class="legal-paragraph">
+          Reciclamos toda información básica como: nombres y apellidos, documento de identidad, correo electrónico, número de celular, fecha de nacimiento y otros.
+        </p>
+        <p class="legal-paragraph">
+          En ningún momento pedimos contraseñas o cualquier otro documento que vaya en contra de la libre disponibilidad del usuario.
+        </p>
+      </div>
+
+      <!-- Finalidad de datos personales -->
+      <div class="legal-section-block">
+        <h2 class="legal-subtitle">Finalidad de datos personales</h2>
+        <p class="legal-paragraph">
+          Festcorporation.peru@gmail.com informa a los usuarios que han brindado sus datos personales en el registro que se encuentra en la página web u otro canales digitales autorizados con la finalidad de:
+        </p>
+        <ul class="legal-list">
+          <li>Recopilar la información de los usuarios.</li>
+          <li>Mantenerlo informado Acerca de nuestro productos, primicias o cualquier desarrollo de su interés.</li>
+          <li>Proporcionar cualquier sugerencia, recomendación, consejo para poder llevar así con buen estado financiero.</li>
+        </ul>
+      </div>
+
+      <!-- Protección de tus datos -->
+      <div class="legal-section-block">
+        <h2 class="legal-subtitle">Protección de tus datos</h2>
+        <p class="legal-paragraph">
+          Toda información de tus datos personales es prioridad de fest corporation s.a.c., con el objetivo de evitar el mal uso, modificación, variación, pérdida o robo de los datos personales fest corporation s.a.c. toma todos los niveles de seguridad y protección requeridos y establece acciones y medidas técnicas a su alcance.
+        </p>
+      </div>
+
+      <!-- Seguridad -->
+      <div class="legal-section-block">
+        <h2 class="legal-subtitle">Seguridad</h2>
+        <p class="legal-paragraph">
+          En fest corporation s.a.c implementamos medidas técnicas necesarias para garantizar la seguridad de la información de sus datos personales y así evitar cualquier pérdida, cambio o alteración.
+        </p>
+        <p class="legal-paragraph">
+          Sin embargo, las redes de Internet no son totalmente seguras; por eso, a pesar de que fest corporation s.a.c. realizará sus mejores esfuerzos para proteger la información de sus datos personales, no puede garantizar la seguridad de los mismos durante el tránsito hasta el sitio Web. Lo cual toda la información que los Usuarios brinden, se enviará por su cuenta y riesgo.
+        </p>
+        <p class="legal-paragraph">
+          Lo cual recomendamos a los usuarios responsabilidad al momento de publicar sus informaciones personales a terceros para evitar cualquier riesgo.
+        </p>
+      </div>
+
+      <!-- Consentimiento y derechos -->
+      <div class="legal-section-block">
+        <h2 class="legal-subtitle">Consentimiento y derechos</h2>
+        <p class="legal-paragraph">
+          Todo registro del usuario en la página web está totalmente blindado con su aprobación libre y acepta haber leído, entendido y aceptado .
+        </p>
+        <p class="legal-paragraph">
+          Todo usuario tiene derecho a cancelar, suspender o anular la gestión de sus datos personales, escribiéndonos a festcorporation.peru@gmail.com con la razón “anulación de datos personales”.
+        </p>
+      </div>
+
+      <!-- Cualquier consulta -->
+      <div class="legal-section-block" style="margin-bottom: 40px;">
+        <h2 class="legal-subtitle">Cualquier consulta</h2>
+        <p class="legal-paragraph">
+          Cualquier comentario, opinión,consulta u observación puedes escribirnos a nuestros canales digitales, estaremos gustosos en ayudarle.
+        </p>
       </div>
     </div>
   </div>
 </Layout>
-
-<style>
-  /* Contenedor General */
-  .page-container {
-    padding: 60px 0 100px 0;
-  }
-
-  .page-header {
-    text-align: center;
-    margin-bottom: 60px;
-  }
-
-  .badge {
-    background: rgba(124, 58, 237, 0.12);
-    color: #a78bfa;
-    border: 1px solid rgba(124, 58, 237, 0.25);
-    padding: 6px 16px;
-    border-radius: 50px;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    margin-bottom: 20px;
-    display: inline-block;
-  }
-
-  .page-title {
-    font-size: 48px;
-    font-weight: 800;
-    margin-bottom: 20px;
-    letter-spacing: -1.5px;
-  }
-
-  .text-gradient {
-    background: linear-gradient(90deg, #7c3aed 0%, #ea580c 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .page-subtitle {
-    font-size: 18px;
-    color: rgba(255, 255, 255, 0.7);
-    line-height: 1.6;
-    max-width: 650px;
-    margin: 0 auto;
-  }
-
-  /* Layout Legal (Columnas) */
-  .legal-layout {
-    display: grid;
-    grid-template-columns: 280px 1fr;
-    gap: 50px;
-    align-items: start;
-  }
-
-  /* Sidebar */
-  .legal-sidebar {
-    position: sticky;
-    top: 140px;
-  }
-
-  .sidebar-links {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .sidebar-link {
-    display: block;
-    color: rgba(255, 255, 255, 0.5);
-    text-decoration: none;
-    font-size: 15px;
-    font-weight: 500;
-    padding: 8px 16px;
-    border-left: 2px solid rgba(255, 255, 255, 0.05);
-    transition: all 0.3s ease;
-  }
-
-  .sidebar-link:hover {
-    color: #ffffff;
-    border-left-color: rgba(255, 255, 255, 0.2);
-  }
-
-  .sidebar-link.active {
-    color: #ffffff;
-    border-left-color: #7c3aed;
-    font-weight: 600;
-    background: linear-gradient(90deg, rgba(124, 58, 237, 0.04) 0%, transparent 100%);
-  }
-
-  /* Contenido */
-  .legal-content {
-    display: flex;
-    flex-direction: column;
-    gap: 48px;
-  }
-
-  .legal-section {
-    background: rgba(255, 255, 255, 0.01);
-    border: 1px solid rgba(255, 255, 255, 0.04);
-    border-radius: 20px;
-    padding: 36px;
-    scroll-margin-top: 140px; /* Evita que el navbar tape la sección al hacer scroll */
-  }
-
-  .legal-section h2 {
-    font-size: 22px;
-    font-weight: 700;
-    margin-bottom: 12px;
-    color: #ffffff;
-  }
-
-  .legal-section .date {
-    font-size: 12px;
-    color: rgba(255, 255, 255, 0.4);
-    margin-bottom: 24px;
-  }
-
-  .legal-section p {
-    font-size: 15px;
-    color: rgba(255, 255, 255, 0.6);
-    line-height: 1.6;
-    margin-bottom: 16px;
-  }
-
-  .legal-section p:last-child {
-    margin-bottom: 0;
-  }
-
-  /* Responsivo */
-  @media (max-width: 900px) {
-    .legal-layout {
-      grid-template-columns: 1fr;
-      gap: 30px;
-    }
-
-    .legal-sidebar {
-      position: static;
-    }
-
-    .sidebar-links {
-      flex-direction: row;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .sidebar-link {
-      border-left: none;
-      border-bottom: 2px solid rgba(255, 255, 255, 0.05);
-      padding: 6px 12px;
-    }
-
-    .sidebar-link.active {
-      border-left: none;
-      border-bottom-color: #7c3aed;
-      background: none;
-    }
-
-    .page-title {
-      font-size: 36px;
-    }
-  }
-</style>

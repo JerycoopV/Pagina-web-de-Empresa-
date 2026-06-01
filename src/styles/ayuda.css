@@ -1,0 +1,100 @@
+/* --- ESTILOS DE LA PÁGINA DE AYUDA / SOPORTE (FAQ) --- */
+
+/* Contenedor General */
+.ayuda-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 0 120px 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Título Centrado y Premium */
+.ayuda-title {
+  font-size: 54px;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 90px;
+  letter-spacing: -2px;
+  color: #ffffff;
+  width: 100%;
+  display: block;
+}
+
+/* Listado de FAQ Limpio (Sin tarjetas ni bordes) */
+.faq-list-clean {
+  display: flex;
+  flex-direction: column;
+  gap: 80px; /* Mayor separación entre cada bloque de pregunta */
+  text-align: left;
+  width: 100%;
+}
+
+.faq-item-clean {
+  display: flex;
+  flex-direction: column;
+  gap: 28px; /* Mayor separación entre la pregunta y la respuesta */
+  text-align: left;
+  align-items: flex-start; /* Asegura alineación a la izquierda */
+}
+
+.faq-question-clean {
+  font-size: 26px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.4;
+  letter-spacing: -0.5px;
+  margin: 0;
+  text-align: left; /* Alineación a la izquierda */
+}
+
+.faq-answer-clean {
+  font-size: 17px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.7;
+  font-weight: 300;
+  margin: 0;
+  text-align: left; /* Alineación a la izquierda */
+}
+
+.phone-highlight {
+  color: #ffffff;
+  font-weight: 400;
+}
+
+/* Responsivo para móviles y tabletas */
+@media (max-width: 768px) {
+  .ayuda-container {
+    padding: 30px 16px 80px 16px;
+  }
+  
+  .ayuda-title {
+    font-size: 38px;
+    margin-bottom: 60px;
+  }
+
+  .faq-list-clean {
+    gap: 60px;
+  }
+
+  .faq-item-clean {
+    gap: 20px;
+  }
+
+  .faq-question-clean {
+    font-size: 22px;
+  }
+
+  .faq-answer-clean {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ayuda-title {
+    font-size: 32px;
+    margin-bottom: 48px;
+  }
+}
