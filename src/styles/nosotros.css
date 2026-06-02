@@ -1,7 +1,7 @@
 /* --- ESTILOS DE LA PÁGINA DE NOSOTROS --- */
 
 .nosotros-page-container {
-  padding: 40px 0 100px 0;
+  padding: 40px 0 0 0;
   max-width: 1200px;
   margin: 0 auto;
   position: relative;
@@ -67,7 +67,7 @@
 
 .nosotros-desc {
   font-size: 16px;
-  color: rgba(255, 255, 255, 0.7);
+  color: #ffffff;
   line-height: 1.65;
   margin-bottom: 20px;
   width: 100%;
@@ -135,13 +135,16 @@
 
 /* --- COLUMNA DERECHA (CAJA GLASSMORPHIC) --- */
 .nosotros-glass-card {
-  background: transparent;
+  background: rgba(13, 8, 28, 0.45);
+  backdrop-filter: blur(1.5px);
+  -webkit-backdrop-filter: blur(1.5px);
   border-radius: 28px;
   padding: 32px;
   position: relative;
   box-shadow: 
     0 30px 60px rgba(0, 0, 0, 0.6), 
-    0 0 40px rgba(124, 58, 237, 0.05);
+    0 0 40px rgba(124, 58, 237, 0.05),
+    inset 0 0 32px rgba(124, 58, 237, 0.12); /* Inset shadow added for premium corner glow */
   width: 100%;
   box-sizing: border-box;
   z-index: 3;
@@ -171,9 +174,10 @@
   padding: 1.5px; /* Grosor del borde */
   background: linear-gradient(
     135deg, 
-    rgba(124, 58, 237, 0.55) 0%, 
-    rgba(124, 58, 237, 0.05) 50%, 
-    rgba(124, 58, 237, 0.45) 100%
+    rgba(124, 58, 237, 1) 0%, 
+    rgba(124, 58, 237, 0) 22%, 
+    rgba(124, 58, 237, 0) 78%, 
+    rgba(124, 58, 237, 1) 100%
   );
   -webkit-mask: 
     linear-gradient(#fff 0 0) content-box, 
@@ -269,20 +273,20 @@
 
 .nosotros-bancos-card {
   background: rgba(10, 5, 20, 0.4);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   border-radius: 24px;
   padding: 48px;
   position: relative;
   box-shadow: 
     0 20px 40px rgba(0, 0, 0, 0.5), 
-    0 0 30px rgba(124, 58, 237, 0.03);
+    inset 0 0 24px rgba(124, 58, 237, 0.15); /* Inset shadow added for premium corner glow */
   max-width: 1200px;
   margin: 0 auto;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: 60px; /* Increased vertical gap to separate row-1 and row-2 more */
   align-items: center;
   justify-content: center;
 }
@@ -298,9 +302,10 @@
   padding: 1.5px; /* Grosor del borde */
   background: linear-gradient(
     135deg, 
-    rgba(124, 58, 237, 0.55) 0%, 
-    rgba(124, 58, 237, 0.05) 50%, 
-    rgba(124, 58, 237, 0.45) 100%
+    rgba(124, 58, 237, 1) 0%, 
+    rgba(124, 58, 237, 0) 22%, 
+    rgba(124, 58, 237, 0) 78%, 
+    rgba(124, 58, 237, 1) 100%
   );
   -webkit-mask: 
     linear-gradient(#fff 0 0) content-box, 
@@ -320,9 +325,13 @@
   width: 100%;
 }
 
+.bancos-grid-row.row-1 {
+  gap: 72px; /* Increased from 48px to give more breathing room on tablet/mobile */
+}
+
 @media (min-width: 1024px) {
   .bancos-grid-row.row-1 {
-    gap: 110px;
+    gap: 160px; /* Separar las de arriba un poco más en pantallas grandes */
   }
   .bancos-grid-row.row-2 {
     gap: 160px;
@@ -346,10 +355,13 @@
 @media (max-width: 640px) {
   .nosotros-bancos-card {
     padding: 32px 20px;
-    gap: 24px;
+    gap: 36px; /* Increased mobile vertical gap */
   }
   .bancos-grid-row {
     gap: 28px;
+  }
+  .bancos-grid-row.row-1 {
+    gap: 36px; /* Separar las de arriba un poco más en móviles */
   }
   .nosotros-banco-logo {
     max-width: 110px;

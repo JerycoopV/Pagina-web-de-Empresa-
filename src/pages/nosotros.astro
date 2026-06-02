@@ -10,31 +10,31 @@ import '../styles/nosotros.css';
     <div class="nosotros-grid">
       <!-- Columna Izquierda: Título, Textos e Imagen -->
       <div class="nosotros-content">
-        <div class="nosotros-title-container">
+        <div class="nosotros-title-container animate-on-load">
           <h1 class="nosotros-title">Nosotros</h1>
         </div>
         
-        <p class="nosotros-desc">
+        <p class="nosotros-desc animate-on-load delay-1">
           Capital Fest es una solución financiera <br class="desktop-br" />
           que te permite acceder a efectivo desde <br class="desktop-br" />
           tu tarjeta de crédito de forma rápida, <br class="desktop-br" />
           simple y segura cuando lo necesitas.
         </p>
         
-        <p class="nosotros-desc">
+        <p class="nosotros-desc animate-on-load delay-2">
           Nuestro objetivo es facilitar el acceso a <br class="desktop-br" />
           tu dinero sin complicaciones, ofreciendo <br class="desktop-br" />
           una alternativa práctica para resolver <br class="desktop-br" />
           necesidades inmediatas.
         </p>
         
-        <div class="nosotros-image-container">
+        <div class="nosotros-image-container animate-on-load delay-3">
           <img src="/assets/tarjeta-nosotro3.webp" alt="Capital Fest - Tarjeta en pedestal con monedas flotantes" class="nosotros-image" />
         </div>
       </div>
 
       <!-- Columna Derecha: Tarjeta Glassmorphic de Información -->
-      <div class="nosotros-glass-card">
+      <div class="nosotros-glass-card animate-on-load delay-4">
         <div class="nosotros-info-item">
           <h2 class="nosotros-info-title">¿Por qué elegirnos?</h2>
           <p class="nosotros-info-text">
@@ -66,23 +66,23 @@ import '../styles/nosotros.css';
     </div>
 
     <!-- Sección Bancos Afiliados -->
-    <div class="nosotros-bancos-section">
+    <div class="nosotros-bancos-section animate-on-scroll">
       <h2 class="nosotros-bancos-title">Bancos <span class="text-gradient nosotros-bancos-title-span">Afiliados</span></h2>
       <div class="nosotros-bancos-card">
         <div class="bancos-grid-row row-1">
-          <img src="/assets/banco3.webp" alt="Scotiabank" class="nosotros-banco-logo" />
-          <img src="/assets/banco4.webp" alt="BanBif" class="nosotros-banco-logo" />
-          <img src="/assets/banco2.webp" alt="Interbank" class="nosotros-banco-logo" />
+          <img src="/assets/banco4.webp" alt="Scotiabank" class="nosotros-banco-logo" style="height: 68px; max-width: 260px;" />
+          <img src="/assets/banco1.webp" alt="BanBif" class="nosotros-banco-logo" />
+          <img src="/assets/banco5.webp" alt="Interbank" class="nosotros-banco-logo" style="height: 68px; max-width: 260px;" />
         </div>
         <div class="bancos-grid-row row-2">
-          <img src="/assets/banco1.webp" alt="BBVA" class="nosotros-banco-logo" />
-          <img src="/assets/banco5.webp" alt="BCP" class="nosotros-banco-logo" />
+          <img src="/assets/banco2.webp" alt="BBVA" class="nosotros-banco-logo" />
+          <img src="/assets/banco3.webp" alt="BCP" class="nosotros-banco-logo" />
         </div>
       </div>
     </div>
 
     <!-- Sección: Banner de Llamado a la Acción (CTA) -->
-    <section class="cta-banner-section" id="cta-banner" style="margin-top: 80px;">
+    <section class="cta-banner-section animate-on-scroll" id="cta-banner" style="margin-top: 80px;">
       <div class="cta-card">
         <span class="badge">RÁPIDO, SEGURO Y CONFIABLE</span>
         
@@ -109,4 +109,27 @@ import '../styles/nosotros.css';
       </div>
     </section>
   </div>
+
+  <!-- Script de Intersección para Animaciones de Scroll Premium -->
+  <script>
+    // Configuración del Observador de Intersección
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px 0px -80px 0px', // Activa la animación un poco antes de que entre del todo en pantalla
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target); // Solo animar una vez al entrar
+        }
+      });
+    }, observerOptions);
+
+    // Observar todos los elementos designados para animarse al deslizar
+    const scrollElements = document.querySelectorAll('.animate-on-scroll');
+    scrollElements.forEach(el => observer.observe(el));
+  </script>
 </Layout>

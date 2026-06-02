@@ -8,14 +8,14 @@ import '../styles/ayuda.css';
 <Layout title="Ayuda | Centro de Soporte">
   <div class="ayuda-container">
     <!-- Título Principal -->
-    <h1 class="ayuda-title">
+    <h1 class="ayuda-title animate-on-load">
       Preguntas <span class="text-gradient">Frecuentes</span>
     </h1>
 
     <!-- Lista de Preguntas Limpia y Elegante -->
-    <div class="faq-list-clean">
+    <div class="faq-list-clean stagger-container">
       <!-- Pregunta 1 -->
-      <div class="faq-item-clean">
+      <div class="faq-item-clean animate-on-scroll">
         <h2 class="faq-question-clean">¿Cómo funciona el servicio de efectivización?</h2>
         <p class="faq-answer-clean">
           El servicio permite convertir el saldo de tu tarjeta en efectivo de forma rápida, segura y sencilla.
@@ -23,7 +23,7 @@ import '../styles/ayuda.css';
       </div>
 
       <!-- Pregunta 2 -->
-      <div class="faq-item-clean">
+      <div class="faq-item-clean animate-on-scroll">
         <h2 class="faq-question-clean">¿Qué garantía me brindan?</h2>
         <p class="faq-answer-clean">
           Nuestro sistemas están diseñados para darte la seguridad y tranquilidad al momento de hacer cualquier operación, y lo mejor de todo es que cualquier envío o transferencia es solamente a la cuenta del titular.
@@ -31,7 +31,7 @@ import '../styles/ayuda.css';
       </div>
 
       <!-- Pregunta 3 -->
-      <div class="faq-item-clean">
+      <div class="faq-item-clean animate-on-scroll">
         <h2 class="faq-question-clean">¿Qué hago ante cualquier consulta o reclamo?</h2>
         <p class="faq-answer-clean">
           Toda consulta, reclamo o sugerencia puede comunicarse con el número de atención al cliente: <span class="phone-highlight">+51 940 084 540</span>.
@@ -39,7 +39,7 @@ import '../styles/ayuda.css';
       </div>
 
       <!-- Pregunta 4 -->
-      <div class="faq-item-clean">
+      <div class="faq-item-clean animate-on-scroll">
         <h2 class="faq-question-clean">¿Puedo solicitar el servicio desde cualquier parte del Perú?</h2>
         <p class="faq-answer-clean">
           Al ser un servicio completamente digital, te garantizamos una experiencia cómoda y segura, libre de los riesgos asociados a la presencialidad.
@@ -47,7 +47,7 @@ import '../styles/ayuda.css';
       </div>
 
       <!-- Pregunta 5 -->
-      <div class="faq-item-clean">
+      <div class="faq-item-clean animate-on-scroll">
         <h2 class="faq-question-clean">¿Qué garantía me brindan?</h2>
         <p class="faq-answer-clean">
           Claro, por cada operación proporcionamos boleta electrónica. La misma será emitida de forma automática y enviada al correo electrónico que nos indiques en un plazo no mayor a 24 horas. De este modo, garantizamos la total transparencia y legalidad de todas tus transacciones con nosotros.
@@ -56,7 +56,7 @@ import '../styles/ayuda.css';
     </div>
 
     <!-- Sección: Banner de Llamado a la Acción (CTA) -->
-    <section class="cta-banner-section" id="cta-banner" style="margin-top: 100px; margin-bottom: 40px; width: 100%;">
+    <section class="cta-banner-section animate-on-scroll" id="cta-banner" style="margin-top: 100px; width: 100%;">
       <div class="cta-card">
         <span class="badge">RÁPIDO, SEGURO Y CONFIABLE</span>
         
@@ -83,4 +83,27 @@ import '../styles/ayuda.css';
       </div>
     </section>
   </div>
+
+  <!-- Script de Intersección para Animaciones de Scroll Premium -->
+  <script>
+    // Configuración del Observador de Intersección
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px 0px -80px 0px', // Activa la animación un poco antes de que entre del todo en pantalla
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target); // Solo animar una vez al entrar
+        }
+      });
+    }, observerOptions);
+
+    // Observar todos los elementos designados para animarse al deslizar
+    const scrollElements = document.querySelectorAll('.animate-on-scroll');
+    scrollElements.forEach(el => observer.observe(el));
+  </script>
 </Layout>

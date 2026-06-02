@@ -8,14 +8,14 @@ import '../styles/nosotros.css';
 <Layout title="Beneficios | Capital Fest">
   <!-- Sección: Maximiza tus Beneficios -->
   <section class="benefits-section" id="maximiza-beneficios" style="margin-top: 40px;">
-    <h2 class="benefits-section-title">
+    <h2 class="benefits-section-title animate-on-scroll">
       Máximiza tus <span class="text-gradient">Beneficios</span>
     </h2>
     
     <!-- Fila Superior: 3 Cards -->
-    <div class="benefits-row top-row">
+    <div class="benefits-row top-row stagger-container">
       <!-- Card 1: Rentabilidad -->
-      <div class="benefit-row-card" id="card-rentabilidad">
+      <div class="benefit-row-card animate-on-scroll" id="card-rentabilidad">
         <div class="benefit-img-container">
           <img src="/assets/rentabilidad.webp" alt="Rentabilidad" class="benefit-img" />
         </div>
@@ -26,7 +26,7 @@ import '../styles/nosotros.css';
       </div>
 
       <!-- Card 2: Tasa Preferencial -->
-      <div class="benefit-row-card" id="card-tasa-preferencial">
+      <div class="benefit-row-card animate-on-scroll" id="card-tasa-preferencial">
         <div class="benefit-img-container">
           <img src="/assets/tasa.webp" alt="Tasa Preferencial" class="benefit-img" />
         </div>
@@ -37,7 +37,7 @@ import '../styles/nosotros.css';
       </div>
 
       <!-- Card 3: Beneficios -->
-      <div class="benefit-row-card" id="card-beneficios-fest">
+      <div class="benefit-row-card animate-on-scroll" id="card-beneficios-fest">
         <div class="benefit-img-container">
           <img src="/assets/beneficios.webp" alt="Beneficios" class="benefit-img" />
         </div>
@@ -49,9 +49,9 @@ import '../styles/nosotros.css';
     </div>
 
     <!-- Fila Inferior: 2 Cards -->
-    <div class="benefits-row bottom-row">
+    <div class="benefits-row bottom-row stagger-container">
       <!-- Card 4: Red de Contactos -->
-      <div class="benefit-row-card" id="card-red-contactos">
+      <div class="benefit-row-card animate-on-scroll" id="card-red-contactos">
         <div class="benefit-img-container">
           <img src="/assets/red.webp" alt="Red de Contactos" class="benefit-img" />
         </div>
@@ -62,7 +62,7 @@ import '../styles/nosotros.css';
       </div>
 
       <!-- Card 5: Soporte Continuo -->
-      <div class="benefit-row-card" id="card-soporte-continuo">
+      <div class="benefit-row-card animate-on-scroll" id="card-soporte-continuo">
         <div class="benefit-img-container">
           <img src="/assets/soporte.webp" alt="Soporte Continuo" class="benefit-img" />
         </div>
@@ -75,23 +75,23 @@ import '../styles/nosotros.css';
   </section>
 
   <!-- Sección Bancos Afiliados -->
-  <div class="nosotros-bancos-section" style="margin-top: 80px;">
+  <div class="nosotros-bancos-section animate-on-scroll" style="margin-top: 80px;">
     <h2 class="nosotros-bancos-title">Bancos <span class="text-gradient nosotros-bancos-title-span">Afiliados</span></h2>
     <div class="nosotros-bancos-card">
       <div class="bancos-grid-row row-1">
-        <img src="/assets/banco3.webp" alt="Scotiabank" class="nosotros-banco-logo" />
-        <img src="/assets/banco4.webp" alt="BanBif" class="nosotros-banco-logo" />
-        <img src="/assets/banco2.webp" alt="Interbank" class="nosotros-banco-logo" />
+        <img src="/assets/banco4.webp" alt="Scotiabank" class="nosotros-banco-logo" style="height: 68px; max-width: 260px;" />
+        <img src="/assets/banco1.webp" alt="BanBif" class="nosotros-banco-logo" />
+        <img src="/assets/banco5.webp" alt="Interbank" class="nosotros-banco-logo" style="height: 68px; max-width: 260px;" />
       </div>
       <div class="bancos-grid-row row-2">
-        <img src="/assets/banco1.webp" alt="BBVA" class="nosotros-banco-logo" />
-        <img src="/assets/banco5.webp" alt="BCP" class="nosotros-banco-logo" />
+        <img src="/assets/banco2.webp" alt="BBVA" class="nosotros-banco-logo" />
+        <img src="/assets/banco3.webp" alt="BCP" class="nosotros-banco-logo" />
       </div>
     </div>
   </div>
 
   <!-- Sección: Banner de Llamado a la Acción (CTA) -->
-  <section class="cta-banner-section" id="cta-banner" style="margin-top: 80px; margin-bottom: 60px;">
+  <section class="cta-banner-section animate-on-scroll" id="cta-banner" style="margin-top: 80px;">
     <div class="cta-card">
       <span class="badge">RÁPIDO, SEGURO Y CONFIABLE</span>
       
@@ -117,4 +117,27 @@ import '../styles/nosotros.css';
       </div>
     </div>
   </section>
+
+  <!-- Script de Intersección para Animaciones de Scroll Premium -->
+  <script>
+    // Configuración del Observador de Intersección
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px 0px -80px 0px', // Activa la animación un poco antes de que entre del todo en pantalla
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target); // Solo animar una vez al entrar
+        }
+      });
+    }, observerOptions);
+
+    // Observar todos los elementos designados para animarse al deslizar
+    const scrollElements = document.querySelectorAll('.animate-on-scroll');
+    scrollElements.forEach(el => observer.observe(el));
+  </script>
 </Layout>
