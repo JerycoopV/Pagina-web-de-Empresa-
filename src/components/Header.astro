@@ -1,4 +1,6 @@
 ---
+import logo from '../assets/logo.svg';
+
 interface Props {
   // Add optional props here if needed
 }
@@ -21,28 +23,7 @@ const navItems = [
     <!-- Logotipo Premium -->
     <a href="/" class="logo-link" aria-label="Ir a Inicio" id="nav-logo">
       <div class="logo-wrapper">
-        <svg class="logo-svg" viewBox="0 0 50 40" width="50" height="40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#4f46e5" /> <!-- Indigo/Blue -->
-              <stop offset="50%" stop-color="#a855f7" /> <!-- Purple -->
-              <stop offset="100%" stop-color="#ea580c" /> <!-- Orange -->
-            </linearGradient>
-          </defs>
-          <!-- Stylized C & F monogram representing the icon in the reference -->
-          <path 
-            d="M16 10C16 10 25 5 35 11C37.5 12.5 38.5 15.5 36.5 17.5C34.5 19.5 31.5 18.5 29.5 17.5C23.5 14.5 19 16.5 19 21.5C19 26.5 23.5 28.5 29.5 25.5C31.5 24.5 34.5 23.5 36.5 25.5C38.5 27.5 37.5 30.5 35 32C25 38 16 33 16 33" 
-            stroke="url(#logo-gradient)" 
-            stroke-width="5" 
-            stroke-linecap="round"
-          />
-          <path 
-            d="M26 21.5H39" 
-            stroke="url(#logo-gradient)" 
-            stroke-width="5" 
-            stroke-linecap="round"
-          />
-        </svg>
+        <img src={logo.src} alt="Capital Fest Logo" class="logo-svg" />
       </div>
     </a>
 
