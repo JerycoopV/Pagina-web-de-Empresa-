@@ -343,16 +343,19 @@
   margin: 0;
   filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 30px rgba(124, 58, 237, 0.15));
   animation: floatImage 5s infinite ease-in-out;
-  
+
   /* Difumina suavemente solo los bordes extremos para no cortar la imagen */
   mask-image: radial-gradient(ellipse 90% 90% at 50% 50%, black 75%, transparent 100%);
   -webkit-mask-image: radial-gradient(ellipse 90% 90% at 50% 50%, black 75%, transparent 100%);
 }
 
 @keyframes floatImage {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: scale(1.25) translate(5%, 15px);
   }
+
   50% {
     transform: scale(1.25) translate(5%, 0px);
   }
@@ -467,16 +470,15 @@
   right: 0;
   bottom: 0;
   border-radius: inherit;
-  padding: 1.5px; /* Border thickness */
-  background: linear-gradient(
-    135deg, 
-    rgba(124, 58, 237, 1) 0%, 
-    rgba(124, 58, 237, 0) 22%, 
-    rgba(124, 58, 237, 0) 78%, 
-    rgba(124, 58, 237, 1) 100%
-  );
-  -webkit-mask: 
-    linear-gradient(#fff 0 0) content-box, 
+  padding: 1.5px;
+  /* Border thickness */
+  background: linear-gradient(135deg,
+      rgba(124, 58, 237, 1) 0%,
+      rgba(124, 58, 237, 0) 22%,
+      rgba(124, 58, 237, 0) 78%,
+      rgba(124, 58, 237, 1) 100%);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
@@ -732,6 +734,7 @@
   0% {
     transform: translateX(0);
   }
+
   100% {
     transform: translateX(calc(-260px * 5));
   }
@@ -862,8 +865,8 @@
   align-items: center;
   position: relative;
   overflow: hidden;
-  box-shadow: 
-    0 20px 50px rgba(0, 0, 0, 0.6), 
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.6),
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
@@ -891,6 +894,12 @@
   margin-bottom: 40px;
   width: 100%;
 }
+
+#cta-btn-simular {
+  padding: 11px 58px;
+  /* Estira el botón (original era 54px de padding horizontal) */
+}
+
 
 .cta-footer-text {
   font-size: 13px;
@@ -943,11 +952,25 @@
   animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.delay-1 { animation-delay: 0.15s; }
-.delay-2 { animation-delay: 0.3s; }
-.delay-3 { animation-delay: 0.45s; }
-.delay-4 { animation-delay: 0.6s; }
-.delay-5 { animation-delay: 0.75s; }
+.delay-1 {
+  animation-delay: 0.15s;
+}
+
+.delay-2 {
+  animation-delay: 0.3s;
+}
+
+.delay-3 {
+  animation-delay: 0.45s;
+}
+
+.delay-4 {
+  animation-delay: 0.6s;
+}
+
+.delay-5 {
+  animation-delay: 0.75s;
+}
 
 /* 2. Animación al Desplazar (On Scroll) vía Intersection Observer */
 .animate-on-scroll {
@@ -963,8 +986,18 @@
 }
 
 /* Retrasos escalonados para contenedores con stagger */
-.stagger-container .animate-on-scroll:nth-child(1) { transition-delay: 0.1s; }
-.stagger-container .animate-on-scroll:nth-child(2) { transition-delay: 0.2s; }
-.stagger-container .animate-on-scroll:nth-child(3) { transition-delay: 0.3s; }
-.stagger-container .animate-on-scroll:nth-child(4) { transition-delay: 0.4s; }
+.stagger-container .animate-on-scroll:nth-child(1) {
+  transition-delay: 0.1s;
+}
 
+.stagger-container .animate-on-scroll:nth-child(2) {
+  transition-delay: 0.2s;
+}
+
+.stagger-container .animate-on-scroll:nth-child(3) {
+  transition-delay: 0.3s;
+}
+
+.stagger-container .animate-on-scroll:nth-child(4) {
+  transition-delay: 0.4s;
+}

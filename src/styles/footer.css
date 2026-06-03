@@ -76,7 +76,7 @@
 
 .brand-description {
   font-size: 14px;
-  color: rgba(255, 255, 255, 0.6);
+  color: #ffffff;
   line-height: 1.5;
   margin: 0;
 }
@@ -92,7 +92,7 @@
 .social-title {
   font-size: 13px;
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.5);
+  color: #ffffff;
   letter-spacing: 0.5px;
 }
 
@@ -110,8 +110,8 @@
 }
 
 .social-icon svg {
-  width: 28px;
-  height: 28px;
+  width: 38px;
+  height: 38px;
   stroke-width: 1.8px;
 }
 
@@ -125,7 +125,7 @@
 .col-title {
   font-size: 13px;
   font-weight: 800;
-  color: #a855f7; /* Purple/pink heading */
+  color: #7c3aed; /* Purple brand color */
   letter-spacing: 1.5px;
   margin-bottom: 24px;
 }
@@ -184,7 +184,7 @@ a.contact-item:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #a855f7;
+  color: #7c3aed; /* Purple brand color */
   box-shadow: none;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
