@@ -1,0 +1,396 @@
+/* --- ESTILOS DE LA PÁGINA DE INICIO DE SESIÓN (LOGIN) --- */
+
+.login-section {
+  width: 100%;
+  padding: 40px 0 80px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 200px); /* Ocupa el espacio disponible verticalmente */
+  position: relative;
+  z-index: 10;
+}
+
+.login-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Grid de dos columnas */
+.login-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 60px;
+  align-items: center;
+}
+
+/* ============================================
+   COLUMNA IZQUIERDA: INFORMACIÓN Y TARJETA 3D
+   ============================================ */
+
+.login-info-side {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.login-title {
+  font-size: 54px;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.15;
+  letter-spacing: -1.5px;
+  margin-bottom: 32px;
+}
+
+/* Gradiente de texto */
+.text-gradient {
+  background: linear-gradient(90deg, #7c3aed 0%, #ea580c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Grid de beneficios horizontales */
+.login-features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 40px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding-bottom: 32px;
+}
+
+.login-feature-item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.login-feature-icon {
+  width: 32px;
+  height: 32px;
+  color: #8b5cf6;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-feature-icon svg {
+  width: 26px;
+  height: 26px;
+}
+
+.login-feature-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.login-feature-text h3 {
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+.login-feature-text p {
+  font-size: 11.5px;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Composición visual de la tarjeta 3D */
+.login-visual {
+  width: 100%;
+  max-width: 580px;
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.login-visual-img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 20px 50px rgba(124, 58, 237, 0.15));
+  animation: floatCard 6s ease-in-out infinite;
+}
+
+@keyframes floatCard {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* ============================================
+   COLUMNA DERECHA: TARJETA DE INICIO DE SESIÓN
+   ============================================ */
+
+.login-form-side {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 480px;
+  background: rgba(12, 8, 24, 0.45);
+  border-radius: 28px;
+  padding: 56px 44px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6), 0 0 20px rgba(124, 58, 237, 0.03);
+}
+
+/* Borde con gradiente sutil y elegante */
+.login-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 28px;
+  padding: 1.5px; /* Grosor del borde */
+  background: linear-gradient(
+    135deg, 
+    rgba(124, 58, 237, 0.7) 0%, 
+    rgba(124, 58, 237, 0.05) 35%, 
+    rgba(124, 58, 237, 0.05) 65%, 
+    rgba(124, 58, 237, 0.7) 100%
+  );
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Iluminación de fondo radial sutil interna */
+.login-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at top right, rgba(124, 58, 237, 0.1) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* Cabecera del Formulario */
+.login-card-header {
+  margin-bottom: 36px;
+}
+
+.login-card-header h2 {
+  font-size: 36px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+  margin-bottom: 8px;
+}
+
+.login-card-header p {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 400;
+}
+
+/* Formulario e Inputs */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.form-input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.form-input {
+  width: 100%;
+  background: rgba(10, 6, 22, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 14px 20px;
+  border-radius: 14px;
+  font-family: inherit;
+  font-size: 15px;
+  color: #ffffff;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.form-input::placeholder {
+  color: rgba(255, 255, 255, 0.25);
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #8b5cf6;
+  background: rgba(10, 6, 22, 0.85);
+  box-shadow: 0 0 15px rgba(124, 58, 237, 0.15), inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Enlace Recuperar Contraseña */
+.forgot-password-link {
+  font-size: 13px;
+  color: #8b5cf6;
+  text-decoration: none;
+  align-self: flex-end;
+  transition: color 0.3s ease;
+  margin-top: -8px;
+  font-weight: 500;
+}
+
+.forgot-password-link:hover {
+  color: #a78bfa;
+}
+
+/* Botón del Formulario */
+.btn-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  color: #ffffff;
+  background: linear-gradient(90deg, #7c3aed 0%, #ea580c 100%);
+  border: none;
+  padding: 14px 24px;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.35);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  margin-top: 10px;
+}
+
+.btn-submit:hover {
+  background: linear-gradient(90deg, #8b5cf6 0%, #f97316 100%);
+  box-shadow: 0 8px 30px rgba(234, 88, 12, 0.45);
+  transform: translateY(-2px);
+}
+
+/* Footer del Login */
+.login-card-footer {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 24px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.login-footer-text {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.register-link {
+  color: #8b5cf6;
+  text-decoration: none;
+  font-weight: 700;
+  transition: color 0.3s ease;
+}
+
+.register-link:hover {
+  color: #a78bfa;
+}
+
+/* ============================================
+   RESPONSIVO / MEDIA QUERIES
+   ============================================ */
+
+@media (max-width: 1024px) {
+  .login-grid {
+    gap: 40px;
+  }
+  
+  .login-title {
+    font-size: 42px;
+  }
+}
+
+@media (max-width: 868px) {
+  .login-section {
+    padding: 20px 0 60px 0;
+  }
+
+  .login-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .login-info-side {
+    align-items: center;
+    text-align: center;
+  }
+
+  .login-features {
+    justify-content: center;
+    max-width: 580px;
+    width: 100%;
+  }
+
+  .login-visual {
+    max-width: 480px;
+  }
+
+  .login-card {
+    padding: 44px 32px;
+  }
+}
+
+@media (max-width: 640px) {
+  .login-title {
+    font-size: 32px;
+    margin-bottom: 24px;
+  }
+
+  .login-features {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 24px;
+    text-align: left;
+  }
+
+  .login-feature-item {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 16px;
+  }
+
+  .login-card-header h2 {
+    font-size: 30px;
+  }
+}

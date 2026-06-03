@@ -311,12 +311,49 @@ a.contact-item:hover .contact-label {
     gap: 36px;
   }
 
+  .footer-col {
+    align-items: center;
+    text-align: center;
+  }
+
   .col-title {
     margin-bottom: 16px;
+    text-align: center;
+    width: 100%;
+  }
+
+  .social-section {
+    align-items: center;
+  }
+
+  .col-links {
+    align-items: center;
+  }
+
+  .col-links a:hover {
+    transform: none; /* Evita que el enlace se desplace horizontalmente cuando está centrado */
+  }
+
+  .contact-items {
+    align-items: center;
+  }
+
+  .contact-item {
+    align-items: center;
   }
 
   .footer-bottom {
     grid-template-columns: 1fr;
     gap: 24px;
+  }
+
+  .bottom-item {
+    align-items: center;
+    text-align: center;
+  }
+
+  .designer-item {
+    align-items: center;
+    text-align: center;
   }
 }

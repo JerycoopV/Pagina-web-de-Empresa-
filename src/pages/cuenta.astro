@@ -1,0 +1,215 @@
+---
+import Layout from '../layouts/Layout.astro';
+import '../styles/cuenta.css';
+---
+
+<Layout title="Crear Cuenta | Capital Fest">
+  <section class="register-section animate-on-load">
+    <div class="register-container">
+      <div class="register-grid">
+        
+        <!-- Columna Izquierda: Información de marca y Tarjeta 3D -->
+        <div class="register-info-side">
+          <h1 class="register-title">
+            Tu dinero,<br />
+            cuando más lo<br />
+            <span class="text-gradient">necesites.</span>
+          </h1>
+          <p class="register-description">
+            Convierte el saldo de tu tarjeta de crédito en efectivo al instante, de forma segura y sin vueltas.
+          </p>
+
+          <!-- Composición Visual (Misma que Login, Tamaño Grande) -->
+          <div class="register-visual">
+            <img src="/assets/TARJETA-INICIO-SESION.webp" alt="Tarjeta Capital Fest Crear Cuenta" class="register-visual-img" />
+          </div>
+        </div>
+
+        <!-- Columna Derecha: Tarjeta de Registro con Formulario en Grid -->
+        <div class="register-form-side">
+          <div class="register-card">
+            
+            <!-- Encabezado de la Tarjeta (Título + Enlace Iniciar Sesión) -->
+            <div class="register-card-header">
+              <h2>Crear cuenta</h2>
+              <div class="login-redirect">
+                <span class="redirect-text">¿Ya tienes cuenta?</span>
+                <a href="/login" class="redirect-link" id="register-login-link">Iniciar Sesión</a>
+              </div>
+            </div>
+
+            <!-- Stepper de 3 Pasos -->
+            <div class="register-stepper">
+              <!-- Paso 01: Información (Activo) -->
+              <div class="step-item">
+                <div class="step-circle active">01</div>
+                <span class="step-label active">Información</span>
+              </div>
+              
+              <div class="step-divider"></div>
+              
+              <!-- Paso 02: Validación (Inactivo) -->
+              <div class="step-item">
+                <div class="step-circle inactive">02</div>
+                <span class="step-label inactive">Validación</span>
+              </div>
+              
+              <div class="step-divider"></div>
+              
+              <!-- Paso 03: Confirmación (Inactivo) -->
+              <div class="step-item">
+                <div class="step-circle inactive">03</div>
+                <span class="step-label inactive">Confirmación</span>
+              </div>
+            </div>
+
+            <!-- Formulario en Grid -->
+            <form class="register-form-grid" onsubmit="event.preventDefault();">
+              
+              <!-- Nombres -->
+              <div class="form-group">
+                <label for="nombres" class="form-label">Nombres</label>
+                <div class="form-input-wrapper">
+                  <input 
+                    type="text" 
+                    id="nombres" 
+                    class="form-input" 
+                    placeholder="Ingresa tus nombres" 
+                    required 
+                    autocomplete="given-name"
+                  />
+                </div>
+              </div>
+
+              <!-- Apellido -->
+              <div class="form-group">
+                <label for="apellido" class="form-label">Apellido</label>
+                <div class="form-input-wrapper">
+                  <input 
+                    type="text" 
+                    id="apellido" 
+                    class="form-input" 
+                    placeholder="Ingresa tus nombres" 
+                    required 
+                    autocomplete="family-name"
+                  />
+                </div>
+              </div>
+
+              <!-- Fecha de Nacimiento -->
+              <div class="form-group">
+                <label for="nacimiento" class="form-label">Fecha de Nacimiento</label>
+                <div class="form-input-wrapper">
+                  <input 
+                    type="text" 
+                    id="nacimiento" 
+                    class="form-input" 
+                    placeholder="dd / mm / aaaa" 
+                    required
+                  />
+                </div>
+              </div>
+
+              <!-- Teléfono -->
+              <div class="form-group">
+                <label for="telefono" class="form-label">Teléfono</label>
+                <div class="form-input-wrapper">
+                  <input 
+                    type="tel" 
+                    id="telefono" 
+                    class="form-input" 
+                    placeholder="+51 999 999 999" 
+                    required 
+                    autocomplete="tel"
+                  />
+                </div>
+              </div>
+
+              <!-- Correo electrónico -->
+              <div class="form-group">
+                <label for="email" class="form-label">Correo electrónico</label>
+                <div class="form-input-wrapper">
+                  <input 
+                    type="email" 
+                    id="email" 
+                    class="form-input" 
+                    placeholder="ejemplo28@correo.com" 
+                    required 
+                    autocomplete="email"
+                  />
+                </div>
+              </div>
+
+              <!-- Confirmar correo electrónico -->
+              <div class="form-group">
+                <label for="email-confirm" class="form-label">Confirmar correo electrónico</label>
+                <div class="form-input-wrapper">
+                  <input 
+                    type="email" 
+                    id="email-confirm" 
+                    class="form-input" 
+                    placeholder="ejemplo28@correo.com" 
+                    required 
+                    autocomplete="email"
+                  />
+                </div>
+              </div>
+
+              <!-- Contraseña -->
+              <div class="form-group">
+                <label for="password" class="form-label">Contraseña</label>
+                <div class="form-input-wrapper">
+                  <input 
+                    type="password" 
+                    id="password" 
+                    class="form-input" 
+                    placeholder="Crear una contraseña" 
+                    required 
+                    autocomplete="new-password"
+                  />
+                </div>
+              </div>
+
+              <!-- Confirmar contraseña -->
+              <div class="form-group">
+                <label for="password-confirm" class="form-label">Confirmar contraseña</label>
+                <div class="form-input-wrapper">
+                  <input 
+                    type="password" 
+                    id="password-confirm" 
+                    class="form-input" 
+                    placeholder="Confirma tu contraseña" 
+                    required 
+                    autocomplete="new-password"
+                  />
+                </div>
+              </div>
+
+              <!-- Barra de seguridad de la contraseña -->
+              <div class="password-strength-container">
+                <span class="strength-label">Seguridad de contraseña</span>
+                <div class="strength-bars">
+                  <div class="strength-bar active"></div>
+                  <div class="strength-bar active"></div>
+                  <div class="strength-bar"></div>
+                  <div class="strength-bar"></div>
+                  <div class="strength-bar"></div>
+                </div>
+              </div>
+
+              <!-- Botón Siguiente -->
+              <div class="btn-submit-container">
+                <button type="submit" class="btn-submit" id="register-btn-submit">
+                  Siguiente
+                </button>
+              </div>
+
+            </form>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</Layout>
