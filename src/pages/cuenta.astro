@@ -64,7 +64,7 @@ import '../styles/cuenta.css';
             </div>
 
             <!-- Formulario en Grid -->
-            <form class="register-form-grid" onsubmit="event.preventDefault();">
+            <form id="registerForm" class="register-form-grid">
               
               <!-- Nombres -->
               <div class="form-group">
@@ -73,6 +73,7 @@ import '../styles/cuenta.css';
                   <input 
                     type="text" 
                     id="nombres" 
+                    name="firstName"
                     class="form-input" 
                     placeholder="Ingresa tus nombres" 
                     required 
@@ -88,6 +89,7 @@ import '../styles/cuenta.css';
                   <input 
                     type="text" 
                     id="apellido" 
+                    name="lastName"
                     class="form-input" 
                     placeholder="Ingresa tus nombres" 
                     required 
@@ -101,10 +103,10 @@ import '../styles/cuenta.css';
                 <label for="nacimiento" class="form-label">Fecha de Nacimiento</label>
                 <div class="form-input-wrapper">
                   <input 
-                    type="text" 
+                    type="date" 
                     id="nacimiento" 
+                    name="birthDate"
                     class="form-input" 
-                    placeholder="dd / mm / aaaa" 
                     required
                   />
                 </div>
@@ -117,6 +119,7 @@ import '../styles/cuenta.css';
                   <input 
                     type="tel" 
                     id="telefono" 
+                    name="phone"
                     class="form-input" 
                     placeholder="+51 999 999 999" 
                     required 
@@ -132,6 +135,7 @@ import '../styles/cuenta.css';
                   <input 
                     type="email" 
                     id="email" 
+                    name="email"
                     class="form-input" 
                     placeholder="ejemplo28@correo.com" 
                     required 
@@ -162,6 +166,7 @@ import '../styles/cuenta.css';
                   <input 
                     type="password" 
                     id="password" 
+                    name="password"
                     class="form-input" 
                     placeholder="Crear una contraseña" 
                     required 
@@ -200,7 +205,7 @@ import '../styles/cuenta.css';
               <!-- Botón Siguiente -->
               <div class="btn-submit-container">
                 <button type="submit" class="btn-submit" id="register-btn-submit">
-                  Siguiente
+                  Registrarse
                 </button>
               </div>
 
@@ -213,3 +218,60 @@ import '../styles/cuenta.css';
     </div>
   </section>
 </Layout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const registerForm = document.getElementById('registerForm') as HTMLFormElement;
+    const btnSubmit = document.getElementById('register-btn-submit') as HTMLButtonElement;
+
+    registerForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const formData = new FormData(registerForm);
+      const password = formData.get('password') as string;
+      const passwordConfirm = (document.getElementById('password-confirm') as HTMLInputElement).value;
+
+      if (password !== passwordConfirm) {
+        alert('Las contraseñas no coinciden.');
+        return;
+      }
+
+      // Enviar solo los datos presentes en el formulario
+      const payload = {
+        firstName: formData.get('firstName'),
+        lastName: formData.get('lastName'),
+        email: formData.get('email'),
+        password: formData.get('password'),
+        birthDate: new Date(formData.get('birthDate') as string).toISOString(),
+        phone: formData.get('phone')
+      };
+
+      try {
+        btnSubmit.textContent = 'Procesando...';
+        btnSubmit.disabled = true;
+
+        const res = await fetch('http://localhost:4000/api/auth/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+          alert('Cuenta creada exitosamente. ¡Bienvenido!');
+          window.location.href = '/login';
+        } else {
+          alert('Error al registrar: ' + (data.message || 'Intente nuevamente'));
+          btnSubmit.textContent = 'Registrarse';
+          btnSubmit.disabled = false;
+        }
+      } catch (error) {
+        console.error(error);
+        alert('Error de conexión con el servidor.');
+        btnSubmit.textContent = 'Registrarse';
+        btnSubmit.disabled = false;
+      }
+    });
+  });
+</script>
