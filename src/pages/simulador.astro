@@ -1,0 +1,101 @@
+---
+import Layout from '../layouts/Layout.astro';
+import '../styles/simulador.css';
+---
+
+<Layout title="Simulador de Retiro | Capital Fest">
+  <section class="simulador-section">
+    <div class="simulador-container">
+      
+      <!-- Lado Izquierdo -->
+      <div class="simulador-info animate-on-load">
+        <h1 class="simulador-title">
+          Simula tu retiro<br />
+          al <span class="text-gradient">instante</span>
+        </h1>
+        <p class="simulador-description delay-1">
+          Ingresa el monto disponible de tu tarjeta y visualiza tu retiro estimado en segundos.
+        </p>
+        <img src="/assets/TARJETA-2.webp" alt="Simulador Capital Fest" class="simulador-image delay-2" />
+      </div>
+
+      <!-- Lado Derecho: Calculadora -->
+      <div class="simulador-card-wrapper animate-on-load delay-3">
+        <div class="simulador-card">
+          <h2>Calcula tu retiro</h2>
+          
+          <div class="form-group">
+            <label>Tipo de calculo</label>
+            <select class="form-input" id="calc-type">
+              <option value="retiro">Retiro de Efectivo</option>
+              <option value="transferencia">Transferencia Bancaria</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Digitar monto:</label>
+            <input type="number" id="monto-input" class="form-input" placeholder="Ej: 2,808.00" min="0" step="any" />
+          </div>
+
+          <div class="result-box">
+            <div class="result-label">Recibirás:</div>
+            <div class="result-amount">
+              <span>S/</span> <span id="monto-result">0</span>
+            </div>
+            <div class="result-note">Estimación rápida y sin compromiso</div>
+          </div>
+
+          <button class="btn-submit" id="btn-solicitar">
+            Solicitar retiro ahora
+          </button>
+          
+          <div class="footer-note">
+            Sin papeleos • 100% online • Respuesta inmediata
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+</Layout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const montoInput = document.getElementById('monto-input') as HTMLInputElement;
+    const montoResult = document.getElementById('monto-result') as HTMLSpanElement;
+    const btnSolicitar = document.getElementById('btn-solicitar') as HTMLButtonElement;
+
+    // Lógica del simulador (100% en el Frontend)
+    const calcularRetiro = () => {
+      let monto = parseFloat(montoInput.value);
+      if (isNaN(monto) || monto <= 0) {
+        montoResult.textContent = '0';
+        return;
+      }
+      
+      // Aquí puedes agregar la fórmula de comisión si la tuvieras.
+      // Por ahora asume que recibe exactamente lo mismo que digita (1 a 1),
+      // tal y como se muestra en la captura (digita 2808 -> recibe 2808).
+      const recibir = monto; 
+      
+      // Formatear con separadores de miles
+      montoResult.textContent = recibir.toLocaleString('en-US', {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2
+      });
+    };
+
+    montoInput.addEventListener('input', calcularRetiro);
+
+    btnSolicitar.addEventListener('click', () => {
+      // Redirigir al registro si no está logueado, o al dashboard si está logueado
+      const token = localStorage.getItem('capitalFest_token');
+      if (token) {
+        window.location.href = '/dashboard';
+      } else {
+        window.location.href = '/cuenta';
+      }
+    });
+  });
+</script>
