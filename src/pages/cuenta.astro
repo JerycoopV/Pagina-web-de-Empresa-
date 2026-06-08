@@ -235,8 +235,46 @@ import '../styles/cuenta.css';
 
                 <!-- Botón Confirmar Datos -->
                 <div class="btn-submit-container" style="grid-column: 1 / -1; margin-top: 10px;">
-                  <button type="submit" class="btn-submit" id="register-btn-submit">
+                  <button type="button" class="btn-submit" id="btn-next-step-2">
                     Confirmar Datos
+                  </button>
+                </div>
+              </div>
+
+              <!-- PASO 3: FOTOS DE DOCUMENTO -->
+              <div id="step-3" class="form-step hidden" style="display: none; grid-column: 1 / -1;">
+                <div style="grid-column: 1 / -1; margin-bottom: 20px; text-align: center;">
+                  <h3 style="color: white; font-size: 1.5rem; font-weight: bold;">Validación de documento de identidad</h3>
+                </div>
+                
+                <div class="form-group" style="grid-column: 1 / -1; margin-bottom: 20px;">
+                  <label class="form-label" style="text-align: center; display: block; font-size: 1.1rem; margin-bottom: 15px;">Adjuntar foto frontal del <span class="doc-type-label">DNI</span></label>
+                  <label class="file-upload-box" style="display: flex; align-items: center; justify-content: center; background: linear-gradient(145deg, rgba(30, 20, 60, 0.6) 0%, rgba(15, 10, 30, 0.8) 100%); border: 1px solid rgba(138, 43, 226, 0.2); border-radius: 12px; height: 80px; cursor: pointer; color: white; font-size: 2.5rem; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+                    +
+                    <input type="file" id="documentFront" name="documentFront" accept="image/*" style="display: none;" required />
+                  </label>
+                </div>
+
+                <div class="form-group" style="grid-column: 1 / -1; margin-bottom: 20px;">
+                  <label class="form-label" style="text-align: center; display: block; font-size: 1.1rem; margin-bottom: 15px;">Adjuntar foto trasera del <span class="doc-type-label">DNI</span></label>
+                  <label class="file-upload-box" style="display: flex; align-items: center; justify-content: center; background: linear-gradient(145deg, rgba(30, 20, 60, 0.6) 0%, rgba(15, 10, 30, 0.8) 100%); border: 1px solid rgba(138, 43, 226, 0.2); border-radius: 12px; height: 80px; cursor: pointer; color: white; font-size: 2.5rem; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+                    +
+                    <input type="file" id="documentBack" name="documentBack" accept="image/*" style="display: none;" required />
+                  </label>
+                </div>
+
+                <div class="form-group" style="grid-column: 1 / -1; margin-bottom: 30px;">
+                  <label class="form-label" style="text-align: center; display: block; font-size: 1.1rem; margin-bottom: 15px;">Adjuntar foto de perfil con el <span class="doc-type-label">DNI</span></label>
+                  <label class="file-upload-box" style="display: flex; align-items: center; justify-content: center; background: linear-gradient(145deg, rgba(30, 20, 60, 0.6) 0%, rgba(15, 10, 30, 0.8) 100%); border: 1px solid rgba(138, 43, 226, 0.2); border-radius: 12px; height: 80px; cursor: pointer; color: white; font-size: 2.5rem; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+                    +
+                    <input type="file" id="selfie" name="selfie" accept="image/*" style="display: none;" required />
+                  </label>
+                </div>
+
+                <!-- Botón Siguiente (Submit Final) -->
+                <div class="btn-submit-container" style="grid-column: 1 / -1;">
+                  <button type="submit" class="btn-submit" id="register-btn-submit">
+                    Siguiente
                   </button>
                 </div>
               </div>
@@ -255,10 +293,12 @@ import '../styles/cuenta.css';
   document.addEventListener('DOMContentLoaded', () => {
     const registerForm = document.getElementById('registerForm') as HTMLFormElement;
     const btnNextStep = document.getElementById('btn-next-step') as HTMLButtonElement;
+    const btnNextStep2 = document.getElementById('btn-next-step-2') as HTMLButtonElement;
     const btnSubmit = document.getElementById('register-btn-submit') as HTMLButtonElement;
     
     const step1 = document.getElementById('step-1') as HTMLDivElement;
     const step2 = document.getElementById('step-2') as HTMLDivElement;
+    const step3 = document.getElementById('step-3') as HTMLDivElement;
     
     // Elementos visuales del Stepper
     const stepCircles = document.querySelectorAll('.step-circle');
@@ -304,14 +344,19 @@ import '../styles/cuenta.css';
       }
     });
 
-    registerForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      
-      const formData = new FormData(registerForm);
-      
-      const firstName = formData.get('firstName') as string;
-      const lastName = formData.get('lastName') as string;
-      
+    btnNextStep2.addEventListener('click', () => {
+      // Validate only visible inputs in Step 2 to avoid "not focusable" errors on hidden Step 3 inputs
+      const step2Inputs = step2.querySelectorAll('input[required], select[required]');
+      for (const input of Array.from(step2Inputs)) {
+        const inputElement = input as HTMLInputElement | HTMLSelectElement;
+        if (!inputElement.checkValidity()) {
+          inputElement.reportValidity();
+          return;
+        }
+      }
+
+      const firstName = (document.getElementById('nombres') as HTMLInputElement).value;
+      const lastName = (document.getElementById('apellido') as HTMLInputElement).value;
       const firstNameConf = (document.getElementById('nombres-conf') as HTMLInputElement).value;
       const lastNameConf = (document.getElementById('apellido-conf') as HTMLInputElement).value;
 
@@ -324,6 +369,69 @@ import '../styles/cuenta.css';
         alert('El apellido de confirmación no coincide con el ingresado en el primer paso.');
         return;
       }
+
+      // Update document type labels in Step 3 dynamically
+      const docSelect = document.getElementById('documentTypeId') as HTMLSelectElement;
+      const docTypeName = docSelect.options[docSelect.selectedIndex].text;
+      document.querySelectorAll('.doc-type-label').forEach(el => {
+        el.textContent = docTypeName;
+      });
+
+      // Hide Step 2, Show Step 3
+      step2.style.display = 'none';
+      step3.style.display = 'contents';
+
+      // Update Visual Stepper
+      if(stepCircles.length > 2 && stepLabels.length > 2) {
+        stepCircles[2].classList.remove('inactive');
+        stepCircles[2].classList.add('active');
+        stepLabels[2].classList.remove('inactive');
+        stepLabels[2].classList.add('active');
+      }
+    });
+
+    // Cambiar la UI cuando se seleccionan archivos (Opcional, para dar feedback al usuario)
+    const fileInputs = document.querySelectorAll('input[type="file"]');
+    fileInputs.forEach(input => {
+      input.addEventListener('change', (e) => {
+        const target = e.target as HTMLInputElement;
+        if (target.files && target.files.length > 0) {
+          const parentLabel = target.parentElement;
+          if (parentLabel) {
+            parentLabel.style.background = 'rgba(138, 43, 226, 0.4)'; // Color morado cuando hay archivo
+            parentLabel.innerHTML = '✓<input type="file" id="' + target.id + '" name="' + target.name + '" accept="image/*" style="display: none;" required />';
+            // Re-attach event listener since innerHTML replaced the input
+            const newInput = parentLabel.querySelector('input');
+            if (newInput) {
+              // Copy files over is tricky with innerHTML, a safer way is just adding a class or changing a text span, but since we are simple:
+            }
+          }
+        }
+      });
+    });
+
+    // Fix file UI change
+    document.querySelectorAll('input[type="file"]').forEach(input => {
+      input.addEventListener('change', function(this: HTMLInputElement) {
+        if (this.files && this.files.length > 0) {
+          const parent = this.parentElement;
+          if (parent) {
+            parent.style.background = 'rgba(138, 43, 226, 0.4)';
+            // Delete the text node "+"
+            Array.from(parent.childNodes).forEach(node => {
+              if (node.nodeType === Node.TEXT_NODE) node.textContent = '✓ ';
+            });
+          }
+        }
+      });
+    });
+
+    registerForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const formData = new FormData(registerForm);
+      const firstName = formData.get('firstName') as string;
+      const lastName = formData.get('lastName') as string;
 
       // Construir payload
       const payload = {
