@@ -66,147 +66,179 @@ import '../styles/cuenta.css';
             <!-- Formulario en Grid -->
             <form id="registerForm" class="register-form-grid">
               
-              <!-- Nombres -->
-              <div class="form-group">
-                <label for="nombres" class="form-label">Nombres</label>
-                <div class="form-input-wrapper">
-                  <input 
-                    type="text" 
-                    id="nombres" 
-                    name="firstName"
-                    class="form-input" 
-                    placeholder="Ingresa tus nombres" 
-                    required 
-                    autocomplete="given-name"
-                  />
+              <!-- PASO 1: INFORMACIÓN -->
+              <div id="step-1" class="form-step active" style="display: contents;">
+                <!-- Nombres -->
+                <div class="form-group">
+                  <label for="nombres" class="form-label">Nombres</label>
+                  <div class="form-input-wrapper">
+                    <input type="text" id="nombres" name="firstName" class="form-input" placeholder="Ingresa tus nombres" required autocomplete="given-name" />
+                  </div>
+                </div>
+
+                <!-- Apellido -->
+                <div class="form-group">
+                  <label for="apellido" class="form-label">Apellido</label>
+                  <div class="form-input-wrapper">
+                    <input type="text" id="apellido" name="lastName" class="form-input" placeholder="Ingresa tus apellidos" required autocomplete="family-name" />
+                  </div>
+                </div>
+
+                <!-- Fecha de Nacimiento -->
+                <div class="form-group">
+                  <label for="nacimiento" class="form-label">Fecha de Nacimiento</label>
+                  <div class="form-input-wrapper">
+                    <input type="date" id="nacimiento" name="birthDate" class="form-input" required />
+                  </div>
+                </div>
+
+                <!-- Teléfono -->
+                <div class="form-group">
+                  <label for="telefono" class="form-label">Teléfono</label>
+                  <div class="form-input-wrapper">
+                    <input type="tel" id="telefono" name="phone" class="form-input" placeholder="+51 999 999 999" required autocomplete="tel" />
+                  </div>
+                </div>
+
+                <!-- Correo electrónico -->
+                <div class="form-group">
+                  <label for="email" class="form-label">Correo electrónico</label>
+                  <div class="form-input-wrapper">
+                    <input type="email" id="email" name="email" class="form-input" placeholder="ejemplo28@correo.com" required autocomplete="email" />
+                  </div>
+                </div>
+
+                <!-- Confirmar correo electrónico -->
+                <div class="form-group">
+                  <label for="email-confirm" class="form-label">Confirmar correo electrónico</label>
+                  <div class="form-input-wrapper">
+                    <input type="email" id="email-confirm" class="form-input" placeholder="ejemplo28@correo.com" required autocomplete="email" />
+                  </div>
+                </div>
+
+                <!-- Contraseña -->
+                <div class="form-group">
+                  <label for="password" class="form-label">Contraseña</label>
+                  <div class="form-input-wrapper">
+                    <input type="password" id="password" name="password" class="form-input" placeholder="Crear una contraseña" required autocomplete="new-password" />
+                  </div>
+                </div>
+
+                <!-- Confirmar contraseña -->
+                <div class="form-group">
+                  <label for="password-confirm" class="form-label">Confirmar contraseña</label>
+                  <div class="form-input-wrapper">
+                    <input type="password" id="password-confirm" class="form-input" placeholder="Confirma tu contraseña" required autocomplete="new-password" />
+                  </div>
+                </div>
+
+                <!-- Barra de seguridad de la contraseña -->
+                <div class="password-strength-container" style="grid-column: 1 / -1;">
+                  <span class="strength-label">Seguridad de contraseña</span>
+                  <div class="strength-bars">
+                    <div class="strength-bar active"></div>
+                    <div class="strength-bar active"></div>
+                    <div class="strength-bar"></div>
+                    <div class="strength-bar"></div>
+                    <div class="strength-bar"></div>
+                  </div>
+                </div>
+
+                <!-- Botón Siguiente -->
+                <div class="btn-submit-container" style="grid-column: 1 / -1;">
+                  <button type="button" class="btn-submit" id="btn-next-step">
+                    Siguiente
+                  </button>
                 </div>
               </div>
 
-              <!-- Apellido -->
-              <div class="form-group">
-                <label for="apellido" class="form-label">Apellido</label>
-                <div class="form-input-wrapper">
-                  <input 
-                    type="text" 
-                    id="apellido" 
-                    name="lastName"
-                    class="form-input" 
-                    placeholder="Ingresa tus nombres" 
-                    required 
-                    autocomplete="family-name"
-                  />
+              <!-- PASO 2: VALIDACIÓN -->
+              <div id="step-2" class="form-step hidden" style="display: none;">
+                <!-- Nombres (Confirmación) -->
+                <div class="form-group">
+                  <label for="nombres-conf" class="form-label">Nombres</label>
+                  <div class="form-input-wrapper">
+                    <input type="text" id="nombres-conf" class="form-input" placeholder="Ingresa tus nombres" required />
+                  </div>
                 </div>
-              </div>
 
-              <!-- Fecha de Nacimiento -->
-              <div class="form-group">
-                <label for="nacimiento" class="form-label">Fecha de Nacimiento</label>
-                <div class="form-input-wrapper">
-                  <input 
-                    type="date" 
-                    id="nacimiento" 
-                    name="birthDate"
-                    class="form-input" 
-                    required
-                  />
+                <!-- Apellido (Confirmación) -->
+                <div class="form-group">
+                  <label for="apellido-conf" class="form-label">Apellido</label>
+                  <div class="form-input-wrapper">
+                    <input type="text" id="apellido-conf" class="form-input" placeholder="Ingresa tus apellidos" required />
+                  </div>
                 </div>
-              </div>
 
-              <!-- Teléfono -->
-              <div class="form-group">
-                <label for="telefono" class="form-label">Teléfono</label>
-                <div class="form-input-wrapper">
-                  <input 
-                    type="tel" 
-                    id="telefono" 
-                    name="phone"
-                    class="form-input" 
-                    placeholder="+51 999 999 999" 
-                    required 
-                    autocomplete="tel"
-                  />
+                <!-- Tipo de Documento -->
+                <div class="form-group">
+                  <label for="documentTypeId" class="form-label">Tipo de Documento</label>
+                  <div class="form-input-wrapper">
+                    <select id="documentTypeId" name="documentTypeId" class="form-input" required>
+                      <option value="" disabled selected>Selecciona tu documento</option>
+                      <option value="1">DNI</option>
+                      <option value="2">CE</option>
+                      <option value="3">Pasaporte</option>
+                    </select>
+                  </div>
                 </div>
-              </div>
 
-              <!-- Correo electrónico -->
-              <div class="form-group">
-                <label for="email" class="form-label">Correo electrónico</label>
-                <div class="form-input-wrapper">
-                  <input 
-                    type="email" 
-                    id="email" 
-                    name="email"
-                    class="form-input" 
-                    placeholder="ejemplo28@correo.com" 
-                    required 
-                    autocomplete="email"
-                  />
+                <!-- Nmro de documento -->
+                <div class="form-group">
+                  <label for="documentNumber" class="form-label">Nmro de documento</label>
+                  <div class="form-input-wrapper">
+                    <input type="text" id="documentNumber" name="documentNumber" class="form-input" placeholder="Ingresa tu documento" required />
+                  </div>
                 </div>
-              </div>
 
-              <!-- Confirmar correo electrónico -->
-              <div class="form-group">
-                <label for="email-confirm" class="form-label">Confirmar correo electrónico</label>
-                <div class="form-input-wrapper">
-                  <input 
-                    type="email" 
-                    id="email-confirm" 
-                    class="form-input" 
-                    placeholder="ejemplo28@correo.com" 
-                    required 
-                    autocomplete="email"
-                  />
+                <!-- Departamento -->
+                <div class="form-group">
+                  <label for="departmentId" class="form-label">Departamento</label>
+                  <div class="form-input-wrapper">
+                    <select id="departmentId" name="departmentId" class="form-input" required>
+                      <option value="" disabled selected>Selecciona tu departamento</option>
+                      <option value="15">Lima</option>
+                      <option value="4">Arequipa</option>
+                    </select>
+                  </div>
                 </div>
-              </div>
 
-              <!-- Contraseña -->
-              <div class="form-group">
-                <label for="password" class="form-label">Contraseña</label>
-                <div class="form-input-wrapper">
-                  <input 
-                    type="password" 
-                    id="password" 
-                    name="password"
-                    class="form-input" 
-                    placeholder="Crear una contraseña" 
-                    required 
-                    autocomplete="new-password"
-                  />
+                <!-- Provincia -->
+                <div class="form-group">
+                  <label for="provinceId" class="form-label">Provincia</label>
+                  <div class="form-input-wrapper">
+                    <select id="provinceId" name="provinceId" class="form-input" required>
+                      <option value="" disabled selected>Selecciona tu provincia</option>
+                      <option value="1501">Lima</option>
+                    </select>
+                  </div>
                 </div>
-              </div>
 
-              <!-- Confirmar contraseña -->
-              <div class="form-group">
-                <label for="password-confirm" class="form-label">Confirmar contraseña</label>
-                <div class="form-input-wrapper">
-                  <input 
-                    type="password" 
-                    id="password-confirm" 
-                    class="form-input" 
-                    placeholder="Confirma tu contraseña" 
-                    required 
-                    autocomplete="new-password"
-                  />
+                <!-- Distrito -->
+                <div class="form-group">
+                  <label for="districtId" class="form-label">Distrito</label>
+                  <div class="form-input-wrapper">
+                    <select id="districtId" name="districtId" class="form-input" required>
+                      <option value="" disabled selected>Selecciona tu distrito</option>
+                      <option value="150101">Lima (Cercado)</option>
+                    </select>
+                  </div>
                 </div>
-              </div>
 
-              <!-- Barra de seguridad de la contraseña -->
-              <div class="password-strength-container">
-                <span class="strength-label">Seguridad de contraseña</span>
-                <div class="strength-bars">
-                  <div class="strength-bar active"></div>
-                  <div class="strength-bar active"></div>
-                  <div class="strength-bar"></div>
-                  <div class="strength-bar"></div>
-                  <div class="strength-bar"></div>
+                <!-- Dirección -->
+                <div class="form-group">
+                  <label for="address" class="form-label">Dirección</label>
+                  <div class="form-input-wrapper">
+                    <input type="text" id="address" name="address" class="form-input" placeholder="Inrese su dirección" required />
+                  </div>
                 </div>
-              </div>
 
-              <!-- Botón Siguiente -->
-              <div class="btn-submit-container">
-                <button type="submit" class="btn-submit" id="register-btn-submit">
-                  Registrarse
-                </button>
+                <!-- Botón Confirmar Datos -->
+                <div class="btn-submit-container" style="grid-column: 1 / -1; margin-top: 10px;">
+                  <button type="submit" class="btn-submit" id="register-btn-submit">
+                    Confirmar Datos
+                  </button>
+                </div>
               </div>
 
             </form>
@@ -222,28 +254,91 @@ import '../styles/cuenta.css';
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const registerForm = document.getElementById('registerForm') as HTMLFormElement;
+    const btnNextStep = document.getElementById('btn-next-step') as HTMLButtonElement;
     const btnSubmit = document.getElementById('register-btn-submit') as HTMLButtonElement;
+    
+    const step1 = document.getElementById('step-1') as HTMLDivElement;
+    const step2 = document.getElementById('step-2') as HTMLDivElement;
+    
+    // Elementos visuales del Stepper
+    const stepCircles = document.querySelectorAll('.step-circle');
+    const stepLabels = document.querySelectorAll('.step-label');
 
-    registerForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      
-      const formData = new FormData(registerForm);
-      const password = formData.get('password') as string;
+    btnNextStep.addEventListener('click', () => {
+      // Basic validation for Step 1
+      const email = (document.getElementById('email') as HTMLInputElement).value;
+      const emailConfirm = (document.getElementById('email-confirm') as HTMLInputElement).value;
+      const password = (document.getElementById('password') as HTMLInputElement).value;
       const passwordConfirm = (document.getElementById('password-confirm') as HTMLInputElement).value;
+
+      // Validate only visible inputs in Step 1 to avoid "not focusable" errors on hidden Step 2 inputs
+      const step1Inputs = step1.querySelectorAll('input[required]');
+      for (const input of Array.from(step1Inputs)) {
+        const inputElement = input as HTMLInputElement;
+        if (!inputElement.checkValidity()) {
+          inputElement.reportValidity();
+          return;
+        }
+      }
+
+      if (email !== emailConfirm) {
+        alert('Los correos electrónicos no coinciden.');
+        return;
+      }
 
       if (password !== passwordConfirm) {
         alert('Las contraseñas no coinciden.');
         return;
       }
 
-      // Enviar solo los datos presentes en el formulario
+      // Hide Step 1, Show Step 2
+      step1.style.display = 'none';
+      step2.style.display = 'contents'; // using contents to maintain grid layout
+
+      // Update Visual Stepper
+      if(stepCircles.length > 1 && stepLabels.length > 1) {
+        stepCircles[1].classList.remove('inactive');
+        stepCircles[1].classList.add('active');
+        stepLabels[1].classList.remove('inactive');
+        stepLabels[1].classList.add('active');
+      }
+    });
+
+    registerForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const formData = new FormData(registerForm);
+      
+      const firstName = formData.get('firstName') as string;
+      const lastName = formData.get('lastName') as string;
+      
+      const firstNameConf = (document.getElementById('nombres-conf') as HTMLInputElement).value;
+      const lastNameConf = (document.getElementById('apellido-conf') as HTMLInputElement).value;
+
+      if (firstName.trim().toLowerCase() !== firstNameConf.trim().toLowerCase()) {
+        alert('El nombre de confirmación no coincide con el ingresado en el primer paso.');
+        return;
+      }
+
+      if (lastName.trim().toLowerCase() !== lastNameConf.trim().toLowerCase()) {
+        alert('El apellido de confirmación no coincide con el ingresado en el primer paso.');
+        return;
+      }
+
+      // Construir payload
       const payload = {
-        firstName: formData.get('firstName'),
-        lastName: formData.get('lastName'),
+        firstName,
+        lastName,
         email: formData.get('email'),
         password: formData.get('password'),
         birthDate: new Date(formData.get('birthDate') as string).toISOString(),
-        phone: formData.get('phone')
+        phone: formData.get('phone'),
+        documentTypeId: Number(formData.get('documentTypeId')),
+        documentNumber: formData.get('documentNumber'),
+        departmentId: Number(formData.get('departmentId')),
+        provinceId: Number(formData.get('provinceId')),
+        districtId: Number(formData.get('districtId')),
+        address: formData.get('address')
       };
 
       try {
@@ -263,13 +358,13 @@ import '../styles/cuenta.css';
           window.location.href = '/login';
         } else {
           alert('Error al registrar: ' + (data.message || 'Intente nuevamente'));
-          btnSubmit.textContent = 'Registrarse';
+          btnSubmit.textContent = 'Confirmar Datos';
           btnSubmit.disabled = false;
         }
       } catch (error) {
         console.error(error);
         alert('Error de conexión con el servidor.');
-        btnSubmit.textContent = 'Registrarse';
+        btnSubmit.textContent = 'Confirmar Datos';
         btnSubmit.disabled = false;
       }
     });
