@@ -169,7 +169,7 @@ import '../styles/login.css';
           localStorage.setItem('capitalFest_user', JSON.stringify(data.user));
           
           alert(`Bienvenido, ${data.user.firstName}!`);
-          window.location.href = '/'; 
+          window.location.href = '/dashboard'; 
         } else {
           alert('Error de login: ' + (data.message || 'Credenciales inválidas'));
           btnSubmit.textContent = 'Ingresar';

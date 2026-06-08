@@ -1,0 +1,44 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Dashboard | Capital Fest">
+  <section class="dashboard-section" style="padding-top: 150px; min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center;">
+    <div class="dashboard-container">
+      <h1 class="text-gradient" style="font-size: 3rem; margin-bottom: 20px;">Bienvenido a tu Dashboard</h1>
+      <p style="color: white; font-size: 1.2rem; margin-bottom: 30px;" id="welcome-message">Cargando tus datos...</p>
+      
+      <button id="logout-btn" style="padding: 12px 24px; border-radius: 8px; border: none; background: linear-gradient(90deg, #ff6b00 0%, #ff8a00 100%); color: white; font-weight: 600; font-size: 1rem; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 15px rgba(255, 107, 0, 0.4);">
+        Cerrar Sesión
+      </button>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const token = localStorage.getItem('capitalFest_token');
+    const userStr = localStorage.getItem('capitalFest_user');
+    const welcomeMessage = document.getElementById('welcome-message');
+    const logoutBtn = document.getElementById('logout-btn');
+
+    if (!token || !userStr) {
+      // Si no hay sesión, regresarlo al login
+      window.location.href = '/login';
+      return;
+    }
+
+    const user = JSON.parse(userStr);
+    if (welcomeMessage) {
+      welcomeMessage.textContent = `¡Hola de nuevo, ${user.firstName} ${user.lastName}! Has iniciado sesión correctamente.`;
+    }
+
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', () => {
+        localStorage.removeItem('capitalFest_token');
+        localStorage.removeItem('capitalFest_user');
+        window.location.href = '/';
+      });
+    }
+  });
+</script>
