@@ -490,8 +490,8 @@ import '../styles/cuenta.css';
         const data = await res.json();
 
         if (res.ok) {
-          alert('Cuenta creada exitosamente. ¡Bienvenido!');
-          window.location.href = '/login';
+          localStorage.setItem('capitalFest_token', data.token); // Si el backend retorna token al registro
+          window.location.href = '/registro-validacion';
         } else {
           alert('Error al registrar: ' + (data.message || 'Intente nuevamente'));
           btnSubmit.textContent = 'Confirmar Datos';
