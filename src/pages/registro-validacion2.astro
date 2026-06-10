@@ -176,6 +176,12 @@ import '../styles/registro-validacion.css';
         const data = await res.json();
 
         if (res.ok) {
+          // Guardar el nombre para el paso 3
+          localStorage.setItem('capitalFest_userName', JSON.stringify({
+            firstName: payload.firstName,
+            lastName: payload.lastName
+          }));
+          
           // Limpiar el payload temporal
           localStorage.removeItem('capitalFest_registerPayload');
           

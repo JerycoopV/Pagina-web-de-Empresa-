@@ -37,7 +37,7 @@ import '../styles/registro-validacion.css';
             <!-- Mensaje de Activación -->
             <div class="activation-message" style="margin-bottom: 48px;">
               <p style="font-size: 16px; color: rgba(255, 255, 255, 0.85); line-height: 1.6; margin-bottom: 20px;">
-                Estás muy cerca de completar tu solicitud. Para finalizar el proceso y validar tus datos de manera segura, por favor <span style="color: #ea580c; font-weight: 600;">comunícate</span> con nosotros a través de nuestro número oficial <span style="color: #ea580c; font-weight: 600;">+51 940 084 540</span>.
+                Estás muy cerca de completar tu solicitud. Para finalizar el proceso y validar tus datos de manera segura, por favor <span style="color: #ea580c; font-weight: 600;">comunícate</span> con nosotros a través de nuestro número oficial <span style="color: #ea580c; font-weight: 600;">+51 902 029 862</span>.
               </p>
               <p style="font-size: 16px; color: rgba(255, 255, 255, 0.85); line-height: 1.6;">
                 Uno de nuestros asesores te atenderá de inmediato.
@@ -46,7 +46,7 @@ import '../styles/registro-validacion.css';
 
             <!-- Botón de WhatsApp -->
             <div class="btn-group-vertical" style="margin-top: 0; gap: 15px;">
-              <a href="https://wa.me/51940084540" target="_blank" rel="noopener noreferrer" class="btn-submit" style="text-decoration: none;">
+              <a id="whatsapp-link" href="https://wa.me/51902029862" target="_blank" rel="noopener noreferrer" class="btn-submit" style="text-decoration: none;">
                 Ir a WhatsApp
               </a>
               <button type="button" class="btn-submit" onclick="window.location.href='/login'" style="background: transparent; border: 1px solid rgba(255,255,255,0.3); box-shadow: none;">
@@ -65,6 +65,28 @@ import '../styles/registro-validacion.css';
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
+    
+    // Obtener datos del usuario
+    const userNameStr = localStorage.getItem('capitalFest_userName');
+    let fullName = '';
+    if (userNameStr) {
+      try {
+        const userName = JSON.parse(userNameStr);
+        fullName = `${userName.firstName || ''} ${userName.lastName || ''}`.trim();
+      } catch (e) {}
+    }
+    
+    // Configurar enlace de WhatsApp
+    const whatsappNumber = '51902029862';
+    const message = fullName 
+      ? `Soy ${fullName} y me acabo de registrar en Capital Fest, me gustaría continuar con la activación de mi cuenta.` 
+      : `Hola. Me acabo de registrar en Capital Fest y me gustaría continuar con la activación de mi cuenta.`;
+    
+    const whatsappLink = document.getElementById('whatsapp-link') as HTMLAnchorElement;
+    if (whatsappLink) {
+      whatsappLink.href = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+    }
+
     if (urlParams.get('success') === '1') {
       alert('¡Usuario se registró correctamente!');
       
