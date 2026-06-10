@@ -3,6 +3,11 @@ import Layout from '../layouts/Layout.astro';
 import '../styles/cuenta.css';
 ---
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://npmcdn.com/flatpickr/dist/l10n/es.js"></script>
+
 <Layout title="Crear Cuenta | Capital Fest">
   <section class="register-section">
     <div class="register-container">
@@ -88,7 +93,7 @@ import '../styles/cuenta.css';
                 <div class="form-group">
                   <label for="nacimiento" class="form-label">Fecha de Nacimiento</label>
                   <div class="form-input-wrapper">
-                    <input type="date" id="nacimiento" name="birthDate" class="form-input" required />
+                    <input type="text" id="nacimiento" name="birthDate" class="form-input" placeholder="Selecciona tu fecha" required />
                   </div>
                 </div>
 
@@ -158,7 +163,7 @@ import '../styles/cuenta.css';
                 <div class="form-group">
                   <label for="nombres-conf" class="form-label">Nombres</label>
                   <div class="form-input-wrapper">
-                    <input type="text" id="nombres-conf" class="form-input" placeholder="Ingresa tus nombres" required />
+                    <input type="text" id="nombres-conf" class="form-input" placeholder="Ingresa tus nombres" required readonly style="background-color: rgba(255, 255, 255, 0.1); cursor: not-allowed;" />
                   </div>
                 </div>
 
@@ -166,7 +171,7 @@ import '../styles/cuenta.css';
                 <div class="form-group">
                   <label for="apellido-conf" class="form-label">Apellido</label>
                   <div class="form-input-wrapper">
-                    <input type="text" id="apellido-conf" class="form-input" placeholder="Ingresa tus apellidos" required />
+                    <input type="text" id="apellido-conf" class="form-input" placeholder="Ingresa tus apellidos" required readonly style="background-color: rgba(255, 255, 255, 0.1); cursor: not-allowed;" />
                   </div>
                 </div>
 
@@ -300,6 +305,17 @@ import '../styles/cuenta.css';
     const step2 = document.getElementById('step-2') as HTMLDivElement;
     const step3 = document.getElementById('step-3') as HTMLDivElement;
     
+    // Inicializar el calendario Flatpickr para la fecha de nacimiento
+    // @ts-ignore
+    flatpickr("#nacimiento", {
+      locale: "es",
+      dateFormat: "Y-m-d",
+      altInput: true,
+      altFormat: "d/m/Y",
+      maxDate: "today",
+      disableMobile: "true" // Fuerza a usar este calendario en moviles también en lugar del nativo
+    });
+    
     // Elementos visuales del Stepper
     const stepCircles = document.querySelectorAll('.step-circle');
     const stepLabels = document.querySelectorAll('.step-label');
@@ -331,6 +347,12 @@ import '../styles/cuenta.css';
         return;
       }
 
+      // Autofill step 2 name fields
+      const firstNameInput = document.getElementById('nombres') as HTMLInputElement;
+      const lastNameInput = document.getElementById('apellido') as HTMLInputElement;
+      (document.getElementById('nombres-conf') as HTMLInputElement).value = firstNameInput.value;
+      (document.getElementById('apellido-conf') as HTMLInputElement).value = lastNameInput.value;
+
       // Hide Step 1, Show Step 2
       step1.style.display = 'none';
       step2.style.display = 'contents'; // using contents to maintain grid layout
@@ -359,16 +381,6 @@ import '../styles/cuenta.css';
       const lastName = (document.getElementById('apellido') as HTMLInputElement).value;
       const firstNameConf = (document.getElementById('nombres-conf') as HTMLInputElement).value;
       const lastNameConf = (document.getElementById('apellido-conf') as HTMLInputElement).value;
-
-      if (firstName.trim().toLowerCase() !== firstNameConf.trim().toLowerCase()) {
-        alert('El nombre de confirmación no coincide con el ingresado en el primer paso.');
-        return;
-      }
-
-      if (lastName.trim().toLowerCase() !== lastNameConf.trim().toLowerCase()) {
-        alert('El apellido de confirmación no coincide con el ingresado en el primer paso.');
-        return;
-      }
 
       // Update document type labels in Step 3 dynamically
       const docSelect = document.getElementById('documentTypeId') as HTMLSelectElement;
