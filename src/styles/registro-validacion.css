@@ -1,0 +1,497 @@
+/* --- ESTILOS DE LA PÁGINA DE VALIDACIÓN BANCARIA --- */
+
+.register-section {
+  width: 100%;
+  padding: 40px 0 80px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 200px);
+  position: relative;
+  z-index: 10;
+}
+
+.register-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Grid de dos columnas */
+.register-grid {
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+  gap: 50px;
+  align-items: center;
+}
+
+/* ============================================
+   COLUMNA IZQUIERDA: INFORMACIÓN Y TARJETA 3D
+   ============================================ */
+
+.register-info-side {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.register-title {
+  font-size: 54px;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.15;
+  letter-spacing: -1.5px;
+  margin-bottom: 20px;
+}
+
+/* Gradiente de texto */
+.text-gradient {
+  background: linear-gradient(90deg, #7c3aed 0%, #ea580c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.register-description {
+  font-size: 15.5px;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.5;
+  margin-bottom: 40px;
+  max-width: 480px;
+}
+
+/* Composición visual de la tarjeta 3D */
+.register-visual {
+  width: 100%;
+  max-width: 580px;
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.register-visual-img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 20px 50px rgba(124, 58, 237, 0.15));
+  animation: floatCard 6s ease-in-out infinite;
+}
+
+@keyframes floatCard {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* ============================================
+   COLUMNA DERECHA: TARJETA DE REGISTRO
+   ============================================ */
+
+.register-form-side {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.register-card {
+  width: 100%;
+  background: rgba(12, 8, 24, 0.45);
+  border-radius: 28px;
+  padding: 48px 40px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6), 0 0 20px rgba(124, 58, 237, 0.03);
+}
+
+/* Borde con gradiente sutil y elegante */
+.register-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 28px;
+  padding: 1.5px;
+  background: linear-gradient(
+    135deg, 
+    rgba(124, 58, 237, 0.7) 0%, 
+    rgba(124, 58, 237, 0.05) 35%, 
+    rgba(124, 58, 237, 0.05) 65%, 
+    rgba(124, 58, 237, 0.7) 100%
+  );
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Iluminación de fondo radial sutil interna */
+.register-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at top right, rgba(124, 58, 237, 0.1) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* Cabecera de la Tarjeta */
+.register-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.register-card-header h2 {
+  font-size: 30px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+  margin: 0;
+}
+
+/* ============================================
+   STEPPER DE PASOS
+   ============================================ */
+
+.register-stepper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 36px;
+  position: relative;
+  width: 100%;
+}
+
+.step-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.step-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  transition: all 0.3s ease;
+}
+
+.step-circle.active {
+  background: transparent;
+  border: 1px solid #7c3aed;
+  color: #ffffff;
+  box-shadow: 0 0 12px rgba(124, 58, 237, 0.4);
+}
+
+.step-circle.inactive {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.02);
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.step-label {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.step-label.active {
+  color: #ffffff;
+}
+
+.step-label.inactive {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.step-divider {
+  flex-grow: 1;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 0 12px;
+}
+
+/* ============================================
+   FORMULARIO 
+   ============================================ */
+
+.register-form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-label {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.form-input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.form-input {
+  width: 100%;
+  background: rgba(10, 6, 22, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 13px 18px;
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 14.5px;
+  color: #ffffff;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.form-input::placeholder {
+  color: rgba(255, 255, 255, 0.22);
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #8b5cf6;
+  background: rgba(10, 6, 22, 0.85);
+  box-shadow: 0 0 12px rgba(124, 58, 237, 0.15), inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+select.form-input option {
+  background: #1e143c;
+  color: white;
+}
+
+/* File Upload Box */
+.file-upload-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(145deg, rgba(30, 20, 60, 0.6) 0%, rgba(15, 10, 30, 0.8) 100%);
+  border: 1px solid rgba(138, 43, 226, 0.2);
+  border-radius: 16px;
+  height: 110px;
+  width: 60%;
+  margin: 10px auto;
+  cursor: pointer;
+  color: white;
+  font-size: 2.5rem;
+  font-weight: 300;
+  transition: 0.3s;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.file-upload-box:hover {
+  border-color: rgba(138, 43, 226, 0.5);
+  background: linear-gradient(145deg, rgba(30, 20, 60, 0.8) 0%, rgba(15, 10, 30, 0.9) 100%);
+}
+
+/* Botones */
+.btn-group-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 10px;
+}
+
+.btn-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  color: #ffffff;
+  background: linear-gradient(90deg, #7c3aed 0%, #ea580c 100%);
+  border: none;
+  padding: 14px 24px;
+  border-radius: 12px;
+  font-size: 16.5px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.35);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-submit:hover {
+  background: linear-gradient(90deg, #8b5cf6 0%, #f97316 100%);
+  box-shadow: 0 8px 30px rgba(234, 88, 12, 0.45);
+  transform: translateY(-2px);
+}
+
+.validation-btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  color: #ffffff;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 14px 24px;
+  border-radius: 12px;
+  font-size: 16.5px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.validation-btn-outline:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Nuevo botón outline para la segunda página de validación */
+.validation-btn-outline-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  margin: 10px auto;
+  color: #ffffff;
+  background: transparent;
+  padding: 10px 24px;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  z-index: 2;
+}
+
+.validation-btn-outline-pill::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-radius: 50px;
+  padding: 1.5px;
+  background: linear-gradient(90deg, #ea580c 0%, #7c3aed 100%);
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  z-index: -1;
+}
+
+.validation-btn-outline-pill:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* ============================================
+   RESPONSIVO / MEDIA QUERIES
+   ============================================ */
+
+@media (max-width: 1200px) {
+  .register-grid {
+    gap: 40px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .register-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .register-info-side {
+    align-items: center;
+    text-align: center;
+  }
+
+  .register-visual {
+    max-width: 480px;
+  }
+}
+
+@media (max-width: 768px) {
+  .register-section {
+    padding: 20px 0 60px 0;
+  }
+
+  .register-card {
+    padding: 36px 24px;
+  }
+
+  .register-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .register-stepper {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .step-divider {
+    display: none; 
+  }
+  
+  .file-upload-box {
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .register-title {
+    font-size: 32px;
+  }
+
+  .register-description {
+    font-size: 14px;
+    margin-bottom: 24px;
+  }
+}
+
+/* ============================================
+   SISTEMA DE ANIMACIONES PREMIUM (ON LOAD)
+   ============================================ */
+
+.animate-on-load {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.delay-1 { animation-delay: 0.15s; }
+.delay-2 { animation-delay: 0.3s; }
+.delay-3 { animation-delay: 0.45s; }
+.delay-4 { animation-delay: 0.6s; }
+.delay-5 { animation-delay: 0.75s; }
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

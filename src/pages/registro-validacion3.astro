@@ -1,0 +1,60 @@
+---
+import Layout from '../layouts/Layout.astro';
+import '../styles/registro-validacion.css';
+---
+
+<Layout title="Activación de Cuenta | Capital Fest">
+  <section class="register-section">
+    <div class="register-container">
+      <div class="register-grid">
+        
+        <!-- Columna Izquierda: Información de marca y Tarjeta 3D -->
+        <div class="register-info-side">
+          <h1 class="register-title animate-on-load">
+            Tu dinero,<br />
+            cuando más lo<br />
+            <span class="text-gradient">necesites.</span>
+          </h1>
+          <p class="register-description animate-on-load delay-1">
+            Convierte el saldo de tu tarjeta de crédito en efectivo al instante, de forma segura y sin vueltas.
+          </p>
+
+          <!-- Composición Visual -->
+          <div class="register-visual animate-on-load delay-2">
+            <img src="/assets/TARJETA-INICIO-SESION.webp" alt="Tarjeta Capital Fest Activación" class="register-visual-img" />
+          </div>
+        </div>
+
+        <!-- Columna Derecha: Tarjeta de Activación -->
+        <div class="register-form-side">
+          <div class="register-card animate-on-load delay-3" style="display: flex; flex-direction: column; justify-content: center; padding: 64px 48px;">
+            
+            <!-- Encabezado de la Tarjeta -->
+            <div class="register-card-header" style="justify-content: center; margin-bottom: 40px;">
+              <h2 style="text-align: center; font-size: 32px;">Activación de cuenta</h2>
+            </div>
+
+            <!-- Mensaje de Activación -->
+            <div class="activation-message" style="margin-bottom: 48px;">
+              <p style="font-size: 16px; color: rgba(255, 255, 255, 0.85); line-height: 1.6; margin-bottom: 20px;">
+                Estás muy cerca de completar tu solicitud. Para finalizar el proceso y validar tus datos de manera segura, por favor <span style="color: #ea580c; font-weight: 600;">comunícate</span> con nosotros a través de nuestro número oficial <span style="color: #ea580c; font-weight: 600;">+51 940 084 540</span>.
+              </p>
+              <p style="font-size: 16px; color: rgba(255, 255, 255, 0.85); line-height: 1.6;">
+                Uno de nuestros asesores te atenderá de inmediato.
+              </p>
+            </div>
+
+            <!-- Botón de WhatsApp -->
+            <div class="btn-group-vertical" style="margin-top: 0;">
+              <a href="https://wa.me/51940084540" target="_blank" rel="noopener noreferrer" class="btn-submit" style="text-decoration: none;">
+                Ir a WhatsApp
+              </a>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</Layout>
