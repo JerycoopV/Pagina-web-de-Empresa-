@@ -4,9 +4,9 @@ import '../styles/cuenta.css';
 ---
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/dark.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script src="https://npmcdn.com/flatpickr/dist/l10n/es.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
 
 <Layout title="Crear Cuenta | Capital Fest">
   <section class="register-section">
@@ -238,9 +238,12 @@ import '../styles/cuenta.css';
                   </div>
                 </div>
 
-                <!-- Botón Confirmar Datos -->
-                <div class="btn-submit-container" style="grid-column: 1 / -1; margin-top: 10px;">
-                  <button type="button" class="btn-submit" id="btn-next-step-2">
+                <!-- Botones Paso 2 -->
+                <div class="btn-submit-container" style="grid-column: 1 / -1; margin-top: 10px; display: flex; gap: 15px;">
+                  <button type="button" class="btn-submit" id="btn-back-step-1" style="flex: 0.4; background: transparent; border: 1px solid rgba(255,255,255,0.3); box-shadow: none;">
+                    Volver
+                  </button>
+                  <button type="button" class="btn-submit" id="btn-next-step-2" style="flex: 1;">
                     Confirmar Datos
                   </button>
                 </div>
@@ -256,7 +259,7 @@ import '../styles/cuenta.css';
                   <label class="form-label" style="text-align: center; display: block; font-size: 1.1rem; margin-bottom: 15px;">Adjuntar foto frontal del <span class="doc-type-label">DNI</span></label>
                   <label class="file-upload-box" style="display: flex; align-items: center; justify-content: center; background: linear-gradient(145deg, rgba(30, 20, 60, 0.6) 0%, rgba(15, 10, 30, 0.8) 100%); border: 1px solid rgba(138, 43, 226, 0.2); border-radius: 12px; height: 80px; cursor: pointer; color: white; font-size: 2.5rem; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
                     +
-                    <input type="file" id="documentFront" name="documentFront" accept="image/*" style="display: none;" required />
+                    <input type="file" id="documentFront" name="documentFront" accept="image/*" style="display: none;" />
                   </label>
                 </div>
 
@@ -264,7 +267,7 @@ import '../styles/cuenta.css';
                   <label class="form-label" style="text-align: center; display: block; font-size: 1.1rem; margin-bottom: 15px;">Adjuntar foto trasera del <span class="doc-type-label">DNI</span></label>
                   <label class="file-upload-box" style="display: flex; align-items: center; justify-content: center; background: linear-gradient(145deg, rgba(30, 20, 60, 0.6) 0%, rgba(15, 10, 30, 0.8) 100%); border: 1px solid rgba(138, 43, 226, 0.2); border-radius: 12px; height: 80px; cursor: pointer; color: white; font-size: 2.5rem; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
                     +
-                    <input type="file" id="documentBack" name="documentBack" accept="image/*" style="display: none;" required />
+                    <input type="file" id="documentBack" name="documentBack" accept="image/*" style="display: none;" />
                   </label>
                 </div>
 
@@ -272,13 +275,16 @@ import '../styles/cuenta.css';
                   <label class="form-label" style="text-align: center; display: block; font-size: 1.1rem; margin-bottom: 15px;">Adjuntar foto de perfil con el <span class="doc-type-label">DNI</span></label>
                   <label class="file-upload-box" style="display: flex; align-items: center; justify-content: center; background: linear-gradient(145deg, rgba(30, 20, 60, 0.6) 0%, rgba(15, 10, 30, 0.8) 100%); border: 1px solid rgba(138, 43, 226, 0.2); border-radius: 12px; height: 80px; cursor: pointer; color: white; font-size: 2.5rem; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
                     +
-                    <input type="file" id="selfie" name="selfie" accept="image/*" style="display: none;" required />
+                    <input type="file" id="selfie" name="selfie" accept="image/*" style="display: none;" />
                   </label>
                 </div>
 
-                <!-- Botón Siguiente (Submit Final) -->
-                <div class="btn-submit-container" style="grid-column: 1 / -1;">
-                  <button type="submit" class="btn-submit" id="register-btn-submit">
+                <!-- Botones Paso 3 (Submit Final) -->
+                <div class="btn-submit-container" style="grid-column: 1 / -1; display: flex; gap: 15px;">
+                  <button type="button" class="btn-submit" id="btn-back-step-2" style="flex: 0.4; background: transparent; border: 1px solid rgba(255,255,255,0.3); box-shadow: none;">
+                    Volver
+                  </button>
+                  <button type="submit" class="btn-submit" id="register-btn-submit" style="flex: 1;">
                     Siguiente
                   </button>
                 </div>
@@ -402,26 +408,6 @@ import '../styles/cuenta.css';
       }
     });
 
-    // Cambiar la UI cuando se seleccionan archivos (Opcional, para dar feedback al usuario)
-    const fileInputs = document.querySelectorAll('input[type="file"]');
-    fileInputs.forEach(input => {
-      input.addEventListener('change', (e) => {
-        const target = e.target as HTMLInputElement;
-        if (target.files && target.files.length > 0) {
-          const parentLabel = target.parentElement;
-          if (parentLabel) {
-            parentLabel.style.background = 'rgba(138, 43, 226, 0.4)'; // Color morado cuando hay archivo
-            parentLabel.innerHTML = '✓<input type="file" id="' + target.id + '" name="' + target.name + '" accept="image/*" style="display: none;" required />';
-            // Re-attach event listener since innerHTML replaced the input
-            const newInput = parentLabel.querySelector('input');
-            if (newInput) {
-              // Copy files over is tricky with innerHTML, a safer way is just adding a class or changing a text span, but since we are simple:
-            }
-          }
-        }
-      });
-    });
-
     // Fix file UI change
     document.querySelectorAll('input[type="file"]').forEach(input => {
       input.addEventListener('change', function(this: HTMLInputElement) {
@@ -437,6 +423,36 @@ import '../styles/cuenta.css';
         }
       });
     });
+
+    // Back buttons logic
+    const btnBackStep1 = document.getElementById('btn-back-step-1') as HTMLButtonElement;
+    const btnBackStep2 = document.getElementById('btn-back-step-2') as HTMLButtonElement;
+
+    if (btnBackStep1) {
+      btnBackStep1.addEventListener('click', () => {
+        step2.style.display = 'none';
+        step1.style.display = 'contents';
+        if(stepCircles.length > 1 && stepLabels.length > 1) {
+          stepCircles[1].classList.remove('active');
+          stepCircles[1].classList.add('inactive');
+          stepLabels[1].classList.remove('active');
+          stepLabels[1].classList.add('inactive');
+        }
+      });
+    }
+
+    if (btnBackStep2) {
+      btnBackStep2.addEventListener('click', () => {
+        step3.style.display = 'none';
+        step2.style.display = 'contents';
+        if(stepCircles.length > 2 && stepLabels.length > 2) {
+          stepCircles[2].classList.remove('active');
+          stepCircles[2].classList.add('inactive');
+          stepLabels[2].classList.remove('active');
+          stepLabels[2].classList.add('inactive');
+        }
+      });
+    }
 
     registerForm.addEventListener('submit', async (e) => {
       e.preventDefault();
