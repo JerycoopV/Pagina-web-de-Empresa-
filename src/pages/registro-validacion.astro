@@ -153,8 +153,27 @@ import '../styles/registro-validacion.css';
     const validacionForm = document.getElementById('validacionForm') as HTMLFormElement;
     validacionForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      // Aquí se podría añadir lógica para ir al paso 03 de confirmación
-      // window.location.href = '/confirmacion'; 
+      
+      const formData = new FormData(validacionForm);
+      const payloadStr = localStorage.getItem('capitalFest_registerPayload');
+      if (payloadStr) {
+        const payload = JSON.parse(payloadStr);
+        
+        // Mapeo básico de banco a ID para la simulación
+        let bankId = 1; // Default
+        const identidad = formData.get('identidad');
+        if (identidad === 'bcp') bankId = 1;
+        if (identidad === 'interbank') bankId = 2;
+        if (identidad === 'bbva') bankId = 3;
+        if (identidad === 'scotiabank') bankId = 4;
+
+        payload.cards = [{
+          bankId: bankId,
+          lastFourDigits: formData.get('digitos') as string
+        }];
+        localStorage.setItem('capitalFest_registerPayload', JSON.stringify(payload));
+      }
+
       window.location.href = '/registro-validacion2';
     });
   });

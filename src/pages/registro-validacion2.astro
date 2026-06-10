@@ -151,6 +151,21 @@ import '../styles/registro-validacion.css';
         btnSubmit.disabled = true;
 
         const payload = JSON.parse(payloadStr);
+        const formData = new FormData(confirmacionForm);
+
+        // Mapeo básico de banco a ID
+        let bankId = 1;
+        const identidad = formData.get('identidad');
+        if (identidad === 'bcp') bankId = 1;
+        if (identidad === 'interbank') bankId = 2;
+        if (identidad === 'bbva') bankId = 3;
+        if (identidad === 'scotiabank') bankId = 4;
+
+        payload.bankAccounts = [{
+          bankId: bankId,
+          accountHolderName: formData.get('titular') as string,
+          accountNumber: formData.get('cuenta') as string
+        }];
 
         const res = await fetch('http://localhost:4000/api/auth/register', {
           method: 'POST',
