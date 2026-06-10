@@ -111,9 +111,14 @@ import '../styles/registro-validacion.css';
                 <button type="button" class="validation-btn-outline-pill">
                   Añadir otra cuenta bancaria
                 </button>
-                <button type="submit" class="btn-submit">
-                  Confirmar datos
-                </button>
+                <div class="btn-submit-container" style="display: flex; gap: 15px; width: 100%;">
+                  <button type="button" class="btn-submit" onclick="window.location.href='/registro-validacion'" style="flex: 0.4; background: transparent; border: 1px solid rgba(255,255,255,0.3); box-shadow: none;">
+                    Volver
+                  </button>
+                  <button type="submit" class="btn-submit" style="flex: 1;">
+                    Confirmar datos
+                  </button>
+                </div>
               </div>
 
             </form>
@@ -128,13 +133,50 @@ import '../styles/registro-validacion.css';
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    // Envío del formulario
     const confirmacionForm = document.getElementById('confirmacionForm') as HTMLFormElement;
-    confirmacionForm.addEventListener('submit', (e) => {
+    const btnSubmit = confirmacionForm.querySelector('button[type="submit"]') as HTMLButtonElement;
+
+    confirmacionForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      // Lógica final para confirmar datos
-      // window.location.href = '/dashboard'; 
-      window.location.href = '/registro-validacion3';
+      
+      const payloadStr = localStorage.getItem('capitalFest_registerPayload');
+      if (!payloadStr) {
+        alert('No se encontraron datos de registro. Por favor vuelve a intentarlo.');
+        window.location.href = '/cuenta';
+        return;
+      }
+
+      try {
+        btnSubmit.textContent = 'Procesando...';
+        btnSubmit.disabled = true;
+
+        const payload = JSON.parse(payloadStr);
+
+        const res = await fetch('http://localhost:4000/api/auth/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+          // Limpiar el payload temporal
+          localStorage.removeItem('capitalFest_registerPayload');
+          
+          // Redirigir a la ultima pagina
+          window.location.href = '/registro-validacion3?success=1';
+        } else {
+          alert('Error al registrar: ' + (data.message || 'Intente nuevamente'));
+          btnSubmit.textContent = 'Confirmar datos';
+          btnSubmit.disabled = false;
+        }
+      } catch (error) {
+        console.error(error);
+        alert('Error de conexión con el servidor.');
+        btnSubmit.textContent = 'Confirmar datos';
+        btnSubmit.disabled = false;
+      }
     });
   });
 </script>

@@ -87,7 +87,9 @@ import '../styles/registro-validacion.css';
                     class="form-input" 
                     placeholder="Ingresar 4 ultimos digitos de su tarjeta" 
                     maxlength="4" 
-                    pattern="\d{4}" 
+                    pattern="[0-9]{4}" 
+                    title="Debe ingresar exactamente 4 números"
+                    oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 4)"
                     required 
                   />
                 </div>
@@ -106,9 +108,14 @@ import '../styles/registro-validacion.css';
                 <button type="button" class="validation-btn-outline">
                   Añadir otra tarjeta
                 </button>
-                <button type="submit" class="btn-submit">
-                  Siguiente
-                </button>
+                <div class="btn-submit-container" style="display: flex; gap: 15px; width: 100%;">
+                  <button type="button" class="btn-submit" onclick="window.location.href='/cuenta'" style="flex: 0.4; background: transparent; border: 1px solid rgba(255,255,255,0.3); box-shadow: none;">
+                    Volver
+                  </button>
+                  <button type="submit" class="btn-submit" style="flex: 1;">
+                    Siguiente
+                  </button>
+                </div>
               </div>
 
             </form>

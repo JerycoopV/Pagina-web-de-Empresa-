@@ -45,10 +45,13 @@ import '../styles/registro-validacion.css';
             </div>
 
             <!-- Botón de WhatsApp -->
-            <div class="btn-group-vertical" style="margin-top: 0;">
+            <div class="btn-group-vertical" style="margin-top: 0; gap: 15px;">
               <a href="https://wa.me/51940084540" target="_blank" rel="noopener noreferrer" class="btn-submit" style="text-decoration: none;">
                 Ir a WhatsApp
               </a>
+              <button type="button" class="btn-submit" onclick="window.location.href='/login'" style="background: transparent; border: 1px solid rgba(255,255,255,0.3); box-shadow: none;">
+                Ir al Login
+              </button>
             </div>
 
           </div>
@@ -58,3 +61,16 @@ import '../styles/registro-validacion.css';
     </div>
   </section>
 </Layout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('success') === '1') {
+      alert('¡Usuario se registró correctamente!');
+      
+      // Limpiar la URL para que no vuelva a saltar la alerta si el usuario recarga la página
+      const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+      window.history.replaceState({path:newUrl}, '', newUrl);
+    }
+  });
+</script>
