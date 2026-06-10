@@ -1,0 +1,154 @@
+---
+import Layout from '../layouts/Layout.astro';
+import '../styles/registro-validacion.css';
+---
+
+<Layout title="Validación Bancaria | Capital Fest">
+  <section class="register-section">
+    <div class="register-container">
+      <div class="register-grid">
+        
+        <!-- Columna Izquierda: Información de marca y Tarjeta 3D -->
+        <div class="register-info-side">
+          <h1 class="register-title animate-on-load">
+            Tu dinero,<br />
+            cuando más lo<br />
+            <span class="text-gradient">necesites.</span>
+          </h1>
+          <p class="register-description animate-on-load delay-1">
+            Convierte el saldo de tu tarjeta de crédito en efectivo al instante, de forma segura y sin vueltas.
+          </p>
+
+          <!-- Composición Visual -->
+          <div class="register-visual animate-on-load delay-2">
+            <img src="/assets/TARJETA-INICIO-SESION.webp" alt="Tarjeta Capital Fest Validación" class="register-visual-img" />
+          </div>
+        </div>
+
+        <!-- Columna Derecha: Tarjeta de Registro con Formulario en Grid -->
+        <div class="register-form-side">
+          <div class="register-card animate-on-load delay-3">
+            
+            <!-- Encabezado de la Tarjeta -->
+            <div class="register-card-header">
+              <h2>Validación bancaria</h2>
+            </div>
+
+            <!-- Stepper de 3 Pasos -->
+            <div class="register-stepper">
+              <!-- Paso 01: Información (Completado/Activo) -->
+              <div class="step-item">
+                <div class="step-circle active">01</div>
+                <span class="step-label active">Información</span>
+              </div>
+              
+              <div class="step-divider"></div>
+              
+              <!-- Paso 02: Validación (Activo) -->
+              <div class="step-item">
+                <div class="step-circle active">02</div>
+                <span class="step-label active">Validación</span>
+              </div>
+              
+              <div class="step-divider"></div>
+              
+              <!-- Paso 03: Confirmación (Inactivo) -->
+              <div class="step-item">
+                <div class="step-circle inactive">03</div>
+                <span class="step-label inactive">Confirmación</span>
+              </div>
+            </div>
+
+            <!-- Formulario de Validación Bancaria -->
+            <form id="validacionForm" class="register-form-grid">
+              
+              <!-- Identidad financiera -->
+              <div class="form-group">
+                <label for="identidad" class="form-label">Identidad financiera</label>
+                <div class="form-input-wrapper">
+                  <select id="identidad" name="identidad" class="form-input" required>
+                    <option value="" disabled selected>Seleccione su identidad financiera</option>
+                    <option value="bcp">BCP</option>
+                    <option value="interbank">Interbank</option>
+                    <option value="bbva">BBVA</option>
+                    <option value="scotiabank">Scotiabank</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Digitos bancarios -->
+              <div class="form-group">
+                <label for="digitos" class="form-label">Dígitos bancarios</label>
+                <div class="form-input-wrapper">
+                  <input 
+                    type="text" 
+                    id="digitos" 
+                    name="digitos" 
+                    class="form-input" 
+                    placeholder="Ingresar 4 ultimos digitos de su tarjeta" 
+                    maxlength="4" 
+                    pattern="\d{4}" 
+                    required 
+                  />
+                </div>
+              </div>
+
+              <!-- File upload para foto de tarjeta -->
+              <div class="form-group" style="margin-top: 16px;">
+                 <label class="file-upload-box">
+                    +
+                    <input type="file" id="tarjetaFoto" name="tarjetaFoto" accept="image/*" style="display: none;" required />
+                  </label>
+              </div>
+
+              <!-- Botones -->
+              <div class="btn-group-vertical">
+                <button type="button" class="validation-btn-outline">
+                  Añadir otra tarjeta
+                </button>
+                <button type="submit" class="btn-submit">
+                  Siguiente
+                </button>
+              </div>
+
+            </form>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Cambio en UI para la selección de archivo (foto de tarjeta)
+    const fileInputs = document.querySelectorAll('input[type="file"]');
+    fileInputs.forEach(input => {
+      input.addEventListener('change', function(this: HTMLInputElement) {
+        if (this.files && this.files.length > 0) {
+          const parent = this.parentElement;
+          if (parent) {
+            parent.style.background = 'rgba(138, 43, 226, 0.4)'; // Color morado cuando hay archivo
+            // Reemplazar el "+" por un check
+            Array.from(parent.childNodes).forEach(node => {
+              if (node.nodeType === Node.TEXT_NODE && node.textContent?.trim() === '+') {
+                node.textContent = '✓ ';
+              }
+            });
+          }
+        }
+      });
+    });
+
+    // Envío del formulario
+    const validacionForm = document.getElementById('validacionForm') as HTMLFormElement;
+    validacionForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      // Aquí se podría añadir lógica para ir al paso 03 de confirmación
+      alert('Validación completada, pasando al siguiente paso.');
+      // window.location.href = '/confirmacion'; 
+    });
+  });
+</script>
