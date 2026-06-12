@@ -533,3 +533,14 @@
   transform: translateY(-2px);
   box-shadow: 0 12px 30px rgba(138, 43, 226, 0.15);
 }
+
+/* ============================================
+   AUTORELLENO DE NAVEGADOR (AUTOFILL OVERRIDE)
+   ============================================ */
+.form-input:-webkit-autofill,
+.form-input:-webkit-autofill:hover, 
+.form-input:-webkit-autofill:focus, 
+.form-input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: #ffffff !important;
+}
