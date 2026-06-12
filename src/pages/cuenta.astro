@@ -101,7 +101,7 @@ import '../styles/cuenta.css';
                 <div class="form-group">
                   <label for="telefono" class="form-label">Teléfono</label>
                   <div class="form-input-wrapper">
-                    <input type="tel" id="telefono" name="phone" class="form-input" placeholder="+51 999 999 999" required autocomplete="tel" />
+                    <input type="tel" id="telefono" name="phone" class="form-input" placeholder="+51 999 999 999" required autocomplete="tel" oninput="this.value = this.value.replace(/[^0-9+]/g, '')" />
                   </div>
                 </div>
 
@@ -141,8 +141,8 @@ import '../styles/cuenta.css';
                 <div class="password-strength-container" style="grid-column: 1 / -1;">
                   <span class="strength-label">Seguridad de contraseña</span>
                   <div class="strength-bars">
-                    <div class="strength-bar active"></div>
-                    <div class="strength-bar active"></div>
+                    <div class="strength-bar"></div>
+                    <div class="strength-bar"></div>
                     <div class="strength-bar"></div>
                     <div class="strength-bar"></div>
                     <div class="strength-bar"></div>
@@ -294,9 +294,11 @@ import '../styles/cuenta.css';
 
           </div>
         </div>
-
       </div>
     </div>
+    
+    <!-- Línea divisoria en la parte inferior para cerrar la sección -->
+    <div class="register-divider"></div>
   </section>
 </Layout>
 
@@ -310,6 +312,48 @@ import '../styles/cuenta.css';
     const step1 = document.getElementById('step-1') as HTMLDivElement;
     const step2 = document.getElementById('step-2') as HTMLDivElement;
     const step3 = document.getElementById('step-3') as HTMLDivElement;
+    
+    // Elementos de la contraseña
+    const passwordInput = document.getElementById('password') as HTMLInputElement;
+    const strengthBars = document.querySelectorAll('.strength-bar');
+
+    // Lógica para medir la fuerza de la contraseña
+    passwordInput.addEventListener('input', (e) => {
+      const pwd = (e.target as HTMLInputElement).value;
+      let strength = 0;
+      
+      if (pwd.length === 0) {
+        strengthBars.forEach(bar => bar.classList.remove('active'));
+        return;
+      }
+
+      const length = pwd.length;
+      // Detectar si tiene símbolos (cualquier carácter que no sea letra o número) y si tiene números
+      const hasSymbol = /[^a-zA-Z0-9]/.test(pwd);
+      const hasNumber = /[0-9]/.test(pwd);
+
+      if (length < 6) {
+        if (hasSymbol && hasNumber) strength = 3;
+        else if (hasSymbol || hasNumber) strength = 2;
+        else strength = 1;
+      } else if (length >= 6 && length < 10) {
+        if (hasSymbol && hasNumber) strength = 4;
+        else if (hasSymbol || hasNumber) strength = 3;
+        else strength = 2;
+      } else if (length >= 10) {
+        if (hasSymbol && hasNumber) strength = 5;
+        else if (hasSymbol || hasNumber) strength = 4;
+        else strength = 3;
+      }
+
+      strengthBars.forEach((bar, index) => {
+        if (index < strength) {
+          bar.classList.add('active');
+        } else {
+          bar.classList.remove('active');
+        }
+      });
+    });
     
     // Inicializar el calendario Flatpickr para la fecha de nacimiento
     // @ts-ignore
