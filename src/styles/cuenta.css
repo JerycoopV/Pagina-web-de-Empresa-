@@ -498,3 +498,38 @@
   z-index: -2;
   filter: blur(4px);
 }
+
+/* ============================================
+   ESTILOS STEP 3 (SUBIR DOCUMENTOS)
+   ============================================ */
+
+.text-center-label {
+  text-align: center;
+  display: block;
+  font-size: 1.05rem;
+  margin-bottom: 8px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.file-upload-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, rgba(30, 15, 55, 0.95) 0%, rgba(15, 8, 30, 0.95) 100%) padding-box,
+              linear-gradient(135deg, rgba(138, 43, 226, 0.8) 0%, transparent 40%, transparent 60%, rgba(138, 43, 226, 0.4) 100%) border-box;
+  border: 1.5px solid transparent;
+  border-radius: 16px;
+  height: 90px;
+  cursor: pointer;
+  color: white;
+  font-size: 2.5rem;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  width: 100%;
+}
+
+.file-upload-box:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(138, 43, 226, 0.15);
+}
