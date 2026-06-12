@@ -136,8 +136,41 @@ import '../styles/registro-validacion.css';
     const confirmacionForm = document.getElementById('confirmacionForm') as HTMLFormElement;
     const btnSubmit = confirmacionForm.querySelector('button[type="submit"]') as HTMLButtonElement;
 
+    // Restaurar datos guardados
+    const savedAccountData = localStorage.getItem('capitalFest_validation2');
+    if (savedAccountData) {
+      try {
+        const parsed = JSON.parse(savedAccountData);
+        if (parsed.identidad) (document.getElementById('identidad') as HTMLSelectElement).value = parsed.identidad;
+        if (parsed.titular) (document.getElementById('titular') as HTMLInputElement).value = parsed.titular;
+        if (parsed.cuenta) (document.getElementById('cuenta') as HTMLInputElement).value = parsed.cuenta;
+      } catch(e) {}
+    }
+
+    // Botón Volver (el primero del btn-submit-container)
+    const btnVolver = confirmacionForm.querySelector('button[onclick="window.location.href=\'/registro-validacion\'"]') as HTMLButtonElement;
+    if (btnVolver) {
+      btnVolver.addEventListener('click', (e) => {
+        e.preventDefault();
+        const identidad = (document.getElementById('identidad') as HTMLSelectElement).value;
+        const titular = (document.getElementById('titular') as HTMLInputElement).value;
+        const cuenta = (document.getElementById('cuenta') as HTMLInputElement).value;
+        localStorage.setItem('capitalFest_validation2', JSON.stringify({ identidad, titular, cuenta }));
+        window.location.href = '/registro-validacion';
+      });
+      // Eliminar el onclick en línea para que se encargue el event listener
+      btnVolver.removeAttribute('onclick');
+    }
+
     confirmacionForm.addEventListener('submit', async (e) => {
       e.preventDefault();
+      
+      const identidad = (document.getElementById('identidad') as HTMLSelectElement).value;
+      const titular = (document.getElementById('titular') as HTMLInputElement).value;
+      const cuenta = (document.getElementById('cuenta') as HTMLInputElement).value;
+      
+      // Guardar datos al avanzar
+      localStorage.setItem('capitalFest_validation2', JSON.stringify({ identidad, titular, cuenta }));
       
       const payloadStr = localStorage.getItem('capitalFest_registerPayload');
       if (!payloadStr) {

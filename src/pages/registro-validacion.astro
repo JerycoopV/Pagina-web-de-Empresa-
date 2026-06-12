@@ -108,8 +108,11 @@ import '../styles/registro-validacion.css';
                 <button type="button" class="validation-btn-outline-pill" style="width: 250px;">
                   Añadir otra tarjeta
                 </button>
-                <div class="btn-submit-container" style="width: 100%; margin-top: 20px;">
-                  <button type="submit" class="btn-submit">
+                <div class="btn-submit-container" style="display: flex; gap: 15px; width: 100%; margin-top: 20px;">
+                  <button type="button" class="btn-submit" id="btn-volver-val1" style="flex: 0.4; background: transparent; border: 1px solid rgba(255,255,255,0.3); box-shadow: none;">
+                    Volver
+                  </button>
+                  <button type="submit" class="btn-submit" style="flex: 1;">
                     Siguiente
                   </button>
                 </div>
@@ -146,19 +149,45 @@ import '../styles/registro-validacion.css';
       });
     });
 
+    // Restaurar datos guardados
+    const savedCardData = localStorage.getItem('capitalFest_validation1');
+    if (savedCardData) {
+      try {
+        const parsed = JSON.parse(savedCardData);
+        if (parsed.identidad) (document.getElementById('identidad') as HTMLSelectElement).value = parsed.identidad;
+        if (parsed.digitos) (document.getElementById('digitos') as HTMLInputElement).value = parsed.digitos;
+      } catch(e) {}
+    }
+
+    // Botón Volver
+    const btnVolver = document.getElementById('btn-volver-val1');
+    if (btnVolver) {
+      btnVolver.addEventListener('click', () => {
+        const identidad = (document.getElementById('identidad') as HTMLSelectElement).value;
+        const digitos = (document.getElementById('digitos') as HTMLInputElement).value;
+        localStorage.setItem('capitalFest_validation1', JSON.stringify({ identidad, digitos }));
+        window.location.href = '/cuenta?return=true';
+      });
+    }
+
     // Envío del formulario
     const validacionForm = document.getElementById('validacionForm') as HTMLFormElement;
     validacionForm.addEventListener('submit', (e) => {
       e.preventDefault();
       
       const formData = new FormData(validacionForm);
+      const identidad = formData.get('identidad') as string;
+      const digitos = formData.get('digitos') as string;
+      
+      // Guardar para que no se pierdan al regresar
+      localStorage.setItem('capitalFest_validation1', JSON.stringify({ identidad, digitos }));
+
       const payloadStr = localStorage.getItem('capitalFest_registerPayload');
       if (payloadStr) {
         const payload = JSON.parse(payloadStr);
         
         // Mapeo básico de banco a ID para la simulación
         let bankId = 1; // Default
-        const identidad = formData.get('identidad');
         if (identidad === 'bcp') bankId = 1;
         if (identidad === 'interbank') bankId = 2;
         if (identidad === 'bbva') bankId = 3;
@@ -166,7 +195,7 @@ import '../styles/registro-validacion.css';
 
         payload.cards = [{
           bankId: bankId,
-          lastFourDigits: formData.get('digitos') as string
+          lastFourDigits: digitos
         }];
         localStorage.setItem('capitalFest_registerPayload', JSON.stringify(payload));
       }

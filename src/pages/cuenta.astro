@@ -277,8 +277,11 @@ import '../styles/cuenta.css';
                 </div>
 
                 <!-- Botones Paso 3 (Submit Final) -->
-                <div class="btn-submit-container" style="grid-column: 1 / -1; display: flex; justify-content: center;">
-                  <button type="submit" class="btn-submit" id="register-btn-submit" style="width: 100%;">
+                <div class="btn-submit-container" style="grid-column: 1 / -1; display: flex; gap: 15px;">
+                  <button type="button" class="btn-submit" id="btn-back-step-2" style="flex: 0.4; background: transparent; border: 1px solid rgba(255,255,255,0.3); box-shadow: none;">
+                    Volver
+                  </button>
+                  <button type="submit" class="btn-submit" id="register-btn-submit" style="flex: 1;">
                     Siguiente
                   </button>
                 </div>
@@ -510,6 +513,70 @@ import '../styles/cuenta.css';
         const loginRedirect = document.querySelector('.login-redirect') as HTMLElement;
         if (loginRedirect) loginRedirect.style.display = 'flex';
       });
+    }
+
+    // Lógica para regresar a Paso 3 sin perder datos
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('return') === 'true') {
+      const savedPayloadStr = localStorage.getItem('capitalFest_registerPayload');
+      if (savedPayloadStr) {
+        try {
+          const payload = JSON.parse(savedPayloadStr);
+          (document.getElementById('nombres') as HTMLInputElement).value = payload.firstName || '';
+          (document.getElementById('apellido') as HTMLInputElement).value = payload.lastName || '';
+          (document.getElementById('email') as HTMLInputElement).value = payload.email || '';
+          (document.getElementById('email-confirm') as HTMLInputElement).value = payload.email || '';
+          (document.getElementById('password') as HTMLInputElement).value = payload.password || '';
+          (document.getElementById('password-confirm') as HTMLInputElement).value = payload.password || '';
+          
+          if (payload.birthDate) {
+            // @ts-ignore
+            const fp = document.getElementById('nacimiento')._flatpickr;
+            if (fp) fp.setDate(new Date(payload.birthDate));
+          }
+          
+          (document.getElementById('telefono') as HTMLInputElement).value = payload.phone || '';
+          (document.getElementById('documentTypeId') as HTMLSelectElement).value = payload.documentTypeId || '';
+          (document.getElementById('documentNumber') as HTMLInputElement).value = payload.documentNumber || '';
+          (document.getElementById('departmentId') as HTMLSelectElement).value = payload.departmentId || '';
+          (document.getElementById('provinceId') as HTMLSelectElement).value = payload.provinceId || '';
+          (document.getElementById('districtId') as HTMLSelectElement).value = payload.districtId || '';
+          (document.getElementById('address') as HTMLInputElement).value = payload.address || '';
+          
+          (document.getElementById('nombres-conf') as HTMLInputElement).value = payload.firstName || '';
+          (document.getElementById('apellido-conf') as HTMLInputElement).value = payload.lastName || '';
+
+          const docSelect = document.getElementById('documentTypeId') as HTMLSelectElement;
+          const docTypeName = docSelect.options[docSelect.selectedIndex]?.text || 'DNI';
+          document.querySelectorAll('.doc-type-label').forEach(el => {
+            el.textContent = docTypeName;
+          });
+
+          document.getElementById('password')?.dispatchEvent(new Event('input'));
+        } catch (e) {
+          console.error('Error al restaurar datos', e);
+        }
+      }
+
+      step1.style.display = 'none';
+      step2.style.display = 'none';
+      step3.style.display = 'contents';
+      
+      if(stepCircles.length > 2 && stepLabels.length > 2) {
+        stepCircles[1].classList.remove('inactive'); stepCircles[1].classList.add('active');
+        stepLabels[1].classList.remove('inactive'); stepLabels[1].classList.add('active');
+        stepCircles[2].classList.remove('inactive'); stepCircles[2].classList.add('active');
+        stepLabels[2].classList.remove('inactive'); stepLabels[2].classList.add('active');
+      }
+
+      const headerTitle = document.querySelector('.register-card-header h2') as HTMLElement;
+      if (headerTitle) {
+        headerTitle.textContent = 'Validación de documento de identidad';
+        headerTitle.style.textAlign = 'center';
+        headerTitle.style.width = '100%';
+      }
+      const loginRedirect = document.querySelector('.login-redirect') as HTMLElement;
+      if (loginRedirect) loginRedirect.style.display = 'none';
     }
 
     registerForm.addEventListener('submit', (e) => {
