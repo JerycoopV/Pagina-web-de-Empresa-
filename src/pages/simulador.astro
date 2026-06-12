@@ -57,9 +57,11 @@ import '../styles/simulador.css';
       </div>
 
     </div>
+    
+    <!-- Línea decorativa al final -->
+    <div class="simulador-divider"></div>
   </section>
 </Layout>
-
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const montoInput = document.getElementById('monto-input') as HTMLInputElement;
@@ -87,6 +89,18 @@ import '../styles/simulador.css';
     };
 
     montoInput.addEventListener('input', calcularRetiro);
+
+    // Mostrar alerta con el monto completo al hacer clic en el número truncado
+    montoResult.addEventListener('click', () => {
+      let monto = parseFloat(montoInput.value);
+      if (!isNaN(monto) && monto > 0) {
+        const fullAmount = monto.toLocaleString('en-US', {
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 2
+        });
+        alert(`Monto total a recibir:\nS/ ${fullAmount}`);
+      }
+    });
 
     btnSolicitar.addEventListener('click', () => {
       // Redirigir al registro si no está logueado, o al dashboard si está logueado
