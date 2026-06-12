@@ -74,7 +74,7 @@
   width: 100%;
   height: auto;
   object-fit: contain;
-  filter: drop-shadow(0 20px 50px rgba(124, 58, 237, 0.15));
+  mix-blend-mode: screen;
   animation: floatCard 6s ease-in-out infinite;
 }
 
@@ -156,7 +156,7 @@
 }
 
 .register-card-header h2 {
-  font-size: 32px;
+  font-size: 24px;
   font-weight: 700;
   color: #ffffff;
   letter-spacing: -0.5px;
@@ -167,11 +167,11 @@
   font-size: 13.5px;
   font-weight: 500;
   display: flex;
-  gap: 8px;
+  gap: 24px;
 }
 
 .redirect-text {
-  color: rgba(255, 255, 255, 0.55);
+  color: #ffffff;
 }
 
 .redirect-link {
@@ -205,31 +205,32 @@
 }
 
 .step-circle {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 700;
   transition: all 0.3s ease;
 }
 
 .step-circle.active {
-  background: #7c3aed;
+  background: transparent;
+  border: 3px solid #7c3aed;
   color: #ffffff;
-  box-shadow: 0 0 12px rgba(124, 58, 237, 0.4);
+  box-shadow: 0 0 20px rgba(124, 58, 237, 0.8), inset 0 0 10px rgba(124, 58, 237, 0.4);
 }
 
 .step-circle.inactive {
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  background: rgba(255, 255, 255, 0.02);
-  color: rgba(255, 255, 255, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: transparent;
+  color: #ffffff;
 }
 
 .step-label {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
 }
 
@@ -238,7 +239,7 @@
 }
 
 .step-label.inactive {
-  color: rgba(255, 255, 255, 0.45);
+  color: #ffffff;
 }
 
 .step-divider {

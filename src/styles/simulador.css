@@ -20,15 +20,17 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
+  padding-top: 20px;
 }
 
 .simulador-title {
-  font-size: 4.5rem;
+  font-size: 4.2rem;
   font-weight: 800;
   color: #fff;
   line-height: 1.1;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  white-space: nowrap;
 }
 
 .text-gradient {
@@ -47,26 +49,25 @@
 
 .simulador-image {
   max-width: 100%;
-  border-radius: 20px;
-  /* Efecto de sombra para que resalte como en la captura */
-  box-shadow: 0 10px 40px rgba(138, 43, 226, 0.15);
+  mix-blend-mode: screen;
+  margin-top: 20px;
 }
 
 .simulador-card-wrapper {
-  flex: 1;
+  flex: 1.2;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-end;
+  align-items: flex-start;
 }
 
 .simulador-card {
-  background: rgba(15, 10, 30, 0.8);
-  border: 1px solid rgba(138, 43, 226, 0.3);
+  background: #05010d;
+  border: 1px solid rgba(138, 43, 226, 0.5);
   border-radius: 20px;
   padding: 40px;
   width: 100%;
-  max-width: 450px;
-  box-shadow: 0 0 30px rgba(138, 43, 226, 0.1);
+  max-width: 500px;
+  box-shadow: 0 0 20px rgba(138, 43, 226, 0.1);
   backdrop-filter: blur(10px);
 }
 
@@ -115,14 +116,13 @@
 }
 
 .result-box {
-  background: linear-gradient(145deg, rgba(30, 20, 60, 0.9) 0%, rgba(15, 10, 30, 0.95) 100%);
-  border: 1px solid rgba(138, 43, 226, 0.4);
+  background: linear-gradient(135deg, rgba(60, 20, 110, 0.4) 0%, rgba(15, 10, 30, 0.9) 100%);
+  border: 1px solid rgba(138, 43, 226, 0.1);
   border-radius: 16px;
   padding: 30px;
-  text-align: center;
+  text-align: left;
   margin-top: 30px;
   margin-bottom: 25px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
 .result-label {
@@ -137,15 +137,15 @@
   font-weight: 800;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 8px;
+  justify-content: flex-start;
+  gap: 12px;
   margin-bottom: 10px;
 }
 
 .result-amount span:first-child {
-  font-size: 3rem;
-  color: #aaa;
-  font-weight: 400;
+  font-size: 4rem;
+  color: #ffffff;
+  font-weight: 800;
 }
 
 .result-note {
@@ -174,7 +174,7 @@
 
 .footer-note {
   text-align: center;
-  color: #888;
+  color: #ffffff;
   font-size: 0.9rem;
   margin-top: 25px;
 }
