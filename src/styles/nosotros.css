@@ -72,6 +72,8 @@
   margin-bottom: 20px;
   width: 100%;
   font-weight: 300;
+  position: relative;
+  z-index: 10;
 }
 
 @media (min-width: 1024px) {
@@ -109,9 +111,10 @@
   max-width: 480px;
   height: auto;
   display: block;
-  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 30px rgba(124, 58, 237, 0.15));
+  -webkit-mask-image: radial-gradient(ellipse at center, black 65%, transparent 100%);
+  mask-image: radial-gradient(ellipse at center, black 65%, transparent 100%);
+  mix-blend-mode: lighten;
   transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  border-radius: 20px;
 }
 
 @media (min-width: 1024px) {
@@ -129,9 +132,7 @@
   }
 }
 
-.nosotros-image:hover {
-  transform: translateY(-8px) scale(1.02);
-}
+
 
 /* --- COLUMNA DERECHA (CAJA GLASSMORPHIC) --- */
 .nosotros-glass-card {

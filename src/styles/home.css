@@ -2,8 +2,10 @@
 
 /* Badge Rápido, Seguro y Confiable */
 .badge {
+  display: inline-block;
+  width: fit-content;
   background: #240d49;
-  color: #a78bfa;
+  color: #7c32f0;
   border: 1px solid rgba(124, 58, 237, 0.25);
   padding: 6px 16px;
   border-radius: 50px;
@@ -49,8 +51,8 @@
 }
 
 .arrow-icon {
-  width: 18px;
-  height: 18px;
+  width: 24px;
+  height: 24px;
   transition: transform 0.3s ease;
 }
 
@@ -81,15 +83,16 @@
 }
 
 .play-icon {
-  width: 14px;
-  height: 14px;
+  width: 24px;
+  height: 24px;
 }
 
 .btn-cta-outline {
   color: #ffffff;
   background: rgba(13, 8, 28, 0.4);
   border: none;
-  padding: 12.5px 54px; /* Adjusted to compensate for border removal */
+  padding: 12.5px 54px;
+  /* Adjusted to compensate for border removal */
   border-radius: 50px;
   font-size: 16px;
   font-weight: 600;
@@ -112,16 +115,15 @@
   right: 0;
   bottom: 0;
   border-radius: 50px;
-  padding: 1.5px; /* Grosor del borde */
-  background: linear-gradient(
-    135deg, 
-    rgba(124, 58, 237, 1) 0%, 
-    rgba(124, 58, 237, 0) 22%, 
-    rgba(124, 58, 237, 0) 78%, 
-    rgba(124, 58, 237, 1) 100%
-  );
-  -webkit-mask: 
-    linear-gradient(#fff 0 0) content-box, 
+  padding: 1.5px;
+  /* Grosor del borde */
+  background: linear-gradient(135deg,
+      rgba(124, 58, 237, 1) 0%,
+      rgba(124, 58, 237, 0) 22%,
+      rgba(124, 58, 237, 0) 78%,
+      rgba(124, 58, 237, 1) 100%);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
@@ -136,13 +138,11 @@
 }
 
 .btn-cta-outline:hover::before {
-  background: linear-gradient(
-    135deg, 
-    rgba(139, 92, 246, 1) 0%, 
-    rgba(139, 92, 246, 0) 30%, 
-    rgba(139, 92, 246, 0) 70%, 
-    rgba(139, 92, 246, 1) 100%
-  );
+  background: linear-gradient(135deg,
+      rgba(139, 92, 246, 1) 0%,
+      rgba(139, 92, 246, 0) 30%,
+      rgba(139, 92, 246, 0) 70%,
+      rgba(139, 92, 246, 1) 100%);
 }
 
 /* ============================================
@@ -152,7 +152,8 @@
 /* 1. Tarjeta Estilo Proceso (Borde e iluminación interactiva) */
 .process-card {
   background: rgba(13, 8, 28, 0.2);
-  border: none; /* Remove solid border */
+  border: none;
+  /* Remove solid border */
   border-radius: 28px;
   padding: 56px 32px 48px 32px;
   display: flex;
@@ -175,16 +176,15 @@
   right: 0;
   bottom: 0;
   border-radius: 28px;
-  padding: 1.5px; /* Border thickness */
-  background: linear-gradient(
-    135deg, 
-    rgba(124, 58, 237, 0.85) 0%, 
-    rgba(124, 58, 237, 0) 28%, 
-    rgba(124, 58, 237, 0) 72%, 
-    rgba(124, 58, 237, 0.85) 100%
-  );
-  -webkit-mask: 
-    linear-gradient(#fff 0 0) content-box, 
+  padding: 1.5px;
+  /* Border thickness */
+  background: linear-gradient(135deg,
+      rgba(124, 58, 237, 0.85) 0%,
+      rgba(124, 58, 237, 0) 28%,
+      rgba(124, 58, 237, 0) 72%,
+      rgba(124, 58, 237, 0.85) 100%);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
@@ -213,13 +213,11 @@
 }
 
 .process-card:hover::after {
-  background: linear-gradient(
-    135deg, 
-    rgba(168, 85, 247, 1) 0%, 
-    rgba(168, 85, 247, 0.15) 35%, 
-    rgba(168, 85, 247, 0.15) 65%, 
-    rgba(168, 85, 247, 1) 100%
-  );
+  background: linear-gradient(135deg,
+      rgba(168, 85, 247, 1) 0%,
+      rgba(168, 85, 247, 0.15) 35%,
+      rgba(168, 85, 247, 0.15) 65%,
+      rgba(168, 85, 247, 1) 100%);
 }
 
 .process-card:hover::before {
@@ -251,8 +249,8 @@
 }
 
 .avatar-box svg {
-  width: 44px;
-  height: 44px;
+  width: 60px;
+  height: 60px;
   filter: drop-shadow(0 2px 4px rgba(124, 58, 237, 0.15));
 }
 
@@ -266,7 +264,7 @@
 
 .process-card p {
   font-size: 13px;
-  color: rgba(255, 255, 255, 0.55);
+  color: #ffffff;
   line-height: 1.6;
   max-width: 240px;
 }
@@ -389,8 +387,8 @@
 
 /* 3. Píldoras y citas de testimonios de clientes */
 .client-pill {
-  background: #3b1475;
-  color: #c084fc;
+  background: #260f4d;
+  color: #8235fa;
   border: 1px solid rgba(124, 58, 237, 0.4);
   padding: 8px 24px;
   border-radius: 50px;
@@ -442,18 +440,44 @@
   width: 78px;
   height: 78px;
   border-radius: 18px;
-  border: 1.5px solid rgba(124, 58, 237, 0.25);
+  border: none;
   background: rgba(124, 58, 237, 0.03);
   margin-bottom: 24px;
   box-shadow: inset 0 2px 6px rgba(124, 58, 237, 0.1);
   transition: all 0.4s ease;
+  position: relative;
+}
+
+.clients-cards .avatar-box::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 18px;
+  padding: 1.5px;
+  background: linear-gradient(135deg,
+      rgba(124, 58, 237, 0.85) 0%,
+      rgba(124, 58, 237, 0) 28%,
+      rgba(124, 58, 237, 0) 72%,
+      rgba(124, 58, 237, 0.85) 100%);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 1;
 }
 
 .clients-cards .client-quote {
-  text-align: left;
+  text-align: justify;
   margin: 0;
   max-width: 100%;
   width: 100%;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.85);
 }
 
 /* ============================================
@@ -487,6 +511,8 @@
   border: none;
   padding: 0;
   box-shadow: none;
+  font-size: 14px;
+  color: #8235fb;
 }
 
 /* ============================================

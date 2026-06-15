@@ -20,7 +20,7 @@
 
 .hero-title {
   font-size: 64px;
-  font-weight: 800;
+  font-weight: 600;
   line-height: 1.1;
   letter-spacing: -2px;
   color: #ffffff;
@@ -29,6 +29,7 @@
 
 .hero-description {
   font-size: 20px;
+  font-weight: 300;
   color: #ffffff;
   line-height: 1.25;
   max-width: 540px;
@@ -52,8 +53,8 @@
 }
 
 .feature-icon {
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
   background: transparent;
   display: flex;
   align-items: center;
@@ -63,8 +64,8 @@
 }
 
 .feature-icon svg {
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
   stroke-width: 1.5;
 }
 
@@ -85,6 +86,11 @@
 .hero-actions {
   display: flex;
   gap: 16px;
+}
+
+.hero-actions .btn-hero-gradient,
+.hero-actions .btn-hero-outline {
+  padding: 11px 32px;
 }
 
 /* Composiciones Visuales del Héroe (Columna Derecha) */
@@ -456,7 +462,7 @@
   -webkit-backdrop-filter: blur(20px);
   border-radius: 16px;
   padding: 24px 32px;
-  margin: 60px 0 100px 0;
+  margin: 20px 0 40px 0;
   box-shadow: 0 15px 35px rgba(124, 58, 237, 0.05), inset 0 1px 1px rgba(255, 255, 255, 0.05);
   align-items: center;
 }
@@ -599,7 +605,7 @@
 
 .process-subtitle {
   font-size: 18px;
-  color: rgba(255, 255, 255, 0.6);
+  color: #ffffff;
   max-width: 600px;
   margin-bottom: 64px;
   line-height: 1.6;
@@ -610,8 +616,10 @@
 .process-cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
+  gap: 64px;
   width: 100%;
+  max-width: 1050px;
+  margin: 0 auto;
   position: relative;
   z-index: 2;
 }
@@ -872,7 +880,7 @@
 
 .cta-title {
   font-size: 48px;
-  font-weight: 800;
+  font-weight: 600;
   letter-spacing: -2px;
   line-height: 1.1;
   color: #ffffff;
