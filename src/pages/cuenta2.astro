@@ -126,7 +126,6 @@ import '../styles/cuenta.css';
                   <div class="form-input-wrapper">
                     <select id="provinceId" name="provinceId" class="form-input" required>
                       <option value="" disabled selected>Selecciona tu provincia</option>
-                      <option value="1501">Lima</option>
                     </select>
                   </div>
                 </div>
@@ -136,7 +135,6 @@ import '../styles/cuenta.css';
                   <div class="form-input-wrapper">
                     <select id="districtId" name="districtId" class="form-input" required>
                       <option value="" disabled selected>Selecciona tu distrito</option>
-                      <option value="150101">Lima (Cercado)</option>
                     </select>
                   </div>
                 </div>
@@ -179,13 +177,6 @@ import '../styles/cuenta.css';
     // Deshabilitar por defecto
     provinceSelect.disabled = true;
     districtSelect.disabled = true;
-
-    // Datos de distritos (Ejemplo para Lima y genéricos para el resto para no saturar el código)
-    // Puedes ir agregando tus arreglos de distritos usando el ID de la provincia generada.
-    const districtsData: Record<string, string[]> = {
-      // Lima Metropolitana (Provincia ID: 1508 - asumiendo que Lima es el índice 7 en el arreglo de la prov. de Lima)
-      // Ajustaremos la lógica abajo para usar el nombre de la provincia en vez del ID para simplificar el mapeo inicial
-    };
 
     departmentSelect.addEventListener('change', (e) => {
       const deptId = (e.target as HTMLSelectElement).value;

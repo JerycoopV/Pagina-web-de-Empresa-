@@ -77,6 +77,9 @@ export const provincesData = {
     "San Pablo",
     "Santa Cruz"
   ],
+  "7": [
+    "Callao"
+  ],
   "8": [
     "Acomayo",
     "Anta",
@@ -244,6 +247,15 @@ export const provincesData = {
 };
 
 export const districtsData = {
+  "Callao": [
+    "Bellavista",
+    "Callao",
+    "Carmen de la Legua Reynoso",
+    "La Perla",
+    "La Punta",
+    "Mi Peru",
+    "Ventanilla"
+  ],
   "Chachapoyas": [
     "Asuncion",
     "Balsas",
