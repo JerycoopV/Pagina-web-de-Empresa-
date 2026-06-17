@@ -1,0 +1,300 @@
+---
+import Layout from '../layouts/Layout.astro';
+import '../styles/cuenta.css';
+---
+
+<Layout title="Validación | Capital Fest">
+  <section class="register-section">
+    <div class="register-container">
+      <div class="register-grid">
+        
+        <div class="register-info-side">
+          <h1 class="register-title animate-on-load">
+            Tu dinero,<br />
+            cuando más lo<br />
+            <span class="text-gradient">necesites.</span>
+          </h1>
+          <p class="register-description animate-on-load delay-1">
+            Convierte el saldo de tu tarjeta de crédito en efectivo al instante, de forma segura y sin vueltas.
+          </p>
+          <div class="register-visual animate-on-load delay-2">
+            <img src="/assets/TARJETA-INICIO-SESION.webp" alt="Tarjeta Capital Fest Crear Cuenta" class="register-visual-img" />
+          </div>
+        </div>
+
+        <div class="register-form-side">
+          <div class="register-card animate-on-load delay-3">
+            
+            <div class="register-card-header">
+              <h2>Crear cuenta</h2>
+              <div class="login-redirect">
+                <span class="redirect-text">¿Ya tienes cuenta?</span>
+                <a href="/login" class="redirect-link" id="register-login-link">Iniciar Sesión</a>
+              </div>
+            </div>
+
+            <!-- Stepper de 3 Pasos -->
+            <div class="register-stepper">
+              <div class="step-item">
+                <div class="step-circle active">01</div>
+                <span class="step-label active">Información</span>
+              </div>
+              <div class="step-divider"></div>
+              <div class="step-item">
+                <div class="step-circle active">02</div>
+                <span class="step-label active">Validación</span>
+              </div>
+              <div class="step-divider"></div>
+              <div class="step-item">
+                <div class="step-circle inactive">03</div>
+                <span class="step-label inactive">Confirmación</span>
+              </div>
+            </div>
+
+            <form id="registerForm" class="register-form-grid">
+              <!-- PASO 2: VALIDACIÓN -->
+              <div id="step-2" class="form-step active" style="display: contents;">
+                <div class="form-group">
+                  <label for="nombres-conf" class="form-label">Nombres</label>
+                  <div class="form-input-wrapper">
+                    <input type="text" id="nombres-conf" class="form-input" placeholder="Ingresa tus nombres" required readonly style="background-color: rgba(255, 255, 255, 0.1); cursor: not-allowed;" />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="apellido-conf" class="form-label">Apellido</label>
+                  <div class="form-input-wrapper">
+                    <input type="text" id="apellido-conf" class="form-input" placeholder="Ingresa tus apellidos" required readonly style="background-color: rgba(255, 255, 255, 0.1); cursor: not-allowed;" />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="documentTypeId" class="form-label">Tipo de Documento</label>
+                  <div class="form-input-wrapper">
+                    <select id="documentTypeId" name="documentTypeId" class="form-input" required>
+                      <option value="" disabled selected>Selecciona tu documento</option>
+                      <option value="1">DNI</option>
+                      <option value="2">CE</option>
+                      <option value="3">Pasaporte</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="documentNumber" class="form-label">Nmro de documento</label>
+                  <div class="form-input-wrapper">
+                    <input type="text" id="documentNumber" name="documentNumber" class="form-input" placeholder="Ingresa tu documento" required />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="departmentId" class="form-label">Departamento</label>
+                  <div class="form-input-wrapper">
+                    <select id="departmentId" name="departmentId" class="form-input" required>
+                      <option value="" disabled selected>Selecciona tu departamento</option>
+                      <option value="1">Amazonas</option>
+                      <option value="2">Áncash</option>
+                      <option value="3">Apurímac</option>
+                      <option value="4">Arequipa</option>
+                      <option value="5">Ayacucho</option>
+                      <option value="6">Cajamarca</option>
+                      <option value="7">Callao</option>
+                      <option value="8">Cusco</option>
+                      <option value="9">Huancavelica</option>
+                      <option value="10">Huánuco</option>
+                      <option value="11">Ica</option>
+                      <option value="12">Junín</option>
+                      <option value="13">La Libertad</option>
+                      <option value="14">Lambayeque</option>
+                      <option value="15">Lima</option>
+                      <option value="16">Loreto</option>
+                      <option value="17">Madre de Dios</option>
+                      <option value="18">Moquegua</option>
+                      <option value="19">Pasco</option>
+                      <option value="20">Piura</option>
+                      <option value="21">Puno</option>
+                      <option value="22">San Martín</option>
+                      <option value="23">Tacna</option>
+                      <option value="24">Tumbes</option>
+                      <option value="25">Ucayali</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="provinceId" class="form-label">Provincia</label>
+                  <div class="form-input-wrapper">
+                    <select id="provinceId" name="provinceId" class="form-input" required>
+                      <option value="" disabled selected>Selecciona tu provincia</option>
+                      <option value="1501">Lima</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="districtId" class="form-label">Distrito</label>
+                  <div class="form-input-wrapper">
+                    <select id="districtId" name="districtId" class="form-input" required>
+                      <option value="" disabled selected>Selecciona tu distrito</option>
+                      <option value="150101">Lima (Cercado)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="address" class="form-label">Dirección</label>
+                  <div class="form-input-wrapper">
+                    <input type="text" id="address" name="address" class="form-input" placeholder="Inrese su dirección" required />
+                  </div>
+                </div>
+
+                <div class="btn-submit-container" style="grid-column: 1 / -1; margin-top: 10px; display: flex; gap: 15px;">
+                  <a href="/cuenta" class="btn-submit" style="flex: 0.4; background: transparent; border: 1px solid rgba(255,255,255,0.3); box-shadow: none; text-align: center; text-decoration: none; display: flex; align-items: center; justify-content: center;">
+                    Volver
+                  </a>
+                  <button type="submit" class="btn-submit" id="btn-next-step-2" style="flex: 1;">
+                    Confirmar Datos
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="register-divider"></div>
+  </section>
+</Layout>
+
+<script>
+  import { provincesData, districtsData } from '../utils/ubigeo2.js';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const registerForm = document.getElementById('registerForm') as HTMLFormElement;
+
+    const departmentSelect = document.getElementById('departmentId') as HTMLSelectElement;
+    const provinceSelect = document.getElementById('provinceId') as HTMLSelectElement;
+    const districtSelect = document.getElementById('districtId') as HTMLSelectElement;
+
+    // Deshabilitar por defecto
+    provinceSelect.disabled = true;
+    districtSelect.disabled = true;
+
+    // Datos de distritos (Ejemplo para Lima y genéricos para el resto para no saturar el código)
+    // Puedes ir agregando tus arreglos de distritos usando el ID de la provincia generada.
+    const districtsData: Record<string, string[]> = {
+      // Lima Metropolitana (Provincia ID: 1508 - asumiendo que Lima es el índice 7 en el arreglo de la prov. de Lima)
+      // Ajustaremos la lógica abajo para usar el nombre de la provincia en vez del ID para simplificar el mapeo inicial
+    };
+
+    departmentSelect.addEventListener('change', (e) => {
+      const deptId = (e.target as HTMLSelectElement).value;
+      
+      provinceSelect.innerHTML = '<option value="" disabled selected>Selecciona tu provincia</option>';
+      districtSelect.innerHTML = '<option value="" disabled selected>Selecciona tu distrito</option>';
+      
+      provinceSelect.disabled = false;
+      districtSelect.disabled = true;
+
+      if (deptId && provincesData[deptId]) {
+        provincesData[deptId].forEach((provName, index) => {
+          const option = document.createElement('option');
+          const provId = deptId + String(index + 1).padStart(2, '0');
+          option.value = provId;
+          // Guardamos el nombre en un atributo de datos para usarlo en el distrito
+          option.dataset.name = provName; 
+          option.textContent = provName;
+          provinceSelect.appendChild(option);
+        });
+      }
+    });
+
+    provinceSelect.addEventListener('change', (e) => {
+      const optionSelected = provinceSelect.options[provinceSelect.selectedIndex];
+      const provId = optionSelected.value;
+      const provName = (optionSelected.dataset.name || optionSelected.text).trim();
+      
+      districtSelect.innerHTML = '<option value="" disabled selected>Selecciona tu distrito</option>';
+      districtSelect.disabled = false;
+
+      // Lógica de llenado de distritos
+      // Utilizamos el JSON importado de ubigeo.js
+      let distritos = [];
+      console.log("provName selected:", provName);
+      console.log("districtsData for provName:", districtsData[provName as keyof typeof districtsData]);
+      if (provName && districtsData[provName as keyof typeof districtsData]) {
+        distritos = districtsData[provName as keyof typeof districtsData];
+      } else {
+        // Fallback genérico para que se vea funcional en provincias de las que no mapeamos sus distritos
+        distritos = ["Distrito 1 de " + provName, "Distrito 2 de " + provName, "Distrito 3 de " + provName];
+      }
+
+      distritos.forEach((distName, index) => {
+        const option = document.createElement('option');
+        // ID simple
+        option.value = provId + String(index + 1).padStart(2, '0');
+        option.textContent = distName;
+        districtSelect.appendChild(option);
+      });
+    });
+
+    const savedStep1Str = localStorage.getItem('capitalFest_step1');
+    if (savedStep1Str) {
+      try {
+        const step1Data = JSON.parse(savedStep1Str);
+        (document.getElementById('nombres-conf') as HTMLInputElement).value = step1Data.firstName || '';
+        (document.getElementById('apellido-conf') as HTMLInputElement).value = step1Data.lastName || '';
+      } catch (e) {
+        console.error('Error al parsear step 1:', e);
+      }
+    } else {
+      console.warn('No se encontraron datos del paso 1 en localStorage. Redirección deshabilitada temporalmente para desarrollo.');
+      // window.location.href = '/cuenta';
+    }
+
+    // Restore step 2 data if coming back from step 3
+    const savedStep2Str = localStorage.getItem('capitalFest_step2');
+    if (savedStep2Str) {
+      try {
+        const step2Data = JSON.parse(savedStep2Str);
+        (document.getElementById('documentTypeId') as HTMLSelectElement).value = step2Data.documentTypeId || '';
+        (document.getElementById('documentNumber') as HTMLInputElement).value = step2Data.documentNumber || '';
+        
+        departmentSelect.value = step2Data.departmentId || '';
+        if (departmentSelect.value) {
+          departmentSelect.dispatchEvent(new Event('change'));
+          provinceSelect.value = step2Data.provinceId || '';
+          
+          if (provinceSelect.value) {
+            provinceSelect.dispatchEvent(new Event('change'));
+            districtSelect.value = step2Data.districtId || '';
+          }
+        }
+        
+        (document.getElementById('address') as HTMLInputElement).value = step2Data.address || '';
+      } catch(e) {}
+    }
+
+    registerForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(registerForm);
+      const step2Data = {
+        documentTypeId: formData.get('documentTypeId'),
+        documentNumber: formData.get('documentNumber'),
+        departmentId: formData.get('departmentId'),
+        provinceId: formData.get('provinceId'),
+        districtId: formData.get('districtId'),
+        address: formData.get('address')
+      };
+
+      // Guardar nombre del documento seleccionado
+      const docSelect = document.getElementById('documentTypeId') as HTMLSelectElement;
+      const docTypeName = docSelect.options[docSelect.selectedIndex].text;
+      localStorage.setItem('capitalFest_docTypeName', docTypeName);
+
+      localStorage.setItem('capitalFest_step2', JSON.stringify(step2Data));
+      window.location.href = '/cuenta3';
+    });
+  });
+</script>

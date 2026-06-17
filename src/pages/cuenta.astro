@@ -24,17 +24,15 @@ import '../styles/cuenta.css';
             Convierte el saldo de tu tarjeta de crédito en efectivo al instante, de forma segura y sin vueltas.
           </p>
 
-          <!-- Composición Visual (Misma que Login, Tamaño Grande) -->
           <div class="register-visual animate-on-load delay-2">
             <img src="/assets/TARJETA-INICIO-SESION.webp" alt="Tarjeta Capital Fest Crear Cuenta" class="register-visual-img" />
           </div>
         </div>
 
-        <!-- Columna Derecha: Tarjeta de Registro con Formulario en Grid -->
+        <!-- Columna Derecha: Tarjeta de Registro con Formulario -->
         <div class="register-form-side">
           <div class="register-card animate-on-load delay-3">
             
-            <!-- Encabezado de la Tarjeta (Título + Enlace Iniciar Sesión) -->
             <div class="register-card-header">
               <h2>Crear cuenta</h2>
               <div class="login-redirect">
@@ -45,35 +43,25 @@ import '../styles/cuenta.css';
 
             <!-- Stepper de 3 Pasos -->
             <div class="register-stepper">
-              <!-- Paso 01: Información (Activo) -->
               <div class="step-item">
                 <div class="step-circle active">01</div>
                 <span class="step-label active">Información</span>
               </div>
-              
               <div class="step-divider"></div>
-              
-              <!-- Paso 02: Validación (Inactivo) -->
               <div class="step-item">
                 <div class="step-circle inactive">02</div>
                 <span class="step-label inactive">Validación</span>
               </div>
-              
               <div class="step-divider"></div>
-              
-              <!-- Paso 03: Confirmación (Inactivo) -->
               <div class="step-item">
                 <div class="step-circle inactive">03</div>
                 <span class="step-label inactive">Confirmación</span>
               </div>
             </div>
 
-            <!-- Formulario en Grid -->
             <form id="registerForm" class="register-form-grid">
-              
               <!-- PASO 1: INFORMACIÓN -->
               <div id="step-1" class="form-step active" style="display: contents;">
-                <!-- Nombres -->
                 <div class="form-group">
                   <label for="nombres" class="form-label">Nombres</label>
                   <div class="form-input-wrapper">
@@ -81,7 +69,6 @@ import '../styles/cuenta.css';
                   </div>
                 </div>
 
-                <!-- Apellido -->
                 <div class="form-group">
                   <label for="apellido" class="form-label">Apellido</label>
                   <div class="form-input-wrapper">
@@ -89,7 +76,6 @@ import '../styles/cuenta.css';
                   </div>
                 </div>
 
-                <!-- Fecha de Nacimiento -->
                 <div class="form-group">
                   <label for="nacimiento" class="form-label">Fecha de Nacimiento</label>
                   <div class="form-input-wrapper">
@@ -97,7 +83,6 @@ import '../styles/cuenta.css';
                   </div>
                 </div>
 
-                <!-- Teléfono -->
                 <div class="form-group">
                   <label for="telefono" class="form-label">Teléfono</label>
                   <div class="form-input-wrapper">
@@ -105,7 +90,6 @@ import '../styles/cuenta.css';
                   </div>
                 </div>
 
-                <!-- Correo electrónico -->
                 <div class="form-group">
                   <label for="email" class="form-label">Correo electrónico</label>
                   <div class="form-input-wrapper">
@@ -113,7 +97,6 @@ import '../styles/cuenta.css';
                   </div>
                 </div>
 
-                <!-- Confirmar correo electrónico -->
                 <div class="form-group">
                   <label for="email-confirm" class="form-label">Confirmar correo electrónico</label>
                   <div class="form-input-wrapper">
@@ -121,7 +104,6 @@ import '../styles/cuenta.css';
                   </div>
                 </div>
 
-                <!-- Contraseña -->
                 <div class="form-group">
                   <label for="password" class="form-label">Contraseña</label>
                   <div class="form-input-wrapper">
@@ -129,7 +111,6 @@ import '../styles/cuenta.css';
                   </div>
                 </div>
 
-                <!-- Confirmar contraseña -->
                 <div class="form-group">
                   <label for="password-confirm" class="form-label">Confirmar contraseña</label>
                   <div class="form-input-wrapper">
@@ -137,7 +118,6 @@ import '../styles/cuenta.css';
                   </div>
                 </div>
 
-                <!-- Barra de seguridad de la contraseña -->
                 <div class="password-strength-container" style="grid-column: 1 / -1;">
                   <span class="strength-label">Seguridad de contraseña</span>
                   <div class="strength-bars">
@@ -149,152 +129,17 @@ import '../styles/cuenta.css';
                   </div>
                 </div>
 
-                <!-- Botón Siguiente -->
                 <div class="btn-submit-container" style="grid-column: 1 / -1;">
-                  <button type="button" class="btn-submit" id="btn-next-step">
+                  <button type="submit" class="btn-submit" id="btn-next-step">
                     Siguiente
                   </button>
                 </div>
               </div>
-
-              <!-- PASO 2: VALIDACIÓN -->
-              <div id="step-2" class="form-step hidden" style="display: none;">
-                <!-- Nombres (Confirmación) -->
-                <div class="form-group">
-                  <label for="nombres-conf" class="form-label">Nombres</label>
-                  <div class="form-input-wrapper">
-                    <input type="text" id="nombres-conf" class="form-input" placeholder="Ingresa tus nombres" required readonly style="background-color: rgba(255, 255, 255, 0.1); cursor: not-allowed;" />
-                  </div>
-                </div>
-
-                <!-- Apellido (Confirmación) -->
-                <div class="form-group">
-                  <label for="apellido-conf" class="form-label">Apellido</label>
-                  <div class="form-input-wrapper">
-                    <input type="text" id="apellido-conf" class="form-input" placeholder="Ingresa tus apellidos" required readonly style="background-color: rgba(255, 255, 255, 0.1); cursor: not-allowed;" />
-                  </div>
-                </div>
-
-                <!-- Tipo de Documento -->
-                <div class="form-group">
-                  <label for="documentTypeId" class="form-label">Tipo de Documento</label>
-                  <div class="form-input-wrapper">
-                    <select id="documentTypeId" name="documentTypeId" class="form-input" required>
-                      <option value="" disabled selected>Selecciona tu documento</option>
-                      <option value="1">DNI</option>
-                      <option value="2">CE</option>
-                      <option value="3">Pasaporte</option>
-                    </select>
-                  </div>
-                </div>
-
-                <!-- Nmro de documento -->
-                <div class="form-group">
-                  <label for="documentNumber" class="form-label">Nmro de documento</label>
-                  <div class="form-input-wrapper">
-                    <input type="text" id="documentNumber" name="documentNumber" class="form-input" placeholder="Ingresa tu documento" required />
-                  </div>
-                </div>
-
-                <!-- Departamento -->
-                <div class="form-group">
-                  <label for="departmentId" class="form-label">Departamento</label>
-                  <div class="form-input-wrapper">
-                    <select id="departmentId" name="departmentId" class="form-input" required>
-                      <option value="" disabled selected>Selecciona tu departamento</option>
-                      <option value="15">Lima</option>
-                      <option value="4">Arequipa</option>
-                    </select>
-                  </div>
-                </div>
-
-                <!-- Provincia -->
-                <div class="form-group">
-                  <label for="provinceId" class="form-label">Provincia</label>
-                  <div class="form-input-wrapper">
-                    <select id="provinceId" name="provinceId" class="form-input" required>
-                      <option value="" disabled selected>Selecciona tu provincia</option>
-                      <option value="1501">Lima</option>
-                    </select>
-                  </div>
-                </div>
-
-                <!-- Distrito -->
-                <div class="form-group">
-                  <label for="districtId" class="form-label">Distrito</label>
-                  <div class="form-input-wrapper">
-                    <select id="districtId" name="districtId" class="form-input" required>
-                      <option value="" disabled selected>Selecciona tu distrito</option>
-                      <option value="150101">Lima (Cercado)</option>
-                    </select>
-                  </div>
-                </div>
-
-                <!-- Dirección -->
-                <div class="form-group">
-                  <label for="address" class="form-label">Dirección</label>
-                  <div class="form-input-wrapper">
-                    <input type="text" id="address" name="address" class="form-input" placeholder="Inrese su dirección" required />
-                  </div>
-                </div>
-
-                <!-- Botones Paso 2 -->
-                <div class="btn-submit-container" style="grid-column: 1 / -1; margin-top: 10px; display: flex; gap: 15px;">
-                  <button type="button" class="btn-submit" id="btn-back-step-1" style="flex: 0.4; background: transparent; border: 1px solid rgba(255,255,255,0.3); box-shadow: none;">
-                    Volver
-                  </button>
-                  <button type="button" class="btn-submit" id="btn-next-step-2" style="flex: 1;">
-                    Confirmar Datos
-                  </button>
-                </div>
-              </div>
-
-              <!-- PASO 3: FOTOS DE DOCUMENTO -->
-              <div id="step-3" class="form-step hidden" style="display: none; grid-column: 1 / -1;">
-                
-                <div class="form-group" style="grid-column: 1 / -1; margin-bottom: 16px; margin-top: -10px;">
-                  <label class="form-label text-center-label">Adjuntar foto frontal del <span class="doc-type-label">DNI</span></label>
-                  <label class="file-upload-box">
-                    +
-                    <input type="file" id="documentFront" name="documentFront" accept="image/*" style="display: none;" />
-                  </label>
-                </div>
-
-                <div class="form-group" style="grid-column: 1 / -1; margin-bottom: 16px;">
-                  <label class="form-label text-center-label">Adjuntar foto trasera del <span class="doc-type-label">DNI</span></label>
-                  <label class="file-upload-box">
-                    +
-                    <input type="file" id="documentBack" name="documentBack" accept="image/*" style="display: none;" />
-                  </label>
-                </div>
-
-                <div class="form-group" style="grid-column: 1 / -1; margin-bottom: 20px;">
-                  <label class="form-label text-center-label">Adjuntar foto de perfil con el <span class="doc-type-label">DNI</span></label>
-                  <label class="file-upload-box">
-                    +
-                    <input type="file" id="selfie" name="selfie" accept="image/*" style="display: none;" />
-                  </label>
-                </div>
-
-                <!-- Botones Paso 3 (Submit Final) -->
-                <div class="btn-submit-container" style="grid-column: 1 / -1; display: flex; gap: 15px;">
-                  <button type="button" class="btn-submit" id="btn-back-step-2" style="flex: 0.4; background: transparent; border: 1px solid rgba(255,255,255,0.3); box-shadow: none;">
-                    Volver
-                  </button>
-                  <button type="submit" class="btn-submit" id="register-btn-submit" style="flex: 1;">
-                    Siguiente
-                  </button>
-                </div>
-              </div>
-
             </form>
-
           </div>
         </div>
       </div>
     </div>
-    
-    <!-- Línea divisoria en la parte inferior para cerrar la sección -->
     <div class="register-divider"></div>
   </section>
 </Layout>
@@ -302,30 +147,19 @@ import '../styles/cuenta.css';
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const registerForm = document.getElementById('registerForm') as HTMLFormElement;
-    const btnNextStep = document.getElementById('btn-next-step') as HTMLButtonElement;
-    const btnNextStep2 = document.getElementById('btn-next-step-2') as HTMLButtonElement;
-    const btnSubmit = document.getElementById('register-btn-submit') as HTMLButtonElement;
     
-    const step1 = document.getElementById('step-1') as HTMLDivElement;
-    const step2 = document.getElementById('step-2') as HTMLDivElement;
-    const step3 = document.getElementById('step-3') as HTMLDivElement;
-    
-    // Elementos de la contraseña
+    // Contraseña
     const passwordInput = document.getElementById('password') as HTMLInputElement;
     const strengthBars = document.querySelectorAll('.strength-bar');
 
-    // Lógica para medir la fuerza de la contraseña
     passwordInput.addEventListener('input', (e) => {
       const pwd = (e.target as HTMLInputElement).value;
       let strength = 0;
-      
       if (pwd.length === 0) {
         strengthBars.forEach(bar => bar.classList.remove('active'));
         return;
       }
-
       const length = pwd.length;
-      // Detectar si tiene símbolos (cualquier carácter que no sea letra o número) y si tiene números
       const hasSymbol = /[^a-zA-Z0-9]/.test(pwd);
       const hasNumber = /[0-9]/.test(pwd);
 
@@ -352,7 +186,6 @@ import '../styles/cuenta.css';
       });
     });
     
-    // Inicializar el calendario Flatpickr para la fecha de nacimiento
     // @ts-ignore
     flatpickr("#nacimiento", {
       locale: "es",
@@ -360,29 +193,37 @@ import '../styles/cuenta.css';
       altInput: true,
       altFormat: "d/m/Y",
       maxDate: "today",
-      disableMobile: "true" // Fuerza a usar este calendario en moviles también en lugar del nativo
+      disableMobile: "true"
     });
     
-    // Elementos visuales del Stepper
-    const stepCircles = document.querySelectorAll('.step-circle');
-    const stepLabels = document.querySelectorAll('.step-label');
+    // Restaurar datos si volvemos
+    const savedStep1Str = localStorage.getItem('capitalFest_step1');
+    if (savedStep1Str) {
+      try {
+        const step1Data = JSON.parse(savedStep1Str);
+        (document.getElementById('nombres') as HTMLInputElement).value = step1Data.firstName || '';
+        (document.getElementById('apellido') as HTMLInputElement).value = step1Data.lastName || '';
+        (document.getElementById('email') as HTMLInputElement).value = step1Data.email || '';
+        (document.getElementById('email-confirm') as HTMLInputElement).value = step1Data.email || '';
+        (document.getElementById('password') as HTMLInputElement).value = step1Data.password || '';
+        (document.getElementById('password-confirm') as HTMLInputElement).value = step1Data.password || '';
+        (document.getElementById('telefono') as HTMLInputElement).value = step1Data.phone || '';
+        if (step1Data.birthDate) {
+          // @ts-ignore
+          const fp = document.getElementById('nacimiento')._flatpickr;
+          if (fp) fp.setDate(new Date(step1Data.birthDate));
+        }
+        document.getElementById('password')?.dispatchEvent(new Event('input'));
+      } catch(e) {}
+    }
 
-    btnNextStep.addEventListener('click', () => {
-      // Basic validation for Step 1
+    registerForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
       const email = (document.getElementById('email') as HTMLInputElement).value;
       const emailConfirm = (document.getElementById('email-confirm') as HTMLInputElement).value;
       const password = (document.getElementById('password') as HTMLInputElement).value;
       const passwordConfirm = (document.getElementById('password-confirm') as HTMLInputElement).value;
-
-      // Validate only visible inputs in Step 1 to avoid "not focusable" errors on hidden Step 2 inputs
-      const step1Inputs = step1.querySelectorAll('input[required]');
-      for (const input of Array.from(step1Inputs)) {
-        const inputElement = input as HTMLInputElement;
-        if (!inputElement.checkValidity()) {
-          inputElement.reportValidity();
-          return;
-        }
-      }
 
       if (email !== emailConfirm) {
         alert('Los correos electrónicos no coinciden.');
@@ -394,216 +235,18 @@ import '../styles/cuenta.css';
         return;
       }
 
-      // Autofill step 2 name fields
-      const firstNameInput = document.getElementById('nombres') as HTMLInputElement;
-      const lastNameInput = document.getElementById('apellido') as HTMLInputElement;
-      (document.getElementById('nombres-conf') as HTMLInputElement).value = firstNameInput.value;
-      (document.getElementById('apellido-conf') as HTMLInputElement).value = lastNameInput.value;
-
-      // Hide Step 1, Show Step 2
-      step1.style.display = 'none';
-      step2.style.display = 'contents'; // using contents to maintain grid layout
-
-      // Update Visual Stepper
-      if(stepCircles.length > 1 && stepLabels.length > 1) {
-        stepCircles[1].classList.remove('inactive');
-        stepCircles[1].classList.add('active');
-        stepLabels[1].classList.remove('inactive');
-        stepLabels[1].classList.add('active');
-      }
-    });
-
-    btnNextStep2.addEventListener('click', () => {
-      // Validate only visible inputs in Step 2 to avoid "not focusable" errors on hidden Step 3 inputs
-      const step2Inputs = step2.querySelectorAll('input[required], select[required]');
-      for (const input of Array.from(step2Inputs)) {
-        const inputElement = input as HTMLInputElement | HTMLSelectElement;
-        if (!inputElement.checkValidity()) {
-          inputElement.reportValidity();
-          return;
-        }
-      }
-
-      const firstName = (document.getElementById('nombres') as HTMLInputElement).value;
-      const lastName = (document.getElementById('apellido') as HTMLInputElement).value;
-      const firstNameConf = (document.getElementById('nombres-conf') as HTMLInputElement).value;
-      const lastNameConf = (document.getElementById('apellido-conf') as HTMLInputElement).value;
-
-      // Update document type labels in Step 3 dynamically
-      const docSelect = document.getElementById('documentTypeId') as HTMLSelectElement;
-      const docTypeName = docSelect.options[docSelect.selectedIndex].text;
-      document.querySelectorAll('.doc-type-label').forEach(el => {
-        el.textContent = docTypeName;
-      });
-
-      // Hide Step 2, Show Step 3
-      step2.style.display = 'none';
-      step3.style.display = 'contents';
-
-      // Update Visual Stepper
-      if(stepCircles.length > 2 && stepLabels.length > 2) {
-        stepCircles[2].classList.remove('inactive');
-        stepCircles[2].classList.add('active');
-        stepLabels[2].classList.remove('inactive');
-        stepLabels[2].classList.add('active');
-      }
-
-      // Update Header Title for Step 3
-      const headerTitle = document.querySelector('.register-card-header h2') as HTMLElement;
-      if (headerTitle) {
-        headerTitle.textContent = 'Validación de documento de identidad';
-        headerTitle.style.textAlign = 'center';
-        headerTitle.style.width = '100%';
-      }
-      const loginRedirect = document.querySelector('.login-redirect') as HTMLElement;
-      if (loginRedirect) loginRedirect.style.display = 'none';
-    });
-
-    // Fix file UI change
-    document.querySelectorAll('input[type="file"]').forEach(input => {
-      input.addEventListener('change', function(this: HTMLInputElement) {
-        if (this.files && this.files.length > 0) {
-          const parent = this.parentElement;
-          if (parent) {
-            parent.style.background = 'rgba(138, 43, 226, 0.4)';
-            // Delete the text node "+"
-            Array.from(parent.childNodes).forEach(node => {
-              if (node.nodeType === Node.TEXT_NODE) node.textContent = '✓ ';
-            });
-          }
-        }
-      });
-    });
-
-    // Back buttons logic
-    const btnBackStep1 = document.getElementById('btn-back-step-1') as HTMLButtonElement;
-    const btnBackStep2 = document.getElementById('btn-back-step-2') as HTMLButtonElement;
-
-    if (btnBackStep1) {
-      btnBackStep1.addEventListener('click', () => {
-        step2.style.display = 'none';
-        step1.style.display = 'contents';
-        if(stepCircles.length > 1 && stepLabels.length > 1) {
-          stepCircles[1].classList.remove('active');
-          stepCircles[1].classList.add('inactive');
-          stepLabels[1].classList.remove('active');
-          stepLabels[1].classList.add('inactive');
-        }
-      });
-    }
-
-    if (btnBackStep2) {
-      btnBackStep2.addEventListener('click', () => {
-        step3.style.display = 'none';
-        step2.style.display = 'contents';
-        if(stepCircles.length > 2 && stepLabels.length > 2) {
-          stepCircles[2].classList.remove('active');
-          stepCircles[2].classList.add('inactive');
-          stepLabels[2].classList.remove('active');
-          stepLabels[2].classList.add('inactive');
-        }
-
-        // Revert Header Title
-        const headerTitle = document.querySelector('.register-card-header h2') as HTMLElement;
-        if (headerTitle) {
-          headerTitle.textContent = 'Crear cuenta';
-          headerTitle.style.textAlign = '';
-          headerTitle.style.width = '';
-        }
-        const loginRedirect = document.querySelector('.login-redirect') as HTMLElement;
-        if (loginRedirect) loginRedirect.style.display = 'flex';
-      });
-    }
-
-    // Lógica para regresar a Paso 3 sin perder datos
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('return') === 'true') {
-      const savedPayloadStr = localStorage.getItem('capitalFest_registerPayload');
-      if (savedPayloadStr) {
-        try {
-          const payload = JSON.parse(savedPayloadStr);
-          (document.getElementById('nombres') as HTMLInputElement).value = payload.firstName || '';
-          (document.getElementById('apellido') as HTMLInputElement).value = payload.lastName || '';
-          (document.getElementById('email') as HTMLInputElement).value = payload.email || '';
-          (document.getElementById('email-confirm') as HTMLInputElement).value = payload.email || '';
-          (document.getElementById('password') as HTMLInputElement).value = payload.password || '';
-          (document.getElementById('password-confirm') as HTMLInputElement).value = payload.password || '';
-          
-          if (payload.birthDate) {
-            // @ts-ignore
-            const fp = document.getElementById('nacimiento')._flatpickr;
-            if (fp) fp.setDate(new Date(payload.birthDate));
-          }
-          
-          (document.getElementById('telefono') as HTMLInputElement).value = payload.phone || '';
-          (document.getElementById('documentTypeId') as HTMLSelectElement).value = payload.documentTypeId || '';
-          (document.getElementById('documentNumber') as HTMLInputElement).value = payload.documentNumber || '';
-          (document.getElementById('departmentId') as HTMLSelectElement).value = payload.departmentId || '';
-          (document.getElementById('provinceId') as HTMLSelectElement).value = payload.provinceId || '';
-          (document.getElementById('districtId') as HTMLSelectElement).value = payload.districtId || '';
-          (document.getElementById('address') as HTMLInputElement).value = payload.address || '';
-          
-          (document.getElementById('nombres-conf') as HTMLInputElement).value = payload.firstName || '';
-          (document.getElementById('apellido-conf') as HTMLInputElement).value = payload.lastName || '';
-
-          const docSelect = document.getElementById('documentTypeId') as HTMLSelectElement;
-          const docTypeName = docSelect.options[docSelect.selectedIndex]?.text || 'DNI';
-          document.querySelectorAll('.doc-type-label').forEach(el => {
-            el.textContent = docTypeName;
-          });
-
-          document.getElementById('password')?.dispatchEvent(new Event('input'));
-        } catch (e) {
-          console.error('Error al restaurar datos', e);
-        }
-      }
-
-      step1.style.display = 'none';
-      step2.style.display = 'none';
-      step3.style.display = 'contents';
-      
-      if(stepCircles.length > 2 && stepLabels.length > 2) {
-        stepCircles[1].classList.remove('inactive'); stepCircles[1].classList.add('active');
-        stepLabels[1].classList.remove('inactive'); stepLabels[1].classList.add('active');
-        stepCircles[2].classList.remove('inactive'); stepCircles[2].classList.add('active');
-        stepLabels[2].classList.remove('inactive'); stepLabels[2].classList.add('active');
-      }
-
-      const headerTitle = document.querySelector('.register-card-header h2') as HTMLElement;
-      if (headerTitle) {
-        headerTitle.textContent = 'Validación de documento de identidad';
-        headerTitle.style.textAlign = 'center';
-        headerTitle.style.width = '100%';
-      }
-      const loginRedirect = document.querySelector('.login-redirect') as HTMLElement;
-      if (loginRedirect) loginRedirect.style.display = 'none';
-    }
-
-    registerForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      
       const formData = new FormData(registerForm);
-      const firstName = formData.get('firstName') as string;
-      const lastName = formData.get('lastName') as string;
-
-      const payload = {
-        firstName,
-        lastName,
+      const step1Data = {
+        firstName: formData.get('firstName'),
+        lastName: formData.get('lastName'),
         email: formData.get('email'),
         password: formData.get('password'),
-        birthDate: new Date(formData.get('birthDate') as string).toISOString(),
-        phone: formData.get('phone'),
-        documentTypeId: Number(formData.get('documentTypeId')),
-        documentNumber: formData.get('documentNumber'),
-        departmentId: Number(formData.get('departmentId')),
-        provinceId: Number(formData.get('provinceId')),
-        districtId: Number(formData.get('districtId')),
-        address: formData.get('address')
+        birthDate: formData.get('birthDate'),
+        phone: formData.get('phone')
       };
 
-      // Guardamos en localStorage para registrar al final del flujo
-      localStorage.setItem('capitalFest_registerPayload', JSON.stringify(payload));
-      window.location.href = '/registro-validacion';
+      localStorage.setItem('capitalFest_step1', JSON.stringify(step1Data));
+      window.location.href = '/cuenta2';
     });
   });
 </script>

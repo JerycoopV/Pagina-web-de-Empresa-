@@ -123,8 +123,8 @@
 
 /* Columnas de Links (Navegación / Legal) */
 .col-title {
-  font-size: 13px;
-  font-weight: 800;
+  font-size: 15px;
+  font-weight: 600;
   color: #7c3aed; /* Purple brand color */
   letter-spacing: 1.5px;
   margin-bottom: 24px;
@@ -140,8 +140,8 @@
 }
 
 .col-links a {
-  color: rgba(255, 255, 255, 0.65);
-  font-size: 14px;
+  color: #ffffff;
+  font-size: 13px;
   font-weight: 500;
   text-decoration: none;
   transition: all 0.3s ease;
@@ -149,7 +149,7 @@
 }
 
 .col-links a:hover {
-  color: #ffffff;
+  color: #a855f7;
   transform: translateX(4px);
 }
 
@@ -159,6 +159,7 @@
   flex-direction: column;
   gap: 20px;
   width: 100%;
+  padding-left: 24px;
 }
 
 .contact-item {
@@ -198,13 +199,13 @@ a.contact-item:hover .contact-icon {
 }
 
 .contact-icon svg {
-  width: 26px;
-  height: 26px;
+  width: 30px;
+  height: 30px;
 }
 
 #footer-contact-whatsapp .contact-icon svg {
-  width: 29px;
-  height: 29px;
+  width: 33px;
+  height: 33px;
 }
 
 .contact-col .col-title {
@@ -221,7 +222,7 @@ a.contact-item:hover .contact-icon {
 
 .contact-label {
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
   color: #ffffff;
   letter-spacing: -0.2px;
   transition: color 0.3s ease;
@@ -246,7 +247,7 @@ a.contact-item:hover .contact-label {
   padding-top: 32px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
+  gap: 64px;
   align-items: start;
 }
 
@@ -261,7 +262,7 @@ a.contact-item:hover .contact-label {
 
 /* Enlace de Copyright */
 .copyright-link {
-  color: #a855f7;
+  color: #722edb;
   text-decoration: none;
   font-weight: 600;
   transition: color 0.3s ease;
@@ -279,7 +280,7 @@ a.contact-item:hover .contact-label {
 
 .designer-name {
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.7);
+  color: inherit;
   margin-top: 2px;
 }
 
@@ -336,6 +337,7 @@ a.contact-item:hover .contact-label {
 
   .contact-items {
     align-items: center;
+    padding-left: 0;
   }
 
   .contact-item {

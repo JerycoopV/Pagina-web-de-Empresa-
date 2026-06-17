@@ -1,0 +1,160 @@
+---
+import Layout from '../layouts/Layout.astro';
+import '../styles/cuenta.css';
+---
+
+<Layout title="Confirmación | Capital Fest">
+  <section class="register-section">
+    <div class="register-container">
+      <div class="register-grid">
+        
+        <div class="register-info-side">
+          <h1 class="register-title animate-on-load">
+            Tu dinero,<br />
+            cuando más lo<br />
+            <span class="text-gradient">necesites.</span>
+          </h1>
+          <p class="register-description animate-on-load delay-1">
+            Convierte el saldo de tu tarjeta de crédito en efectivo al instante, de forma segura y sin vueltas.
+          </p>
+          <div class="register-visual animate-on-load delay-2">
+            <img src="/assets/TARJETA-INICIO-SESION.webp" alt="Tarjeta Capital Fest Crear Cuenta" class="register-visual-img" />
+          </div>
+        </div>
+
+        <div class="register-form-side">
+          <div class="register-card animate-on-load delay-3">
+            
+            <div class="register-card-header" style="text-align: center; width: 100%;">
+              <h2>Validación de documento de identidad</h2>
+            </div>
+
+            <!-- Stepper de 3 Pasos -->
+            <div class="register-stepper">
+              <div class="step-item">
+                <div class="step-circle active">01</div>
+                <span class="step-label active">Información</span>
+              </div>
+              <div class="step-divider"></div>
+              <div class="step-item">
+                <div class="step-circle active">02</div>
+                <span class="step-label active">Validación</span>
+              </div>
+              <div class="step-divider"></div>
+              <div class="step-item">
+                <div class="step-circle active">03</div>
+                <span class="step-label active">Confirmación</span>
+              </div>
+            </div>
+
+            <form id="registerForm" class="register-form-grid">
+              <!-- PASO 3: FOTOS DE DOCUMENTO -->
+              <div id="step-3" class="form-step active" style="display: contents; grid-column: 1 / -1;">
+                
+                <div class="form-group" style="grid-column: 1 / -1; margin-bottom: 16px; margin-top: -10px;">
+                  <label class="form-label text-center-label">Adjuntar foto frontal del <span class="doc-type-label">DNI</span></label>
+                  <label class="file-upload-box">
+                    +
+                    <input type="file" id="documentFront" name="documentFront" accept="image/*" style="display: none;" />
+                  </label>
+                </div>
+
+                <div class="form-group" style="grid-column: 1 / -1; margin-bottom: 16px;">
+                  <label class="form-label text-center-label">Adjuntar foto trasera del <span class="doc-type-label">DNI</span></label>
+                  <label class="file-upload-box">
+                    +
+                    <input type="file" id="documentBack" name="documentBack" accept="image/*" style="display: none;" />
+                  </label>
+                </div>
+
+                <div class="form-group" style="grid-column: 1 / -1; margin-bottom: 20px;">
+                  <label class="form-label text-center-label">Adjuntar foto de perfil con el <span class="doc-type-label">DNI</span></label>
+                  <label class="file-upload-box">
+                    +
+                    <input type="file" id="selfie" name="selfie" accept="image/*" style="display: none;" />
+                  </label>
+                </div>
+
+                <div class="btn-submit-container" style="grid-column: 1 / -1; display: flex; gap: 15px;">
+                  <a href="/cuenta2" class="btn-submit" style="flex: 0.4; background: transparent; border: 1px solid rgba(255,255,255,0.3); box-shadow: none; text-align: center; text-decoration: none; display: flex; align-items: center; justify-content: center;">
+                    Volver
+                  </a>
+                  <button type="submit" class="btn-submit" id="register-btn-submit" style="flex: 1;">
+                    Siguiente
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="register-divider"></div>
+  </section>
+</Layout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const registerForm = document.getElementById('registerForm') as HTMLFormElement;
+
+    const docTypeName = localStorage.getItem('capitalFest_docTypeName') || 'DNI';
+    document.querySelectorAll('.doc-type-label').forEach(el => {
+      el.textContent = docTypeName;
+    });
+
+    document.querySelectorAll('input[type="file"]').forEach(input => {
+      input.addEventListener('change', function(this: HTMLInputElement) {
+        if (this.files && this.files.length > 0) {
+          const parent = this.parentElement;
+          if (parent) {
+            parent.style.background = 'rgba(138, 43, 226, 0.4)';
+            Array.from(parent.childNodes).forEach(node => {
+              if (node.nodeType === Node.TEXT_NODE) node.textContent = '✓ ';
+            });
+          }
+        }
+      });
+    });
+
+    registerForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const savedStep1Str = localStorage.getItem('capitalFest_step1');
+      const savedStep2Str = localStorage.getItem('capitalFest_step2');
+
+      if (!savedStep1Str || !savedStep2Str) {
+        console.warn("Faltan datos de los pasos anteriores. Redirección deshabilitada para desarrollo.");
+        // alert("Faltan datos de los pasos anteriores. Por favor, vuelva a intentarlo.");
+        // window.location.href = '/cuenta';
+        // return;
+      }
+
+      const step1Data = JSON.parse(savedStep1Str);
+      const step2Data = JSON.parse(savedStep2Str);
+
+      const payload = {
+        firstName: step1Data.firstName,
+        lastName: step1Data.lastName,
+        email: step1Data.email,
+        password: step1Data.password,
+        birthDate: step1Data.birthDate ? new Date(step1Data.birthDate).toISOString() : null,
+        phone: step1Data.phone,
+        documentTypeId: Number(step2Data.documentTypeId),
+        documentNumber: step2Data.documentNumber,
+        departmentId: Number(step2Data.departmentId),
+        provinceId: Number(step2Data.provinceId),
+        districtId: Number(step2Data.districtId),
+        address: step2Data.address
+      };
+
+      localStorage.setItem('capitalFest_registerPayload', JSON.stringify(payload));
+      
+      // Cleanup temporary localStorage
+      localStorage.removeItem('capitalFest_step1');
+      localStorage.removeItem('capitalFest_step2');
+      localStorage.removeItem('capitalFest_docTypeName');
+
+      window.location.href = '/registro-validacion';
+    });
+  });
+</script>
