@@ -107,7 +107,7 @@ import '../styles/cuenta.css';
                 <div class="form-group">
                   <label for="password" class="form-label">Contraseña</label>
                   <div class="form-input-wrapper">
-                    <input type="password" id="password" name="password" class="form-input" placeholder="Crear una contraseña" required autocomplete="new-password" />
+                    <input type="password" id="password" name="password" class="form-input" placeholder="Crear una contraseña (mín. 5 caracteres)" minlength="5" required autocomplete="new-password" />
                   </div>
                 </div>
 
@@ -163,7 +163,9 @@ import '../styles/cuenta.css';
       const hasSymbol = /[^a-zA-Z0-9]/.test(pwd);
       const hasNumber = /[0-9]/.test(pwd);
 
-      if (length < 6) {
+      if (length < 5) {
+        strength = 1;
+      } else if (length < 6) {
         if (hasSymbol && hasNumber) strength = 3;
         else if (hasSymbol || hasNumber) strength = 2;
         else strength = 1;
@@ -180,8 +182,17 @@ import '../styles/cuenta.css';
       strengthBars.forEach((bar, index) => {
         if (index < strength) {
           bar.classList.add('active');
+          if (length < 5) {
+            bar.style.backgroundColor = '#ef4444'; // Red color for weak password
+            bar.style.boxShadow = '0 0 10px rgba(239, 68, 68, 0.6)';
+          } else {
+            bar.style.backgroundColor = '';
+            bar.style.boxShadow = '';
+          }
         } else {
           bar.classList.remove('active');
+          bar.style.backgroundColor = '';
+          bar.style.boxShadow = '';
         }
       });
     });
@@ -232,6 +243,11 @@ import '../styles/cuenta.css';
 
       if (password !== passwordConfirm) {
         alert('Las contraseñas no coinciden.');
+        return;
+      }
+
+      if (password.length < 5) {
+        alert('La contraseña es muy corta. Debe tener al menos 5 caracteres.');
         return;
       }
 
