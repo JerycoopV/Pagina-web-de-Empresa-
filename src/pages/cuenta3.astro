@@ -129,8 +129,8 @@ import '../styles/cuenta.css';
         // return;
       }
 
-      const step1Data = JSON.parse(savedStep1Str);
-      const step2Data = JSON.parse(savedStep2Str);
+      const step1Data = JSON.parse(savedStep1Str || '{}');
+      const step2Data = JSON.parse(savedStep2Str || '{}');
 
       const payload = {
         firstName: step1Data.firstName,

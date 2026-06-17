@@ -150,7 +150,7 @@ import '../styles/cuenta.css';
     
     // Contraseña
     const passwordInput = document.getElementById('password') as HTMLInputElement;
-    const strengthBars = document.querySelectorAll('.strength-bar');
+    const strengthBars = document.querySelectorAll('.strength-bar') as NodeListOf<HTMLElement>;
 
     passwordInput.addEventListener('input', (e) => {
       const pwd = (e.target as HTMLInputElement).value;

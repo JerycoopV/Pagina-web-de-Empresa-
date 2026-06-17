@@ -187,8 +187,8 @@ import '../styles/cuenta.css';
       provinceSelect.disabled = false;
       districtSelect.disabled = true;
 
-      if (deptId && provincesData[deptId]) {
-        provincesData[deptId].forEach((provName, index) => {
+      if (deptId && (provincesData as Record<string, string[]>)[deptId]) {
+        (provincesData as Record<string, string[]>)[deptId].forEach((provName, index) => {
           const option = document.createElement('option');
           const provId = deptId + String(index + 1).padStart(2, '0');
           option.value = provId;
@@ -210,11 +210,11 @@ import '../styles/cuenta.css';
 
       // Lógica de llenado de distritos
       // Utilizamos el JSON importado de ubigeo.js
-      let distritos = [];
+      let distritos: string[] = [];
       console.log("provName selected:", provName);
-      console.log("districtsData for provName:", districtsData[provName as keyof typeof districtsData]);
-      if (provName && districtsData[provName as keyof typeof districtsData]) {
-        distritos = districtsData[provName as keyof typeof districtsData];
+      console.log("districtsData for provName:", (districtsData as Record<string, string[]>)[provName]);
+      if (provName && (districtsData as Record<string, string[]>)[provName]) {
+        distritos = (districtsData as Record<string, string[]>)[provName];
       } else {
         // Fallback genérico para que se vea funcional en provincias de las que no mapeamos sus distritos
         distritos = ["Distrito 1 de " + provName, "Distrito 2 de " + provName, "Distrito 3 de " + provName];
