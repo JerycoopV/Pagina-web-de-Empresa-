@@ -245,10 +245,11 @@ a.contact-item:hover .contact-label {
 .footer-bottom {
   border-top: 1px solid rgba(255, 255, 255, 0.05);
   padding-top: 32px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 64px;
+  display: flex;
+  justify-content: space-between;
   align-items: start;
+  flex-wrap: wrap;
+  gap: 24px;
 }
 
 .bottom-item {
@@ -274,8 +275,8 @@ a.contact-item:hover .contact-label {
 
 /* Diseñador */
 .designer-item {
-  align-items: flex-end;
-  text-align: right;
+  align-items: flex-start;
+  text-align: left;
 }
 
 .designer-name {
@@ -292,6 +293,7 @@ a.contact-item:hover .contact-label {
   }
 
   .footer-bottom {
+    display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 30px;
   }
@@ -345,6 +347,7 @@ a.contact-item:hover .contact-label {
   }
 
   .footer-bottom {
+    display: grid;
     grid-template-columns: 1fr;
     gap: 24px;
   }
