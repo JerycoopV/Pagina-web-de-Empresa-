@@ -67,25 +67,47 @@ import '../styles/simulador.css';
     const montoInput = document.getElementById('monto-input') as HTMLInputElement;
     const montoResult = document.getElementById('monto-result') as HTMLSpanElement;
     const btnSolicitar = document.getElementById('btn-solicitar') as HTMLButtonElement;
+    const resultNote = document.querySelector('.result-note') as HTMLDivElement;
 
     // Lógica del simulador (100% en el Frontend)
     const calcularRetiro = () => {
       let monto = parseFloat(montoInput.value);
       if (isNaN(monto) || monto <= 0) {
         montoResult.textContent = '0';
+        resultNote.textContent = 'Estimación rápida y sin compromiso';
+        resultNote.style.color = '';
+        btnSolicitar.disabled = false;
+        btnSolicitar.style.opacity = '1';
         return;
       }
       
-      // Aquí puedes agregar la fórmula de comisión si la tuvieras.
-      // Por ahora asume que recibe exactamente lo mismo que digita (1 a 1),
-      // tal y como se muestra en la captura (digita 2808 -> recibe 2808).
-      const recibir = monto; 
-      
-      // Formatear con separadores de miles
-      montoResult.textContent = recibir.toLocaleString('en-US', {
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 2
-      });
+      let comision = 0;
+      if (monto < 1500) {
+        comision = monto * 0.01; // 1%
+      } else {
+        comision = monto * 0.02; // 2%
+      }
+
+      if (comision < 14) {
+        montoResult.textContent = '0';
+        resultNote.textContent = `❌ Operación rechazada: La comisión calculada (${comision.toFixed(2)} soles) es menor a la tarifa mínima de 14 soles.`;
+        resultNote.style.color = '#ff4d4d'; // Color rojo para error
+        btnSolicitar.disabled = true;
+        btnSolicitar.style.opacity = '0.5';
+      } else {
+        const recibir = monto - comision;
+        
+        // Formatear con separadores de miles
+        montoResult.textContent = recibir.toLocaleString('en-US', {
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 2
+        });
+        
+        resultNote.textContent = `✅ Operación exitosa. Tarifa a cobrar: ${comision.toFixed(2)} soles.`;
+        resultNote.style.color = '#4CAF50'; // Color verde para éxito
+        btnSolicitar.disabled = false;
+        btnSolicitar.style.opacity = '1';
+      }
     };
 
     montoInput.addEventListener('input', calcularRetiro);
@@ -94,15 +116,21 @@ import '../styles/simulador.css';
     montoResult.addEventListener('click', () => {
       let monto = parseFloat(montoInput.value);
       if (!isNaN(monto) && monto > 0) {
-        const fullAmount = monto.toLocaleString('en-US', {
-          minimumFractionDigits: 0,
-          maximumFractionDigits: 2
-        });
-        alert(`Monto total a recibir:\nS/ ${fullAmount}`);
+        let comision = (monto < 1500) ? monto * 0.01 : monto * 0.02;
+        if (comision >= 14) {
+          const recibir = monto - comision;
+          const fullAmount = recibir.toLocaleString('en-US', {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 2
+          });
+          alert(`Monto total a recibir (descontando comisión):\nS/ ${fullAmount}`);
+        }
       }
     });
 
     btnSolicitar.addEventListener('click', () => {
+      if (btnSolicitar.disabled) return;
+      
       // Redirigir al registro si no está logueado, o al dashboard si está logueado
       const token = localStorage.getItem('capitalFest_token');
       if (token) {
