@@ -8,15 +8,15 @@ import '../styles/simulador.css';
     <div class="simulador-container">
       
       <!-- Lado Izquierdo -->
-      <div class="simulador-info animate-on-load">
-        <h1 class="simulador-title">
+      <div class="simulador-info">
+        <h1 class="simulador-title animate-on-load">
           Simula tu retiro<br />
           al <span class="text-gradient">instante</span>
         </h1>
-        <p class="simulador-description delay-1">
+        <p class="simulador-description animate-on-load delay-1">
           Ingresa el monto disponible de tu tarjeta y visualiza tu retiro estimado en segundos.
         </p>
-        <img src="/assets/TARJETA-2.webp" alt="Simulador Capital Fest" class="simulador-image delay-2" />
+        <img src="/assets/TARJETA-2.webp" alt="Simulador Capital Fest" class="simulador-image animate-on-load delay-2" />
       </div>
 
       <!-- Lado Derecho: Calculadora -->
@@ -63,10 +63,12 @@ import '../styles/simulador.css';
   </section>
 </Layout>
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
+  const initSimulador = () => {
     const montoInput = document.getElementById('monto-input') as HTMLInputElement;
     const montoResult = document.getElementById('monto-result') as HTMLSpanElement;
     const btnSolicitar = document.getElementById('btn-solicitar') as HTMLButtonElement;
+
+    if (!montoInput || !montoResult || !btnSolicitar) return;
 
     // Lógica del simulador (100% en el Frontend)
     const calcularRetiro = () => {
@@ -89,6 +91,12 @@ import '../styles/simulador.css';
     };
 
     montoInput.addEventListener('input', calcularRetiro);
+    
+    // También recalcular si el tipo de cálculo cambia
+    const calcType = document.getElementById('calc-type');
+    if(calcType) {
+        calcType.addEventListener('change', calcularRetiro);
+    }
 
     // Mostrar alerta con el monto completo al hacer clic en el número truncado
     montoResult.addEventListener('click', () => {
@@ -102,7 +110,14 @@ import '../styles/simulador.css';
       }
     });
 
-    btnSolicitar.addEventListener('click', () => {
+    btnSolicitar.addEventListener('click', (e) => {
+      e.preventDefault();
+      
+      // Guardar el monto simulado para usarlo después si es necesario
+      if(montoInput.value) {
+          localStorage.setItem('capitalFest_simulatedAmount', montoInput.value);
+      }
+        
       // Redirigir al registro si no está logueado, o al dashboard si está logueado
       const token = localStorage.getItem('capitalFest_token');
       if (token) {
@@ -111,5 +126,9 @@ import '../styles/simulador.css';
         window.location.href = '/cuenta';
       }
     });
-  });
+  };
+
+  // Ejecutar inmediatamente. En Astro, los <script> (type="module") se ejecutan diferidos 
+  // cuando el DOM ya está listo, así que DOMContentLoaded no siempre se dispara.
+  initSimulador();
 </script>
