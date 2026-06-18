@@ -209,6 +209,12 @@ import '../styles/registro-validacion.css';
         const data = await res.json();
 
         if (res.ok) {
+          // Guardar token y usuario para que quede logueado
+          localStorage.setItem('capitalFest_token', data.token);
+          if (data.user) {
+            localStorage.setItem('capitalFest_user', JSON.stringify(data.user));
+          }
+
           // Guardar el nombre para el paso 3
           localStorage.setItem('capitalFest_userName', JSON.stringify({
             firstName: payload.firstName,
@@ -218,8 +224,10 @@ import '../styles/registro-validacion.css';
           // Limpiar el payload temporal
           localStorage.removeItem('capitalFest_registerPayload');
           
-          // Redirigir a la ultima pagina
-          window.location.href = '/registro-validacion3?success=1';
+          // Redirigir a la ultima pagina (manteniendo parámetros de búsqueda)
+          const qs = window.location.search;
+          const separator = qs ? '&' : '?';
+          window.location.href = '/registro-validacion3' + qs + separator + 'success=1';
         } else {
           alert('Error al registrar: ' + (data.message || 'Intente nuevamente'));
           btnSubmit.textContent = 'Confirmar datos';

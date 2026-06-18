@@ -169,7 +169,20 @@ import '../styles/login.css';
           localStorage.setItem('capitalFest_user', JSON.stringify(data.user));
           
           alert(`Bienvenido, ${data.user.firstName}!`);
-          window.location.href = '/dashboard'; 
+
+          const params = new URLSearchParams(window.location.search);
+          const redirect = params.get('redirect');
+          const monto = params.get('monto');
+          
+          if (redirect) {
+            let redirectUrl = redirect;
+            if (monto) {
+              redirectUrl += `?monto=${monto}`;
+            }
+            window.location.href = redirectUrl;
+          } else {
+            window.location.href = '/dashboard'; 
+          }
         } else {
           alert('Error de login: ' + (data.message || 'Credenciales inválidas'));
           btnSubmit.textContent = 'Ingresar';
@@ -182,5 +195,10 @@ import '../styles/login.css';
         btnSubmit.disabled = false;
       }
     });
+
+    const registerLink = document.getElementById('login-register-link') as HTMLAnchorElement;
+    if (registerLink && window.location.search) {
+      registerLink.href = '/cuenta' + window.location.search;
+    }
   });
 </script>

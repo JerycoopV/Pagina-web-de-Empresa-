@@ -262,7 +262,12 @@ import '../styles/cuenta.css';
       };
 
       localStorage.setItem('capitalFest_step1', JSON.stringify(step1Data));
-      window.location.href = '/cuenta2';
+      window.location.href = '/cuenta2' + window.location.search;
     });
+
+    const loginLink = document.getElementById('register-login-link') as HTMLAnchorElement;
+    if (loginLink && window.location.search) {
+      loginLink.href = '/login' + window.location.search;
+    }
   });
 </script>

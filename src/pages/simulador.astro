@@ -78,13 +78,16 @@ import '../styles/simulador.css';
         resultNote.style.color = '';
         btnSolicitar.disabled = false;
         btnSolicitar.style.opacity = '1';
-        return;
+        return null; // Retornamos null si no es válido
       }
       
       let comision = 0;
+      let feePercentage = 0;
       if (monto < 1500) {
+        feePercentage = 1;
         comision = monto * 0.01; // 1%
       } else {
+        feePercentage = 2;
         comision = monto * 0.02; // 2%
       }
 
@@ -94,6 +97,7 @@ import '../styles/simulador.css';
         resultNote.style.color = '#ff4d4d'; // Color rojo para error
         btnSolicitar.disabled = true;
         btnSolicitar.style.opacity = '0.5';
+        return null;
       } else {
         const recibir = monto - comision;
         
@@ -107,6 +111,13 @@ import '../styles/simulador.css';
         resultNote.style.color = '#4CAF50'; // Color verde para éxito
         btnSolicitar.disabled = false;
         btnSolicitar.style.opacity = '1';
+
+        return {
+          grossAmount: monto,
+          feePercentage: feePercentage,
+          feeAmount: comision,
+          netAmount: recibir
+        };
       }
     };
 
@@ -131,13 +142,8 @@ import '../styles/simulador.css';
     btnSolicitar.addEventListener('click', () => {
       if (btnSolicitar.disabled) return;
       
-      // Redirigir al registro si no está logueado, o al dashboard si está logueado
-      const token = localStorage.getItem('capitalFest_token');
-      if (token) {
-        window.location.href = '/dashboard';
-      } else {
-        window.location.href = '/cuenta';
-      }
+      alert('Serás redirigido a la página de inicio de sesión para continuar.');
+      window.location.href = '/login';
     });
   });
 </script>

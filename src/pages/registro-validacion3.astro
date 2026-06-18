@@ -49,8 +49,8 @@ import '../styles/registro-validacion.css';
               <a id="whatsapp-link" href="https://wa.me/51902029862" target="_blank" rel="noopener noreferrer" class="btn-submit" style="text-decoration: none;">
                 Ir a WhatsApp
               </a>
-              <button type="button" class="btn-submit" onclick="window.location.href='/login'" style="background: transparent; border: 1px solid rgba(255,255,255,0.3); box-shadow: none;">
-                Ir al Login
+              <button type="button" class="btn-submit" id="btn-finalizar" style="background: transparent; border: 1px solid rgba(255,255,255,0.3); box-shadow: none;">
+                Ir al Panel
               </button>
             </div>
 
@@ -91,8 +91,30 @@ import '../styles/registro-validacion.css';
       alert('¡Usuario se registró correctamente!');
       
       // Limpiar la URL para que no vuelva a saltar la alerta si el usuario recarga la página
-      const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+      // pero manteniendo otros parámetros
+      urlParams.delete('success');
+      const newQuery = urlParams.toString();
+      const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + (newQuery ? '?' + newQuery : '');
       window.history.replaceState({path:newUrl}, '', newUrl);
+    }
+
+    const btnFinalizar = document.getElementById('btn-finalizar');
+    if (btnFinalizar) {
+      btnFinalizar.addEventListener('click', () => {
+        const redirect = urlParams.get('redirect');
+        const monto = urlParams.get('monto');
+        if (redirect) {
+          let redirectUrl = redirect;
+          if (monto) {
+            redirectUrl += `?monto=${monto}`;
+          }
+          window.location.href = redirectUrl;
+        } else {
+          // Si hay token, ir al dashboard, si no al login
+          const token = localStorage.getItem('capitalFest_token');
+          window.location.href = token ? '/dashboard' : '/login';
+        }
+      });
     }
   });
 </script>
