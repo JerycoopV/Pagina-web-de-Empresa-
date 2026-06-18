@@ -455,48 +455,32 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 1px;
-  background: linear-gradient(
-    90deg, 
-    transparent 0%, 
-    rgba(138, 43, 226, 0) 10%, 
-    rgba(138, 43, 226, 0.7) 30%, 
-    rgba(138, 43, 226, 1) 46%, 
-    #ffffff 50%, 
-    rgba(138, 43, 226, 1) 54%, 
-    rgba(138, 43, 226, 0.7) 70%, 
-    rgba(138, 43, 226, 0) 90%, 
-    transparent 100%
-  );
+  height: 1.5px;
+  background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(138, 43, 226, 0) 10%,
+      rgba(138, 43, 226, 0.7) 30%,
+      rgba(138, 43, 226, 1) 46%,
+      #ffffff 50%,
+      rgba(138, 43, 226, 1) 54%,
+      rgba(138, 43, 226, 0.7) 70%,
+      rgba(138, 43, 226, 0) 90%,
+      transparent 100%);
   z-index: 10;
 }
 
 .register-divider::before {
   content: "";
+  display: block;
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 20%;
-  height: 6px;
-  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.8) 0%, rgba(138, 43, 226, 0.5) 40%, transparent 80%);
-  pointer-events: none;
-  z-index: -1;
-  filter: blur(2px);
-}
-
-.register-divider::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 50%;
-  height: 15px;
+  bottom: -2px;
+  left: 20%;
+  right: 20%;
+  height: 20px;
   background: radial-gradient(ellipse at center, rgba(138, 43, 226, 0.4) 0%, transparent 70%);
+  filter: blur(12px);
   pointer-events: none;
-  z-index: -2;
-  filter: blur(4px);
+  z-index: 5;
 }
 
 /* ============================================
