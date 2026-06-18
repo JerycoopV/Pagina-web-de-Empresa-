@@ -37,7 +37,7 @@
 
 .register-title {
   font-size: 54px;
-  font-weight: 800;
+  font-weight: 600;
   color: #ffffff;
   line-height: 1.15;
   letter-spacing: -1.5px;
@@ -54,7 +54,7 @@
 
 .register-description {
   font-size: 15.5px;
-  color: rgba(255, 255, 255, 0.6);
+  color: #ffffff;
   line-height: 1.5;
   margin-bottom: 40px;
   max-width: 480px;

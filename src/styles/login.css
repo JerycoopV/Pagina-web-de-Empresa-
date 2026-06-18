@@ -37,7 +37,7 @@
 
 .login-title {
   font-size: 54px;
-  font-weight: 800;
+  font-weight: 600;
   color: #ffffff;
   line-height: 1.15;
   letter-spacing: -1.5px;
@@ -98,7 +98,7 @@
 
 .login-feature-text p {
   font-size: 11.5px;
-  color: rgba(255, 255, 255, 0.5);
+  color: #ffffff;
   line-height: 1.4;
   margin: 0;
 }
