@@ -157,7 +157,11 @@ import '../styles/index.css';
       Retira tu dinero de forma rápida, segura y transparente en solo unos pasos
     </p>
 
+    <div class="process-carousel-container">
     <div class="process-cards stagger-container">
+      {[1, 2].map(() => (
+        <Fragment>
+
       <!-- Card 1: Registrate -->
       <div class="process-card animate-on-scroll" id="card-registrate">
         <div class="avatar-box">
@@ -238,7 +242,10 @@ import '../styles/index.css';
         <h3>Recibe tu dinero</h3>
         <p>Transferimos el dinero directamente a tu cuenta bancaria de forma segura.</p>
       </div>
+        </Fragment>
+      ))}
     </div>
+  </div>
   </section>
 
   <!-- Carrusel de Bancos (Marquee Infinito de izquierda a derecha) -->

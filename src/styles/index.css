@@ -564,7 +564,6 @@
   text-align: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
   position: relative;
 }
 
@@ -598,7 +597,7 @@
   font-weight: 800;
   letter-spacing: -1.5px;
   color: #ffffff;
-  margin-bottom: 16px;
+  margin: 0 auto 16px auto;
   position: relative;
   z-index: 2;
 }
@@ -607,30 +606,82 @@
   font-size: 18px;
   color: #ffffff;
   max-width: 600px;
-  margin-bottom: 64px;
+  margin: 0 auto 64px auto;
   line-height: 1.6;
   position: relative;
   z-index: 2;
 }
 
-.process-cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 64px;
-  width: 100%;
-  max-width: 1050px;
-  margin: 0 auto;
+.process-carousel-container {
+  overflow: hidden;
+  width: 100vw;
   position: relative;
-  z-index: 2;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  padding: 20px 0 60px 0;
+  pointer-events: auto;
+  display: flex;
+  justify-content: flex-start;
+}
+
+
+
+.process-cards {
+  display: flex;
+  width: max-content;
+  gap: 80px;
+  animation: scrollProcessCards 20s linear infinite;
+  padding: 0 16px;
+  margin: 0;
+}
+
+.process-cards:hover {
+  animation-play-state: paused;
+}
+
+@keyframes scrollProcessCards {
+  0% { transform: translateX(0); }
+  /* (340px width + 80px gap) * 3 cards = 1260px */
+  100% { transform: translateX(calc(-1260px)); }
+}
+
+.process-cards .process-card {
+  width: 340px;
+  flex: 0 0 340px;
+  margin: 0;
+  scroll-snap-align: none;
 }
 
 /* Responsivo Proceso */
 @media (max-width: 1024px) {
-  .process-cards {
-    grid-template-columns: 1fr;
-    max-width: 480px;
-    margin: 0 auto;
-    gap: 24px;
+  .process-cards { gap: 40px; }
+  .process-cards .process-card {
+    width: 300px;
+    flex: 0 0 300px;
+  }
+  @keyframes scrollProcessCards {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-1020px)); } /* (300+40)*3 */
+  }
+}
+
+@media (max-width: 640px) {
+  .process-cards { gap: 24px; }
+  .process-cards .process-card {
+    width: 280px;
+    flex: 0 0 280px;
+  }
+  @keyframes scrollProcessCards {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-912px)); } /* (280+24)*3 */
+  }
+}
+
+@media (max-width: 640px) {
+  .process-cards .process-card {
+    flex: 0 0 280px;
   }
 }
 
