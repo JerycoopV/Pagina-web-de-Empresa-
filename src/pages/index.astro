@@ -159,11 +159,9 @@ import '../styles/index.css';
 
     <div class="process-carousel-container">
     <div class="process-cards stagger-container">
-      {[1, 2].map(() => (
-        <Fragment>
 
       <!-- Card 1: Registrate -->
-      <div class="process-card animate-on-scroll" id="card-registrate">
+      <a href="/cuenta" class="process-card animate-on-scroll" id="card-registrate" style="text-decoration: none; color: inherit;">
         <div class="avatar-box">
           <svg id="Capa_2" data-name="Capa 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 34.63">
             <defs>
@@ -185,10 +183,10 @@ import '../styles/index.css';
         </div>
         <h3>Registrate</h3>
         <p>Crea tu cuenta y verifica tu identidad en minutos para comenzar.</p>
-      </div>
+      </a>
 
       <!-- Card 2: Simula tu retiro -->
-      <div class="process-card animate-on-scroll" id="card-simula-retiro">
+      <a href="/simulador" class="process-card animate-on-scroll" id="card-simula-retiro" style="text-decoration: none; color: inherit;">
         <div class="avatar-box">
           <svg id="Capa_2" data-name="Capa 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35.17 29.89">
             <defs>
@@ -215,10 +213,10 @@ import '../styles/index.css';
         </div>
         <h3>Simula tu retiro</h3>
         <p>Elige el monto y revisa exactamente cuando lo recibirás.</p>
-      </div>
+      </a>
 
       <!-- Card 3: Recibe tu dinero -->
-      <div class="process-card animate-on-scroll" id="card-recibe-dinero">
+      <a href="/login" class="process-card animate-on-scroll" id="card-recibe-dinero" style="text-decoration: none; color: inherit;">
         <div class="avatar-box">
           <svg id="Capa_2" data-name="Capa 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
             <defs>
@@ -241,9 +239,7 @@ import '../styles/index.css';
         </div>
         <h3>Recibe tu dinero</h3>
         <p>Transferimos el dinero directamente a tu cuenta bancaria de forma segura.</p>
-      </div>
-        </Fragment>
-      ))}
+      </a>
     </div>
   </div>
   </section>

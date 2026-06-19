@@ -613,57 +613,35 @@
 }
 
 .process-carousel-container {
-  overflow: hidden;
-  width: 100vw;
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
+  width: 100%;
   padding: 20px 0 60px 0;
-  pointer-events: auto;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
 }
-
-
 
 .process-cards {
   display: flex;
-  width: max-content;
-  gap: 80px;
-  animation: scrollProcessCards 20s linear infinite;
-  padding: 0 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+  padding: 0;
   margin: 0;
-}
-
-.process-cards:hover {
-  animation-play-state: paused;
-}
-
-@keyframes scrollProcessCards {
-  0% { transform: translateX(0); }
-  /* (340px width + 80px gap) * 3 cards = 1260px */
-  100% { transform: translateX(calc(-1260px)); }
+  width: 100%;
+  max-width: 1200px;
 }
 
 .process-cards .process-card {
   width: 340px;
   flex: 0 0 340px;
   margin: 0;
-  scroll-snap-align: none;
 }
 
 /* Responsivo Proceso */
 @media (max-width: 1024px) {
-  .process-cards { gap: 40px; }
+  .process-cards { gap: 30px; }
   .process-cards .process-card {
     width: 300px;
     flex: 0 0 300px;
-  }
-  @keyframes scrollProcessCards {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(calc(-1020px)); } /* (300+40)*3 */
   }
 }
 
@@ -671,16 +649,6 @@
   .process-cards { gap: 24px; }
   .process-cards .process-card {
     width: 280px;
-    flex: 0 0 280px;
-  }
-  @keyframes scrollProcessCards {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(calc(-912px)); } /* (280+24)*3 */
-  }
-}
-
-@media (max-width: 640px) {
-  .process-cards .process-card {
     flex: 0 0 280px;
   }
 }

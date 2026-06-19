@@ -198,7 +198,7 @@
 @media (max-width: 992px) {
   .simulador-container {
     flex-direction: column;
-    gap: 50px;
+    gap: 40px;
   }
 
   .simulador-info {
@@ -207,7 +207,76 @@
   }
 
   .simulador-title {
-    font-size: 3.5rem;
+    font-size: 3.2rem;
+    white-space: normal;
+  }
+
+  .simulador-description {
+    max-width: 100%;
+  }
+
+  .simulador-card-wrapper {
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .simulador-section {
+    padding: 30px 5% 40px;
+  }
+
+  .simulador-title {
+    font-size: 2.8rem;
+  }
+
+  .simulador-card {
+    padding: 30px 20px;
+  }
+
+  .simulador-card h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+
+  .result-amount {
+    font-size: 3rem;
+  }
+
+  .result-amount span:first-child {
+    font-size: 3rem;
+  }
+  
+  .result-box {
+    padding: 20px;
+  }
+  
+  .btn-submit {
+    padding: 15px;
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .simulador-title {
+    font-size: 2.3rem;
+  }
+  
+  .simulador-description {
+    font-size: 1rem;
+  }
+
+  .result-amount {
+    font-size: 2.2rem;
+  }
+
+  .result-amount span:first-child {
+    font-size: 2.2rem;
+  }
+  
+  .simulador-divider::before {
+    left: 5%;
+    right: 5%;
   }
 }
 
