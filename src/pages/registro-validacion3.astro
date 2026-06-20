@@ -50,7 +50,7 @@ import '../styles/registro-validacion.css';
                 Ir a WhatsApp
               </a>
               <button type="button" class="btn-submit" id="btn-finalizar" style="background: transparent; border: 1px solid rgba(255,255,255,0.3); box-shadow: none;">
-                Ir al Panel
+                Ir a login
               </button>
             </div>
 
@@ -110,9 +110,7 @@ import '../styles/registro-validacion.css';
           }
           window.location.href = redirectUrl;
         } else {
-          // Si hay token, ir al dashboard, si no al login
-          const token = localStorage.getItem('capitalFest_token');
-          window.location.href = token ? '/dashboard' : '/login';
+          window.location.href = '/login';
         }
       });
     }
