@@ -109,7 +109,9 @@ import '../styles/cuenta.css';
           if (parent) {
             parent.style.background = 'rgba(138, 43, 226, 0.4)';
             Array.from(parent.childNodes).forEach(node => {
-              if (node.nodeType === Node.TEXT_NODE) node.textContent = '✓ ';
+              if (node.nodeType === Node.TEXT_NODE) {
+                node.textContent = node.textContent.trim() ? '✓ ' : '';
+              }
             });
           }
         }
