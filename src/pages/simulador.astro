@@ -26,15 +26,12 @@ import '../styles/simulador.css';
           
           <div class="form-group">
             <label>Tipo de calculo</label>
-            <select class="form-input" id="calc-type">
-              <option value="retiro">Retiro de Efectivo</option>
-              <option value="transferencia">Transferencia Bancaria</option>
-            </select>
+            <input type="text" class="form-input" id="calc-type" value="Retiro de Efectivo" readonly />
           </div>
 
           <div class="form-group">
             <label>Digitar monto:</label>
-            <input type="number" id="monto-input" class="form-input" placeholder="Ej: 2,808.00" min="0" step="any" />
+            <input type="number" id="monto-input" class="form-input" placeholder="Ej: 1,400.00" min="0" step="any" />
           </div>
 
           <div class="result-box">
@@ -91,9 +88,9 @@ import '../styles/simulador.css';
         comision = monto * 0.02; // 2%
       }
 
-      if (comision < 14) {
+      if (monto < 1400) {
         montoResult.textContent = '0';
-        resultNote.textContent = `❌ Operación rechazada: La comisión calculada (${comision.toFixed(2)} soles) es menor a la tarifa mínima de 14 soles.`;
+        resultNote.textContent = `❌ Monto insuficiente. Ingresa S/ 1,400 o más.`;
         resultNote.style.color = '#ff4d4d'; // Color rojo para error
         btnSolicitar.disabled = true;
         btnSolicitar.style.opacity = '0.5';
