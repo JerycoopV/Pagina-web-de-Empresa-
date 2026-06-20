@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import '../styles/registro-validacion.css';
+import tarjetaFrontal from '../assets/TARJETA-FRONTAL-REFERENCIA.png';
 ---
 
 <Layout title="Validación Bancaria | Capital Fest">
@@ -95,19 +96,15 @@ import '../styles/registro-validacion.css';
                 </div>
               </div>
 
-              <!-- File upload para foto de tarjeta -->
-              <div class="form-group" style="margin-top: 16px;">
-                 <label class="file-upload-box">
-                    +
-                    <input type="file" id="tarjetaFoto" name="tarjetaFoto" accept="image/*" style="display: none;" required />
-                  </label>
+              <!-- Imagen de tarjeta frontal -->
+              <div class="form-group" style="margin-top: 24px; display: flex; justify-content: center; align-items: center;">
+                 <div style="width: 100%; max-width: 320px; padding: 12px; background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.01)); border-radius: 20px; border: 1px solid rgba(255,255,255,0.15); box-shadow: 0 8px 32px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(255,255,255,0.05); backdrop-filter: blur(10px); transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 16px 40px rgba(138,43,226,0.25), inset 0 0 0 1px rgba(255,255,255,0.1)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 32px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(255,255,255,0.05)';">
+                    <img src={tarjetaFrontal.src} alt="Tarjeta Frontal" style="width: 100%; height: auto; border-radius: 12px; object-fit: contain; display: block; box-shadow: 0 4px 15px rgba(0,0,0,0.2);" />
+                 </div>
               </div>
 
               <!-- Botones -->
               <div class="btn-group-vertical">
-                <button type="button" class="validation-btn-outline-pill" style="width: 250px;">
-                  Añadir otra tarjeta
-                </button>
                 <div class="btn-submit-container" style="display: flex; gap: 15px; width: 100%; margin-top: 20px;">
                   <button type="button" class="btn-submit" id="btn-volver-val1" style="flex: 0.4; background: transparent; border: 1px solid rgba(255,255,255,0.3); box-shadow: none;">
                     Volver

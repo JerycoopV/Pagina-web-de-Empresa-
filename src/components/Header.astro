@@ -14,7 +14,13 @@ const navItems = [
   { name: 'Nosotros', href: '/nosotros' },
   { name: 'Beneficios', href: '/beneficios' },
   { name: 'Ayuda', href: '/ayuda' },
-  { name: 'Legal', href: '/legal' }
+  { 
+    name: 'Legal', 
+    dropdown: [
+      { name: 'Términos y Condiciones', href: '/legal' },
+      { name: 'Políticas de Privacidad', href: '/privacidad' }
+    ]
+  }
 ];
 ---
 
@@ -30,6 +36,32 @@ const navItems = [
     <!-- Enlaces de Navegación -->
     <ul class="nav-links">
       {navItems.map(item => {
+        if (item.dropdown) {
+          const isActive = item.dropdown.some(subItem => currentPath === subItem.href || (subItem.href !== '/' && currentPath.startsWith(subItem.href)));
+          return (
+            <li class="nav-item-dropdown">
+              <span class={`nav-link dropdown-toggle ${isActive ? 'active' : ''}`} id={`nav-link-${item.name.toLowerCase()}`}>
+                {item.name}
+                <svg class="chevron-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+              <ul class="dropdown-menu">
+                {item.dropdown.map(subItem => {
+                  const isSubActive = currentPath === subItem.href || (subItem.href !== '/' && currentPath.startsWith(subItem.href));
+                  return (
+                    <li>
+                      <a href={subItem.href} class={`dropdown-link ${isSubActive ? 'active' : ''}`}>
+                        {subItem.name}
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            </li>
+          );
+        }
+
         const isActive = currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href));
         return (
           <li>
@@ -65,6 +97,32 @@ const navItems = [
   <div class="mobile-menu-dropdown" id="mobile-menu">
     <ul class="mobile-nav-links">
       {navItems.map(item => {
+        if (item.dropdown) {
+          const isActive = item.dropdown.some(subItem => currentPath === subItem.href || (subItem.href !== '/' && currentPath.startsWith(subItem.href)));
+          return (
+            <li class="mobile-nav-dropdown">
+              <span class={`mobile-nav-link dropdown-toggle ${isActive ? 'active' : ''}`}>
+                {item.name}
+                <svg class="chevron-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+              <ul class="mobile-dropdown-menu">
+                {item.dropdown.map(subItem => {
+                  const isSubActive = currentPath === subItem.href || (subItem.href !== '/' && currentPath.startsWith(subItem.href));
+                  return (
+                    <li>
+                      <a href={subItem.href} class={`mobile-dropdown-link ${isSubActive ? 'active' : ''}`}>
+                        {subItem.name}
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            </li>
+          );
+        }
+
         const isActive = currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href));
         return (
           <li>
@@ -194,6 +252,81 @@ const navItems = [
 
   .nav-link:hover::after {
     width: 60%;
+  }
+
+  /* Dropdown en Desktop */
+  .nav-item-dropdown {
+    position: relative;
+    cursor: pointer;
+  }
+
+  .dropdown-toggle {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .chevron-icon {
+    transition: transform 0.3s ease;
+  }
+
+  .nav-item-dropdown:hover .chevron-icon {
+    transform: rotate(180deg);
+  }
+
+  /* Puente invisible para mantener el hover al pasar del botón al menú */
+  .nav-item-dropdown::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 15px;
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: rgba(10, 10, 10, 0.85);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 12px;
+    list-style: none;
+    min-width: 240px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(124, 58, 237, 0.08);
+    z-index: 1005;
+    margin-top: 15px;
+  }
+
+  .nav-item-dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .dropdown-link {
+    display: block;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 10px 16px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+  }
+
+  .dropdown-link:hover,
+  .dropdown-link.active {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateX(4px);
   }
 
   /* Botones de acción */
@@ -331,6 +464,48 @@ const navItems = [
     background: rgba(255, 255, 255, 0.05);
   }
 
+  /* Dropdown en Mobile */
+  .mobile-nav-dropdown {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mobile-dropdown-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    padding-left: 16px;
+    margin-top: 8px;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .mobile-nav-dropdown.open .mobile-dropdown-menu {
+    display: flex;
+  }
+
+  .mobile-nav-dropdown.open .chevron-icon {
+    transform: rotate(180deg);
+  }
+
+  .mobile-dropdown-link {
+    display: block;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 15px;
+    text-decoration: none;
+    padding: 10px 16px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+  }
+
+  .mobile-dropdown-link:hover,
+  .mobile-dropdown-link.active {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.05);
+  }
+
   .mobile-actions {
     display: flex;
     flex-direction: column;
@@ -383,11 +558,21 @@ const navItems = [
     });
 
     // Cierra el menú al hacer click en cualquier link
-    const links = mobileMenu.querySelectorAll('.mobile-nav-link');
+    const links = mobileMenu.querySelectorAll('.mobile-nav-link:not(.dropdown-toggle), .mobile-dropdown-link');
     links.forEach(link => {
       link.addEventListener('click', () => {
         toggleBtn.classList.remove('open');
         mobileMenu.classList.remove('open');
+      });
+    });
+
+    // Lógica para dropdowns en móvil
+    const dropdownToggles = mobileMenu.querySelectorAll('.mobile-nav-dropdown .dropdown-toggle');
+    dropdownToggles.forEach(toggle => {
+      toggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        const parent = toggle.closest('.mobile-nav-dropdown');
+        if (parent) parent.classList.toggle('open');
       });
     });
   }
