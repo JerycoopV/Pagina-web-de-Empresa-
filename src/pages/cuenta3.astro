@@ -1,6 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import '../styles/cuenta.css';
+import dniFrontal from '../assets/Recurso-3dni-vector.svg';
+import dniTrasera from '../assets/Recurso-2dni-vector.svg';
+import dniPersona from '../assets/DNI-PERSONA-FRONTAL.png';
 ---
 
 <Layout title="Confirmación | Capital Fest">
@@ -42,8 +45,8 @@ import '../styles/cuenta.css';
               </div>
               <div class="step-divider"></div>
               <div class="step-item">
-                <div class="step-circle active">03</div>
-                <span class="step-label active">Confirmación</span>
+                <div class="step-circle inactive">03</div>
+                <span class="step-label inactive">Confirmación</span>
               </div>
             </div>
 
@@ -51,34 +54,34 @@ import '../styles/cuenta.css';
               <!-- PASO 3: FOTOS DE DOCUMENTO -->
               <div id="step-3" class="form-step active" style="display: contents; grid-column: 1 / -1;">
                 
-                <div class="form-group" style="grid-column: 1 / -1; margin-bottom: 16px; margin-top: -10px;">
-                  <label class="form-label text-center-label">Adjuntar foto frontal del <span class="doc-type-label">DNI</span></label>
-                  <label class="file-upload-box">
+                <div class="form-group" style="grid-column: 1 / -1; margin-bottom: 24px; margin-top: -10px; display: flex; flex-direction: column; align-items: center;">
+                  <label class="form-label text-center-label step3-label">Adjuntar foto frontal del <span class="doc-type-label">DNI</span></label>
+                  <img src={dniFrontal.src} alt="DNI Frontal Placeholder" class="document-placeholder-img" />
+                  <label class="file-upload-pill">
                     +
                     <input type="file" id="documentFront" name="documentFront" accept="image/*" style="display: none;" />
                   </label>
                 </div>
 
-                <div class="form-group" style="grid-column: 1 / -1; margin-bottom: 16px;">
-                  <label class="form-label text-center-label">Adjuntar foto trasera del <span class="doc-type-label">DNI</span></label>
-                  <label class="file-upload-box">
+                <div class="form-group" style="grid-column: 1 / -1; margin-bottom: 24px; display: flex; flex-direction: column; align-items: center;">
+                  <label class="form-label text-center-label step3-label">Adjuntar foto trasera del <span class="doc-type-label">DNI</span></label>
+                  <img src={dniTrasera.src} alt="DNI Trasera Placeholder" class="document-placeholder-img" />
+                  <label class="file-upload-pill">
                     +
                     <input type="file" id="documentBack" name="documentBack" accept="image/*" style="display: none;" />
                   </label>
                 </div>
 
-                <div class="form-group" style="grid-column: 1 / -1; margin-bottom: 20px;">
-                  <label class="form-label text-center-label">Adjuntar foto de perfil con el <span class="doc-type-label">DNI</span></label>
-                  <label class="file-upload-box">
+                <div class="form-group" style="grid-column: 1 / -1; margin-bottom: 30px; display: flex; flex-direction: column; align-items: center;">
+                  <label class="form-label text-center-label step3-label">Adjuntar foto de perfil con el <span class="doc-type-label">DNI</span></label>
+                  <img src={dniPersona.src} alt="DNI Selfie Placeholder" class="selfie-placeholder-img" />
+                  <label class="file-upload-pill">
                     +
                     <input type="file" id="selfie" name="selfie" accept="image/*" style="display: none;" />
                   </label>
                 </div>
 
                 <div class="btn-submit-container" style="grid-column: 1 / -1; display: flex; gap: 15px;">
-                  <a href="/cuenta2" class="btn-submit" style="flex: 1; background: transparent; border: 1px solid rgba(255,255,255,0.3); box-shadow: none; text-align: center; text-decoration: none; display: flex; align-items: center; justify-content: center;">
-                    Volver
-                  </a>
                   <button type="submit" class="btn-submit" id="register-btn-submit" style="flex: 1;">
                     Siguiente
                   </button>
