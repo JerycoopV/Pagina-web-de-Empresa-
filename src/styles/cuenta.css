@@ -80,9 +80,12 @@
 }
 
 @keyframes floatCard {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-10px);
   }
@@ -100,8 +103,8 @@
 
 .register-card {
   width: 100%;
-  background: linear-gradient(#05010d, #05010d) padding-box,
-              linear-gradient(135deg, #8a2be2 0%, transparent 40%, transparent 60%, rgba(138, 43, 226, 0.4) 100%) border-box;
+  background: linear-gradient(#000000, #000000) padding-box,
+    linear-gradient(135deg, #8a2be2 0%, transparent 40%, transparent 60%, rgba(138, 43, 226, 0.4) 100%) border-box;
   border: 1.5px solid transparent;
   border-radius: 28px;
   padding: 48px 40px;
@@ -133,7 +136,7 @@
 }
 
 .register-card-header h2 {
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 700;
   color: #ffffff;
   letter-spacing: -0.5px;
@@ -169,7 +172,7 @@
 .register-stepper {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   margin-bottom: 36px;
   position: relative;
   width: 100%;
@@ -182,13 +185,13 @@
 }
 
 .step-circle {
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
+  font-size: 22px;
   font-weight: 700;
   transition: all 0.3s ease;
 }
@@ -220,10 +223,10 @@
 }
 
 .step-divider {
-  flex-grow: 1;
+  width: 40px;
   height: 1px;
-  background: rgba(255, 255, 255, 0.08);
-  margin: 0 12px;
+  background: rgba(255, 255, 255, 0.15);
+  margin: 0 16px;
 }
 
 /* ============================================
@@ -389,7 +392,8 @@
   }
 
   .step-divider {
-    display: none; /* Ocultar líneas en móvil para apilar pasos verticalmente */
+    display: none;
+    /* Ocultar líneas en móvil para apilar pasos verticalmente */
   }
 
   .register-form-grid {
@@ -430,17 +434,32 @@
   animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.delay-1 { animation-delay: 0.15s; }
-.delay-2 { animation-delay: 0.3s; }
-.delay-3 { animation-delay: 0.45s; }
-.delay-4 { animation-delay: 0.6s; }
-.delay-5 { animation-delay: 0.75s; }
+.delay-1 {
+  animation-delay: 0.15s;
+}
+
+.delay-2 {
+  animation-delay: 0.3s;
+}
+
+.delay-3 {
+  animation-delay: 0.45s;
+}
+
+.delay-4 {
+  animation-delay: 0.6s;
+}
+
+.delay-5 {
+  animation-delay: 0.75s;
+}
 
 @keyframes fadeInUp {
   from {
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -506,7 +525,7 @@
 .text-center-label {
   text-align: center;
   display: block;
-  font-size: 1.05rem;
+  font-size: 1.35rem;
   margin-bottom: 8px;
   font-weight: 700;
   color: #ffffff;
@@ -535,19 +554,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(180deg, rgba(30, 15, 55, 0.95) 0%, rgba(15, 8, 30, 0.95) 100%) padding-box,
-              linear-gradient(135deg, rgba(138, 43, 226, 0.8) 0%, transparent 40%, transparent 60%, rgba(138, 43, 226, 0.4) 100%) border-box;
-  border: 1.5px solid transparent;
+  background: linear-gradient(90deg, #2c1249 0%, #08070c 35%, #08070c 65%, #170c28 100%);
+  border: 1px solid rgba(138, 43, 226, 0.35);
   border-radius: 50px;
   height: 44px;
   width: 85%;
   max-width: 400px;
   cursor: pointer;
   color: white;
-  font-size: 2rem;
+  font-size: 3rem;
   line-height: 0;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
 }
 
 .file-upload-pill:hover {
@@ -559,9 +577,9 @@
    AUTORELLENO DE NAVEGADOR (AUTOFILL OVERRIDE)
    ============================================ */
 .form-input:-webkit-autofill,
-.form-input:-webkit-autofill:hover, 
-.form-input:-webkit-autofill:focus, 
+.form-input:-webkit-autofill:hover,
+.form-input:-webkit-autofill:focus,
 .form-input:-webkit-autofill:active {
-    transition: background-color 5000s ease-in-out 0s;
-    -webkit-text-fill-color: #ffffff !important;
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-text-fill-color: #ffffff !important;
 }
