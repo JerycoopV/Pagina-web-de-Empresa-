@@ -4,9 +4,10 @@ import Footer from '../components/Footer.astro';
 
 interface Props {
 	title?: string;
+	hideHeaderFooter?: boolean;
 }
 
-const { title = "Tu dinero al instante - Recreación" } = Astro.props;
+const { title = "Tu dinero al instante - Recreación", hideHeaderFooter = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -25,16 +26,16 @@ const { title = "Tu dinero al instante - Recreación" } = Astro.props;
 		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 	</head>
 	<body>
-		<!-- Componente Header Flotante -->
-		<Header />
+		<!-- Componente Header Flotante (si no se oculta) -->
+		{!hideHeaderFooter && <Header />}
 		
 		<!-- Contenedor Principal de la Página -->
-		<main>
+		<main class={hideHeaderFooter ? 'main-full' : ''}>
 			<slot />
 		</main>
 		
-		<!-- Componente Footer -->
-		<Footer />
+		<!-- Componente Footer (si no se oculta) -->
+		{!hideHeaderFooter && <Footer />}
 	</body>
 </html>
 
@@ -83,6 +84,12 @@ const { title = "Tu dinero al instante - Recreación" } = Astro.props;
 		margin-top: 120px; /* Margen para evitar que el header flotante tape el contenido */
 		position: relative;
 		z-index: 1;
+	}
+
+	main.main-full {
+		max-width: 100% !important;
+		margin: 0 !important;
+		padding: 0 !important;
 	}
 
 	/* Efecto de Luces Ambientales de Fondo (Mesh Gradients) */

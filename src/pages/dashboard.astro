@@ -1,43 +1,657 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import '../styles/dashboard.css';
 ---
 
-<Layout title="Dashboard | Capital Fest">
-  <section class="dashboard-section" style="padding-top: 150px; min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center;">
-    <div class="dashboard-container">
-      <h1 class="text-gradient" style="font-size: 3rem; margin-bottom: 20px;">Bienvenido a tu Dashboard</h1>
-      <p style="color: white; font-size: 1.2rem; margin-bottom: 30px;" id="welcome-message">Cargando tus datos...</p>
+<Layout title="Dashboard | Capital Fest" hideHeaderFooter={true}>
+  <div class="dashboard-layout">
+    
+    <!-- Botón Toggle de Sidebar en Pantallas Móviles -->
+    <button class="mobile-sidebar-toggle" id="mobile-sidebar-btn" aria-label="Abrir menú de navegación">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
+
+    <!-- ==========================================
+         1. BARRA LATERAL (SIDEBAR NAVIGATION)
+         ========================================== -->
+    <aside class="dash-sidebar" id="dash-sidebar">
+      <div class="sidebar-top">
+        <!-- Logo Principal -->
+        <a href="/" class="sidebar-logo">
+          <img src="/assets/logo.svg" alt="Capital Fest Logo" class="sidebar-logo-img" />
+        </a>
+
+        <!-- Lista de Enlaces de Navegación -->
+        <nav>
+          <ul class="sidebar-nav">
+            <li class="nav-section-title">Dashboard</li>
+            
+            <li>
+              <a href="#" class="nav-item active">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+                  <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+                  <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
+                  <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+                </svg>
+                <span>Inicio</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="/simulador" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <circle cx="12" cy="12" r="9"></circle>
+                  <polygon points="10 8 16 12 10 16 10 8" fill="currentColor"></polygon>
+                </svg>
+                <span>Nueva Simulación</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+                <span>Historial</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+                  <line x1="2" y1="10" x2="22" y2="10"></line>
+                </svg>
+                <span>Mis tarjetas</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <line x1="18" y1="20" x2="18" y2="10"></line>
+                  <line x1="12" y1="20" x2="12" y2="4"></line>
+                  <line x1="6" y1="20" x2="6" y2="14"></line>
+                </svg>
+                <span>Estadísticas</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <circle cx="12" cy="12" r="3"></circle>
+                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                </svg>
+                <span>Configuración</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="/beneficios" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+                <span>Beneficios</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="/ayuda" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="16" x2="12" y2="12"></line>
+                  <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+                <span>Soporte</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <circle cx="12" cy="12" r="3"></circle>
+                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                </svg>
+                <span>Configuración</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- Tarjeta de Información de Seguridad -->
+        <div class="sidebar-security-card">
+          <div class="security-header">
+            <div class="security-icon-box">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+            </div>
+            <span class="security-title">Tu seguridad es nuestra prioridad</span>
+          </div>
+          <p class="security-desc">Sistema 100% seguro y encriptado.</p>
+          <button class="security-btn-pill" aria-label="Seguridad encriptada"></button>
+        </div>
+      </div>
+
+      <!-- Pie del Sidebar: Usuario y Cierre de Sesión -->
+      <div class="sidebar-bottom">
+        <div class="sidebar-user-row" id="user-profile-row">
+          <div class="user-avatar" id="sidebar-avatar-initial">J</div>
+          <div class="user-info">
+            <span class="user-name" id="sidebar-user-fullname">Joshua V.</span>
+            <span class="user-link">Ver perfil <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+          </div>
+        </div>
+
+        <button class="sidebar-logout-btn" id="logout-btn">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+          <span>Cerrar sesión</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- ==========================================
+         2. CONTENIDO PRINCIPAL DEL DASHBOARD
+         ========================================== -->
+    <main class="dash-content">
       
-      <button id="logout-btn" style="padding: 12px 24px; border-radius: 8px; border: none; background: linear-gradient(90deg, #ff6b00 0%, #ff8a00 100%); color: white; font-weight: 600; font-size: 1rem; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 15px rgba(255, 107, 0, 0.4);">
-        Cerrar Sesión
-      </button>
-    </div>
-  </section>
+      <!-- HEADER DEL DASHBOARD: SALUDO + ACCIONES + TARJETA 3D -->
+      <header class="dash-top-bar">
+        <div class="dash-greeting-box">
+          <h1 class="dash-greeting-title">¡Hola, <span class="highlight-name" id="greeting-name">Usuario</span>!</h1>
+          <p class="dash-greeting-subtitle">Bienvenido a tu panel de control</p>
+        </div>
+
+        <div class="dash-top-actions">
+          <button class="notification-btn" aria-label="Notificaciones">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+            <span class="notification-badge">3</span>
+          </button>
+          
+          <div class="top-user-avatar" id="header-avatar-initial">J</div>
+        </div>
+
+        <!-- Tarjeta Flotante 3D (Elemento Gráfico del Encabezado) -->
+        <div class="header-card-visual">
+          <div class="visual-pedestal"></div>
+          <div class="visual-3d-card">
+            <div class="card-top-icons">
+              <div class="card-chip"></div>
+              <svg class="card-contactless" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M8.5 14.5A4 4 0 0 1 8.5 9.5"></path>
+                <path d="M11.5 17.5A8 8 0 0 0 11.5 6.5"></path>
+                <path d="M14.5 20.5A12 12 0 0 0 14.5 3.5"></path>
+              </svg>
+            </div>
+            <div class="card-number-dots">1234 5678 9012 3456</div>
+            <div class="card-bottom-info">
+              <span class="card-holder">TU TARJETA</span>
+              <span class="card-expiry">12/25</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- ==========================================
+           3. GRILLA DE MÉTRICAS Y ESTADÍSTICAS (4 CARDS)
+           ========================================== -->
+      <section class="dash-metrics-grid">
+        <!-- Card 1: Monto disponible -->
+        <div class="metric-card">
+          <div class="metric-header">
+            <div class="metric-icon-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"></path>
+                <path d="M3 5v14a2 2 0 0 0 2 2h16v-5"></path>
+                <path d="M18 12a2 2 0 0 0 0 4h4v-4z"></path>
+              </svg>
+            </div>
+            <div class="metric-info">
+              <span class="metric-label">Monto disponible</span>
+              <span class="metric-value">S/ 35,000.00</span>
+            </div>
+          </div>
+          <div class="metric-footer">
+            <span class="metric-footer-text">Línea de crédito disponible</span>
+            <span class="metric-tag positive">▲ 12%</span>
+          </div>
+        </div>
+
+        <!-- Card 2: Retiro máximo -->
+        <div class="metric-card">
+          <div class="metric-header">
+            <div class="metric-icon-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+                <line x1="2" y1="10" x2="22" y2="10"></line>
+              </svg>
+            </div>
+            <div class="metric-info">
+              <span class="metric-label">Retiro máximo</span>
+              <span class="metric-value">S/ 4,500.00</span>
+            </div>
+          </div>
+          <div class="metric-footer">
+            <span class="metric-footer-text">Monto máximo por retiro</span>
+            <span class="metric-tag positive">▲ 8%</span>
+          </div>
+        </div>
+
+        <!-- Card 3: Simulaciones realizadas -->
+        <div class="metric-card">
+          <div class="metric-header">
+            <div class="metric-icon-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                <polyline points="17 6 23 6 23 12"></polyline>
+              </svg>
+            </div>
+            <div class="metric-info">
+              <span class="metric-label">Simulaciones realizadas</span>
+              <span class="metric-value">3</span>
+            </div>
+          </div>
+          <div class="metric-footer">
+            <span class="metric-footer-text">Este mes</span>
+            <span class="metric-tag positive">+2</span>
+          </div>
+        </div>
+
+        <!-- Card 4: Estado de cuenta -->
+        <div class="metric-card">
+          <div class="metric-header">
+            <div class="metric-icon-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                <polyline points="9 12 11 14 15 10"></polyline>
+              </svg>
+            </div>
+            <div class="metric-info">
+              <span class="metric-label">Estado de cuenta</span>
+              <span class="metric-value status-verified">
+                Verificada <span class="verified-tag">✓</span>
+              </span>
+            </div>
+          </div>
+          <div class="metric-footer">
+            <span class="metric-footer-text">Cuenta en buen estado</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           4. FILA CENTRAL: GRÁFICO + SIMULACIÓN RÁPIDA (2:1)
+           ========================================== -->
+      <section class="dash-middle-grid">
+        
+        <!-- Panel Izquierdo: Simulaciones de Retiro (Gráfico) -->
+        <div class="dash-panel">
+          <div class="panel-header">
+            <div class="panel-title-group">
+              <h2 class="panel-title">Simulaciones de retiro</h2>
+              <p class="panel-subtitle">Resumen de simulaciones en los últimos 30 días</p>
+            </div>
+            <select class="panel-filter-select">
+              <option>Últimos 30 días</option>
+              <option>Últimos 60 días</option>
+              <option>Este año</option>
+            </select>
+          </div>
+
+          <!-- Gráfico SVG Interactivo de Ondas Spline -->
+          <div class="chart-container">
+            <!-- Tooltip Flotante sobre 25 Jul -->
+            <div class="chart-tooltip-box">
+              <span class="chart-tooltip-amount">S/ 3,250</span>
+              <span class="chart-tooltip-date">25 Jul 2024</span>
+            </div>
+
+            <svg class="chart-svg" viewBox="0 0 600 200" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="purple-chart-gradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#a855f7" stop-opacity="0.45"></stop>
+                  <stop offset="100%" stop-color="#7c3aed" stop-opacity="0.0"></stop>
+                </linearGradient>
+              </defs>
+
+              <!-- Líneas de Guía Horizontales Y -->
+              <line x1="40" y1="20" x2="590" y2="20" class="chart-grid-line"></line>
+              <text x="10" y="24" class="chart-axis-label">5K</text>
+
+              <line x1="40" y1="55" x2="590" y2="55" class="chart-grid-line"></line>
+              <text x="10" y="59" class="chart-axis-label">4K</text>
+
+              <line x1="40" y1="90" x2="590" y2="90" class="chart-grid-line"></line>
+              <text x="10" y="94" class="chart-axis-label">3K</text>
+
+              <line x1="40" y1="125" x2="590" y2="125" class="chart-grid-line"></line>
+              <text x="10" y="129" class="chart-axis-label">2K</text>
+
+              <line x1="40" y1="160" x2="590" y2="160" class="chart-grid-line"></line>
+              <text x="10" y="164" class="chart-axis-label">1K</text>
+
+              <line x1="40" y1="190" x2="590" y2="190" class="chart-grid-line"></line>
+              <text x="10" y="194" class="chart-axis-label">0</text>
+
+              <!-- Etiquetas del Eje X (Fechas) -->
+              <text x="50" y="200" class="chart-axis-label">25 Jun</text>
+              <text x="135" y="200" class="chart-axis-label">30 Jun</text>
+              <text x="220" y="200" class="chart-axis-label">5 Jul</text>
+              <text x="305" y="200" class="chart-axis-label">10 Jul</text>
+              <text x="390" y="200" class="chart-axis-label">15 Jul</text>
+              <text x="475" y="200" class="chart-axis-label">20 Jul</text>
+              <text x="550" y="200" class="chart-axis-label">25 Jul</text>
+
+              <!-- Relleno Sombreado bajo la Línea -->
+              <path d="M 50,150 
+                       C 80,110 110,140 145,130 
+                       C 180,120 200,145 230,135 
+                       C 260,125 290,160 325,120 
+                       C 350,90 375,40 400,60 
+                       C 425,80 445,120 470,110 
+                       C 495,100 520,70 560,95 
+                       L 560,190 L 50,190 Z" 
+                    class="chart-area-fill"></path>
+
+              <!-- Trazo de la Curva Principal Púrpura -->
+              <path d="M 50,150 
+                       C 80,110 110,140 145,130 
+                       C 180,120 200,145 230,135 
+                       C 260,125 290,160 325,120 
+                       C 350,90 375,40 400,60 
+                       C 425,80 445,120 470,110 
+                       C 495,100 520,70 560,95" 
+                    class="chart-path-line"></path>
+
+              <!-- Puntos Destacados -->
+              <circle cx="560" cy="95" class="chart-point"></circle>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Panel Derecho: Nueva Simulación Rápida -->
+        <div class="dash-panel">
+          <div class="panel-header">
+            <div class="panel-title-group">
+              <h2 class="panel-title">Nueva simulación rápida</h2>
+              <p class="panel-subtitle">Simula tu retiro en segundos</p>
+            </div>
+          </div>
+
+          <form class="quick-sim-form" id="quick-sim-form">
+            <div class="sim-input-group">
+              <label class="sim-input-label">Monto a retirar</label>
+              <input type="text" class="sim-amount-input" value="S/ 2,000.00" id="quick-sim-amount" />
+            </div>
+
+            <div class="sim-selectors-row">
+              <!-- Selector 1: Banco -->
+              <div class="custom-select-wrapper">
+                <label class="sim-input-label">Selecciona tu banco</label>
+                <select class="sim-select-box" id="quick-sim-bank">
+                  <option value="Interbank">Interbank</option>
+                  <option value="BBVA">BBVA</option>
+                  <option value="BCP">BCP</option>
+                  <option value="Scotiabank">Scotiabank</option>
+                </select>
+              </div>
+
+              <!-- Selector 2: Tipo de Tarjeta -->
+              <div class="custom-select-wrapper">
+                <label class="sim-input-label">Tipo de tarjeta</label>
+                <select class="sim-select-box" id="quick-sim-card">
+                  <option value="Visa">Visa</option>
+                  <option value="Mastercard">Mastercard</option>
+                  <option value="Amex">American Express</option>
+                </select>
+              </div>
+            </div>
+
+            <button type="submit" class="sim-submit-btn" id="btn-quick-sim">
+              Simular Retiro
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           5. FILA INFERIOR: HISTORIAL + ACTIVIDAD RECIENTE (2:1)
+           ========================================== -->
+      <section class="dash-bottom-grid">
+        
+        <!-- Panel Izquierdo: Historial Reciente -->
+        <div class="dash-panel">
+          <div class="panel-header">
+            <div class="panel-title-group">
+              <h2 class="panel-title">Historial reciente</h2>
+              <p class="panel-subtitle">Tus últimas simulaciones</p>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="history-table">
+              <thead>
+                <tr>
+                  <th>Fecha</th>
+                  <th>Monto</th>
+                  <th>Banco</th>
+                  <th>Tarjeta</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Fila 1 -->
+                <tr>
+                  <td>25 Jul 2026</td>
+                  <td style="font-weight: 600;">S/ 2,000.00</td>
+                  <td>
+                    <div class="table-bank-cell">
+                      <span class="bank-tag-green">I</span> Interbank
+                    </div>
+                  </td>
+                  <td><span class="visa-badge">VISA</span></td>
+                  <td>
+                    <span class="status-badge completed">
+                      <span class="status-dot completed"></span> Completada
+                    </span>
+                  </td>
+                  <td><span class="table-action-dots">•••</span></td>
+                </tr>
+
+                <!-- Fila 2 -->
+                <tr>
+                  <td>23 Jul 2026</td>
+                  <td style="font-weight: 600;">S/ 1,000.00</td>
+                  <td>
+                    <div class="table-bank-cell">
+                      <span class="bank-tag-green" style="background: #004481;">B</span> BBVA
+                    </div>
+                  </td>
+                  <td><span class="visa-badge" style="color: #eb001b;">MC</span></td>
+                  <td>
+                    <span class="status-badge completed">
+                      <span class="status-dot completed"></span> Completada
+                    </span>
+                  </td>
+                  <td><span class="table-action-dots">•••</span></td>
+                </tr>
+
+                <!-- Fila 3 -->
+                <tr>
+                  <td>21 Jul 2026</td>
+                  <td style="font-weight: 600;">S/ 3,000.00</td>
+                  <td>
+                    <div class="table-bank-cell">
+                      <span class="bank-tag-green" style="background: #ff6600;">B</span> BCP
+                    </div>
+                  </td>
+                  <td><span class="visa-badge">VISA</span></td>
+                  <td>
+                    <span class="status-badge pending">
+                      <span class="status-dot pending"></span> Pendiente
+                    </span>
+                  </td>
+                  <td><span class="table-action-dots">•••</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <a href="#" class="panel-footer-link">
+            Ver todo el historial <span>→</span>
+          </a>
+        </div>
+
+        <!-- Panel Derecho: Actividad Reciente -->
+        <div class="dash-panel">
+          <div class="panel-header">
+            <div class="panel-title-group">
+              <h2 class="panel-title">Actividad reciente</h2>
+            </div>
+          </div>
+
+          <div class="activity-list">
+            <!-- Actividad 1 -->
+            <div class="activity-item">
+              <div class="activity-icon-circle">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </div>
+              <div class="activity-details">
+                <span class="activity-title">Simulación completada</span>
+                <span class="activity-desc">Retiro de S/ 2,000.00 en Interbank</span>
+              </div>
+              <span class="activity-time">Hace 2 min</span>
+            </div>
+
+            <!-- Actividad 2 -->
+            <div class="activity-item">
+              <div class="activity-icon-circle">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </div>
+              <div class="activity-details">
+                <span class="activity-title">Simulación completada</span>
+                <span class="activity-desc">Retiro de S/ 1,500.00 en BBVA</span>
+              </div>
+              <span class="activity-time">Hace 1 día</span>
+            </div>
+
+            <!-- Actividad 3 -->
+            <div class="activity-item">
+              <div class="activity-icon-circle">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+              </div>
+              <div class="activity-details">
+                <span class="activity-title">Nueva simulación creada</span>
+                <span class="activity-desc">Retiro de S/ 3,000.00 en BCP</span>
+              </div>
+              <span class="activity-time">Hace 2 días</span>
+            </div>
+
+            <!-- Actividad 4 -->
+            <div class="activity-item">
+              <div class="activity-icon-circle success">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+              </div>
+              <div class="activity-details">
+                <span class="activity-title">Cuenta verificada</span>
+                <span class="activity-desc">Tu cuenta ha sido verificada exitosamente</span>
+              </div>
+              <span class="activity-time">Hace 3 días</span>
+            </div>
+          </div>
+
+          <a href="#" class="panel-footer-link">
+            Ver toda la actividad <span>→</span>
+          </a>
+        </div>
+      </section>
+
+    </main>
+  </div>
 </Layout>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    const token = localStorage.getItem('capitalFest_token');
+    // 1. Obtener datos de usuario de localStorage si están disponibles
     const userStr = localStorage.getItem('capitalFest_user');
-    const welcomeMessage = document.getElementById('welcome-message');
+    const greetingNameEl = document.getElementById('greeting-name');
+    const sidebarUserFullname = document.getElementById('sidebar-user-fullname');
+    const sidebarAvatar = document.getElementById('sidebar-avatar-initial');
+    const headerAvatar = document.getElementById('header-avatar-initial');
+
+    if (userStr) {
+      try {
+        const user = JSON.parse(userStr);
+        const firstName = user.firstName || 'Joshua';
+        const lastName = user.lastName || 'V.';
+        const initial = firstName.charAt(0).toUpperCase();
+
+        if (greetingNameEl) greetingNameEl.textContent = `${firstName}`;
+        if (sidebarUserFullname) sidebarUserFullname.textContent = `${firstName} ${lastName.charAt(0)}.`;
+        if (sidebarAvatar) sidebarAvatar.textContent = initial;
+        if (headerAvatar) headerAvatar.textContent = initial;
+      } catch (e) {
+        console.error('Error parseando datos de usuario:', e);
+      }
+    }
+
+    // 2. Lógica del Botón de Cierre de Sesión
     const logoutBtn = document.getElementById('logout-btn');
-
-    if (!token || !userStr) {
-      // Si no hay sesión, regresarlo al login
-      window.location.href = '/login';
-      return;
-    }
-
-    const user = JSON.parse(userStr);
-    if (welcomeMessage) {
-      welcomeMessage.textContent = `¡Hola de nuevo, ${user.firstName} ${user.lastName}! Has iniciado sesión correctamente.`;
-    }
-
     if (logoutBtn) {
       logoutBtn.addEventListener('click', () => {
         localStorage.removeItem('capitalFest_token');
         localStorage.removeItem('capitalFest_user');
-        window.location.href = '/';
+        window.location.href = '/login';
+      });
+    }
+
+    // 3. Toggle Sidebar Móvil
+    const mobileSidebarBtn = document.getElementById('mobile-sidebar-btn');
+    const dashSidebar = document.getElementById('dash-sidebar');
+    if (mobileSidebarBtn && dashSidebar) {
+      mobileSidebarBtn.addEventListener('click', () => {
+        dashSidebar.classList.toggle('open');
+      });
+    }
+
+    // 4. Formulario de Simulación Rápida
+    const quickSimForm = document.getElementById('quick-sim-form');
+    if (quickSimForm) {
+      quickSimForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const amount = (document.getElementById('quick-sim-amount') as HTMLInputElement).value;
+        const bank = (document.getElementById('quick-sim-bank') as HTMLSelectElement).value;
+        const card = (document.getElementById('quick-sim-card') as HTMLSelectElement).value;
+
+        alert(`¡Simulación iniciada!\nMonto: ${amount}\nBanco: ${bank}\nTarjeta: ${card}`);
       });
     }
   });
