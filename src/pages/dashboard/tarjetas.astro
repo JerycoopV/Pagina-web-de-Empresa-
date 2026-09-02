@@ -1,0 +1,1131 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import '../../styles/dashboard-tarjetas.css';
+---
+
+<Layout title="Mis Tarjetas | Capital Fest" hideHeaderFooter={true}>
+  <div class="tarjetas-layout">
+    
+    <!-- Botón Toggle de Menú en Móviles -->
+    <button class="mobile-sidebar-toggle" id="mobile-sidebar-btn" aria-label="Abrir menú de navegación">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
+    <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
+    <!-- ==========================================
+         1. BARRA LATERAL (SIDEBAR NAVIGATION)
+         ========================================== -->
+    <aside class="dash-sidebar" id="dash-sidebar">
+      <div class="sidebar-top">
+        <!-- Logo Principal -->
+        <a href="/" class="sidebar-logo">
+          <img src="/assets/logo.svg" alt="Capital Fest Logo" class="sidebar-logo-img" />
+        </a>
+
+        <!-- Lista de Enlaces de Navegación -->
+        <nav>
+          <ul class="sidebar-nav">
+            <li class="nav-section-title">Dashboard</li>
+            
+            <li>
+              <a href="/dashboard" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+                  <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+                  <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
+                  <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+                </svg>
+                <span>Dashboard</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="/simulador" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <circle cx="12" cy="12" r="9"></circle>
+                  <polygon points="10 8 16 12 10 16 10 8" fill="currentColor"></polygon>
+                </svg>
+                <span>Nueva simulación</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="/dashboard/historial" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+                <span>Historial</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="/dashboard/tarjetas" class="nav-item active">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+                  <line x1="2" y1="10" x2="22" y2="10"></line>
+                </svg>
+                <span>Mis tarjetas</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <line x1="18" y1="20" x2="18" y2="10"></line>
+                  <line x1="12" y1="20" x2="12" y2="4"></line>
+                  <line x1="6" y1="20" x2="6" y2="14"></line>
+                </svg>
+                <span>Estadísticas</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="/beneficios" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+                <span>Beneficios</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="/ayuda" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="16" x2="12" y2="12"></line>
+                  <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+                <span>Soporte</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <circle cx="12" cy="12" r="3"></circle>
+                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                </svg>
+                <span>Configuración</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- Tarjeta de Seguridad -->
+        <div class="sidebar-security-card">
+          <div class="security-header">
+            <div class="security-icon-box">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+            </div>
+            <span class="security-title">Tu seguridad es nuestra prioridad</span>
+          </div>
+          <p class="security-desc">Sistema 100% seguro y encriptado.</p>
+          <button class="security-btn-pill" aria-label="Más información">
+            <span>Más información</span>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Pie del Sidebar: Usuario y Cierre de Sesión -->
+      <div class="sidebar-bottom">
+        <div class="sidebar-user-row" id="user-profile-row">
+          <div class="user-avatar" id="sidebar-avatar-initial">J</div>
+          <div class="user-info">
+            <span class="user-name" id="sidebar-user-fullname">
+              Joshua V.
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </span>
+            <span class="user-link">Ver perfil</span>
+          </div>
+        </div>
+
+        <button class="sidebar-logout-btn" id="logout-btn">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+          <span>Cerrar sesión</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- ==========================================
+         2. CONTENIDO PRINCIPAL: MIS TARJETAS
+         ========================================== -->
+    <main class="tarjetas-content">
+      
+      <!-- TOP HEADER BAR -->
+      <header class="tarjetas-top-bar">
+        <div class="tarjetas-title-box">
+          <h1 class="tarjetas-page-title">Mis tarjetas</h1>
+          <p class="tarjetas-page-subtitle">Administra tus tarjetas vinculadas a Capital Fest.</p>
+        </div>
+
+        <div class="tarjetas-top-actions">
+          <button class="notification-btn" aria-label="Notificaciones">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+            <span class="notification-badge">3</span>
+          </button>
+          
+          <div class="top-user-avatar" id="header-avatar-initial">J</div>
+
+          <button class="btn-link-card" id="btn-open-modal-link">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            <span>Vincular nueva tarjeta</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- TARJETAS DE MÉTRICAS (4 STAT CARDS) -->
+      <section class="tarjetas-metrics-grid">
+        <!-- 1. Tarjetas vinculadas -->
+        <div class="metric-stat-card">
+          <div class="metric-circle-icon purple">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+              <line x1="2" y1="10" x2="22" y2="10"></line>
+            </svg>
+          </div>
+          <div class="metric-stat-info">
+            <span class="metric-stat-label">Tarjetas vinculadas</span>
+            <span class="metric-stat-value">3</span>
+            <span class="metric-stat-tag active-tag">Activas</span>
+          </div>
+        </div>
+
+        <!-- 2. Tarjetas activas -->
+        <div class="metric-stat-card">
+          <div class="metric-circle-icon green">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              <polyline points="9 12 11 14 15 10"></polyline>
+            </svg>
+          </div>
+          <div class="metric-stat-info">
+            <span class="metric-stat-label">Tarjetas activas</span>
+            <span class="metric-stat-value">3</span>
+            <span class="metric-stat-tag active-tag">100% del total</span>
+          </div>
+        </div>
+
+        <!-- 3. Límite total disponible -->
+        <div class="metric-stat-card">
+          <div class="metric-circle-icon yellow">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+          </div>
+          <div class="metric-stat-info">
+            <span class="metric-stat-label">Límite total disponible</span>
+            <span class="metric-stat-value">S/ 18,500.00</span>
+            <span class="metric-stat-tag muted-tag">De S/ 22,000.00</span>
+          </div>
+        </div>
+
+        <!-- 4. Última actividad -->
+        <div class="metric-stat-card">
+          <div class="metric-circle-icon purple">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+          </div>
+          <div class="metric-stat-info">
+            <span class="metric-stat-label">Última actividad</span>
+            <span class="metric-stat-value" style="font-size: 1.25rem;">Hoy, 14:32</span>
+            <span class="metric-stat-tag muted-tag">Simulación realizada</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ÁREA DE TRABAJO PRINCIPAL (IZQUIERDA: CAROUSEL + TRANSACCIONES, DERECHA: DETALLE) -->
+      <section class="tarjetas-workspace">
+        
+        <div class="tarjetas-main-column">
+          <!-- CABECERA DE LA SECCIÓN DE TARJETAS -->
+          <div class="cards-section-header">
+            <h2 class="cards-section-title">
+              Mis tarjetas
+              <span class="cards-count-badge">3 tarjetas</span>
+            </h2>
+
+            <div class="cards-view-toggles">
+              <button class="view-toggle-btn active" aria-label="Vista de tarjetas">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
+                <span>Tarjetas</span>
+              </button>
+              <button class="view-toggle-btn" aria-label="Vista de cuadrícula">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+              </button>
+              <button class="view-toggle-btn" aria-label="Vista de lista">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- FILA DE TARJETAS VISUALES INTERACTIVAS -->
+          <div class="cards-carousel-wrapper">
+            <button class="carousel-nav-btn prev" aria-label="Tarjeta anterior">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+
+            <div class="cards-cards-grid" id="cards-grid">
+              
+              <!-- CARD 1: INTERBANK (SELECTED) -->
+              <div class="card-item-box selected" 
+                   data-bank="Interbank"
+                   data-card-type="Visa Débito"
+                   data-full-number="1234 5678 9012 3456"
+                   data-masked="•••• 3456"
+                   data-holder="Joshua Villanueva"
+                   data-expiry="12/28"
+                   data-limit-total="S/ 10,000.00"
+                   data-limit-used="S/ 1,500.00"
+                   data-limit-avail="S/ 8,500.00"
+                   data-percent="15%"
+                   data-theme="interbank">
+                
+                <div class="card-box-header">
+                  <span class="card-badge-principal">Principal</span>
+                </div>
+
+                <div class="visual-bank-card interbank-card">
+                  <svg class="card-wave-bg" viewBox="0 0 320 200" fill="none" preserveAspectRatio="none">
+                    <path d="M-10,180 C60,160 120,80 230,105 C265,115 300,75 330,55" stroke="rgba(124, 58, 237, 0.4)" stroke-width="1.2" />
+                    <path d="M-10,195 C70,175 130,95 240,120 C275,128 310,88 340,68" stroke="rgba(124, 58, 237, 0.28)" stroke-width="1.2" />
+                    <path d="M-10,210 C80,190 140,110 250,135 C285,142 320,102 350,82" stroke="rgba(124, 58, 237, 0.18)" stroke-width="1.2" />
+                    <path d="M-10,225 C90,205 150,125 260,150 C295,158 330,118 360,98" stroke="rgba(124, 58, 237, 0.1)" stroke-width="1.2" />
+                  </svg>
+                  
+                  <div class="card-top-logos">
+                    <div class="card-bank-brand">
+                      <span class="brand-sq-interbank"></span>
+                      <span>Interbank</span>
+                    </div>
+                    <span class="card-network-logo visa">VISA</span>
+                  </div>
+
+                  <div class="card-middle-numbers">
+                    <span class="card-full-number">1234 5678 9012 3456</span>
+                    <span class="card-masked-digits">•••• 3456</span>
+                  </div>
+
+                  <div class="card-footer-info">
+                    <span class="card-holder-name">JOSHUA VILLANUEVA</span>
+                    <div class="card-expiration-date">
+                      <div style="font-size: 0.5rem; opacity: 0.6;">Vence</div>
+                      <div>12/28</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card-item-meta">
+                  <div class="card-status-indicator">
+                    <span class="card-status-dot"></span>
+                    <span>Activa</span>
+                  </div>
+                  <div class="card-limit-row">
+                    <span class="limit-label">Límite disponible</span>
+                    <span class="limit-amount">S/ 8,500.00</span>
+                  </div>
+                </div>
+
+                <div class="card-item-actions">
+                  <button class="btn-card-details">Ver detalles</button>
+                  <div class="card-more-menu-wrapper">
+                    <button class="btn-card-more" aria-label="Más opciones">•••</button>
+                    <div class="card-dropdown-menu">
+                      <button class="dropdown-item item-lock">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                        <span class="dropdown-lock-text">Bloquear tarjeta</span>
+                      </button>
+                      <button class="dropdown-item item-delete">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                          <polyline points="3 6 5 6 21 6"></polyline>
+                          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                        </svg>
+                        <span>Eliminar tarjeta</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- CARD 2: BBVA -->
+              <div class="card-item-box"
+                   data-bank="BBVA"
+                   data-card-type="Mastercard Crédito"
+                   data-full-number="5678 9012 3456 7890"
+                   data-masked="•••• 7890"
+                   data-holder="Joshua Villanueva"
+                   data-expiry="09/27"
+                   data-limit-total="S/ 8,000.00"
+                   data-limit-used="S/ 2,000.00"
+                   data-limit-avail="S/ 6,000.00"
+                   data-percent="25%"
+                   data-theme="bbva">
+                
+                <div class="card-box-header">
+                  <span class="card-badge-placeholder"></span>
+                </div>
+
+                <div class="visual-bank-card bbva-card">
+                  <div class="card-top-logos">
+                    <div class="card-bank-brand brand-txt-bbva">
+                      BBVA
+                    </div>
+                    <div class="mc-circles" style="transform: scale(1.1);">
+                      <span class="mc-c1" style="width: 14px; height: 14px;"></span>
+                      <span class="mc-c2" style="width: 14px; height: 14px;"></span>
+                    </div>
+                  </div>
+
+                  <div class="card-middle-numbers">
+                    <span class="card-full-number">5678 9012 3456 7890</span>
+                    <span class="card-masked-digits">•••• 7890</span>
+                  </div>
+
+                  <div class="card-footer-info">
+                    <span class="card-holder-name">JOSHUA VILLANUEVA</span>
+                    <div class="card-expiration-date">
+                      <div style="font-size: 0.5rem; opacity: 0.6;">Vence</div>
+                      <div>09/27</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card-item-meta">
+                  <div class="card-status-indicator">
+                    <span class="card-status-dot"></span>
+                    <span>Activa</span>
+                  </div>
+                  <div class="card-limit-row">
+                    <span class="limit-label">Límite disponible</span>
+                    <span class="limit-amount">S/ 6,000.00</span>
+                  </div>
+                </div>
+
+                <div class="card-item-actions">
+                  <button class="btn-card-details">Ver detalles</button>
+                  <div class="card-more-menu-wrapper">
+                    <button class="btn-card-more" aria-label="Más opciones">•••</button>
+                    <div class="card-dropdown-menu">
+                      <button class="dropdown-item item-lock">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                        <span class="dropdown-lock-text">Bloquear tarjeta</span>
+                      </button>
+                      <button class="dropdown-item item-delete">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                          <polyline points="3 6 5 6 21 6"></polyline>
+                          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                        </svg>
+                        <span>Eliminar tarjeta</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- CARD 3: BCP -->
+              <div class="card-item-box"
+                   data-bank="BCP"
+                   data-card-type="Visa Débito"
+                   data-full-number="4321 8765 2109 8765"
+                   data-masked="•••• 8765"
+                   data-holder="Joshua Villanueva"
+                   data-expiry="11/29"
+                   data-limit-total="S/ 4,000.00"
+                   data-limit-used="S/ 0.00"
+                   data-limit-avail="S/ 4,000.00"
+                   data-percent="0%"
+                   data-theme="bcp">
+                
+                <div class="card-box-header">
+                  <span class="card-badge-placeholder"></span>
+                </div>
+                
+                <div class="visual-bank-card bcp-card">
+                  <div class="card-top-logos">
+                    <div class="card-bank-brand brand-txt-bcp">
+                      <span>&gt;</span> BCP
+                    </div>
+                    <span class="card-network-logo visa">VISA</span>
+                  </div>
+
+                  <div class="card-middle-numbers">
+                    <span class="card-full-number">4321 8765 2109 8765</span>
+                    <span class="card-masked-digits">•••• 8765</span>
+                  </div>
+
+                  <div class="card-footer-info">
+                    <span class="card-holder-name">JOSHUA VILLANUEVA</span>
+                    <div class="card-expiration-date">
+                      <div style="font-size: 0.5rem; opacity: 0.6;">Vence</div>
+                      <div>11/29</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card-item-meta">
+                  <div class="card-status-indicator">
+                    <span class="card-status-dot"></span>
+                    <span>Activa</span>
+                  </div>
+                  <div class="card-limit-row">
+                    <span class="limit-label">Límite disponible</span>
+                    <span class="limit-amount">S/ 4,000.00</span>
+                  </div>
+                </div>
+
+                <div class="card-item-actions">
+                  <button class="btn-card-details">Ver detalles</button>
+                  <div class="card-more-menu-wrapper">
+                    <button class="btn-card-more" aria-label="Más opciones">•••</button>
+                    <div class="card-dropdown-menu">
+                      <button class="dropdown-item item-lock">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                        <span class="dropdown-lock-text">Bloquear tarjeta</span>
+                      </button>
+                      <button class="dropdown-item item-delete">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                          <polyline points="3 6 5 6 21 6"></polyline>
+                          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                        </svg>
+                        <span>Eliminar tarjeta</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <button class="carousel-nav-btn next" aria-label="Tarjeta siguiente">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+          </div>
+
+          <!-- TRANSACCIONES RECIENTES CON ESTA TARJETA -->
+          <div class="recent-tx-container">
+            <div class="recent-tx-header">
+              <div class="recent-tx-title-group">
+                <h3 class="recent-tx-title">Transacciones recientes</h3>
+                <p class="recent-tx-subtitle">Últimas operaciones con esta tarjeta</p>
+              </div>
+              <a href="/dashboard/historial" class="view-all-tx-link">
+                <span>Ver todas</span>
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </a>
+            </div>
+
+            <div class="tx-table-scroll">
+              <table class="tx-data-table">
+                <thead>
+                  <tr>
+                    <th>Fecha</th>
+                    <th>Descripción</th>
+                    <th>Tipo</th>
+                    <th>Monto</th>
+                    <th>Estado</th>
+                  </tr>
+                </thead>
+                <tbody id="card-tx-tbody">
+                  <!-- Row 1 -->
+                  <tr>
+                    <td>25 Jul 2024 - 14:32</td>
+                    <td>Simulación de retiro #CF-00241</td>
+                    <td><span class="tx-badge-type">Simulación</span></td>
+                    <td style="font-weight: 600;">S/ 2,000.00</td>
+                    <td>
+                      <span class="tx-status-completed">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <span>Completada</span>
+                      </span>
+                    </td>
+                  </tr>
+
+                  <!-- Row 2 -->
+                  <tr>
+                    <td>24 Jul 2024 - 11:15</td>
+                    <td>Simulación de retiro #CF-00240</td>
+                    <td><span class="tx-badge-type">Simulación</span></td>
+                    <td style="font-weight: 600;">S/ 1,500.00</td>
+                    <td>
+                      <span class="tx-status-completed">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <span>Completada</span>
+                      </span>
+                    </td>
+                  </tr>
+
+                  <!-- Row 3 -->
+                  <tr>
+                    <td>22 Jul 2024 - 09:48</td>
+                    <td>Simulación de retiro #CF-00239</td>
+                    <td><span class="tx-badge-type">Simulación</span></td>
+                    <td style="font-weight: 600;">S/ 3,000.00</td>
+                    <td>
+                      <span class="tx-status-pending">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        <span>Pendiente</span>
+                      </span>
+                    </td>
+                  </tr>
+
+                  <!-- Row 4 -->
+                  <tr>
+                    <td>18 Jul 2024 - 13:05</td>
+                    <td>Simulación de retiro #CF-00237</td>
+                    <td><span class="tx-badge-type">Simulación</span></td>
+                    <td style="font-weight: 600;">S/ 2,500.00</td>
+                    <td>
+                      <span class="tx-status-completed">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <span>Completada</span>
+                      </span>
+                    </td>
+                  </tr>
+
+                  <!-- Row 5 -->
+                  <tr>
+                    <td>16 Jul 2024 - 10:22</td>
+                    <td>Simulación de retiro #CF-00236</td>
+                    <td><span class="tx-badge-type">Simulación</span></td>
+                    <td style="font-weight: 600;">S/ 800.00</td>
+                    <td>
+                      <span class="tx-status-completed">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <span>Completada</span>
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==========================================
+             PANEL DERECHO: DETALLES DE LA TARJETA
+             ========================================== -->
+        <aside class="card-detail-panel">
+          <div class="detail-top-header">
+            <h3 class="detail-main-title">Detalles de la tarjeta</h3>
+            <div class="card-more-menu-wrapper">
+              <button class="btn-detail-more" id="btn-panel-more" aria-label="Opciones de tarjeta">•••</button>
+              <div class="card-dropdown-menu" id="panel-dropdown-menu">
+                <button class="dropdown-item item-lock" id="dropdown-panel-lock">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                  </svg>
+                  <span id="panel-dropdown-lock-text">Bloquear tarjeta</span>
+                </button>
+                <button class="dropdown-item item-delete" id="dropdown-panel-delete">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="3 6 5 6 21 6"></polyline>
+                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                  </svg>
+                  <span>Eliminar tarjeta</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- MINI VISUAL CARD EN EL PANEL -->
+          <div class="detail-card-preview" id="panel-card-preview">
+            <svg class="card-wave-bg" viewBox="0 0 320 200" fill="none" preserveAspectRatio="none">
+              <path d="M-10,180 C60,160 120,80 230,105 C265,115 300,75 330,55" stroke="rgba(124, 58, 237, 0.4)" stroke-width="1.2" />
+              <path d="M-10,195 C70,175 130,95 240,120 C275,128 310,88 340,68" stroke="rgba(124, 58, 237, 0.28)" stroke-width="1.2" />
+              <path d="M-10,210 C80,190 140,110 250,135 C285,142 320,102 350,82" stroke="rgba(124, 58, 237, 0.18)" stroke-width="1.2" />
+            </svg>
+            <div class="card-top-logos">
+              <div class="card-bank-brand" id="panel-bank-brand">
+                <span class="brand-sq-interbank"></span>
+                <span>Interbank</span>
+              </div>
+              <span class="card-network-logo visa" id="panel-network-logo">VISA</span>
+            </div>
+
+            <div class="card-middle-numbers">
+              <span class="card-full-number" id="panel-full-number">1234 5678 9012 3456</span>
+              <span class="card-masked-digits" id="panel-masked-digits">•••• 3456</span>
+            </div>
+
+            <div class="card-footer-info">
+              <span class="card-holder-name" id="panel-holder-name">JOSHUA VILLANUEVA</span>
+              <div class="card-expiration-date">
+                <div style="font-size: 0.5rem; opacity: 0.6;">Vence</div>
+                <div id="panel-expiry-date">12/28</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- BADGE DE ESTADO -->
+          <div>
+            <span class="detail-status-pill" id="panel-status-pill">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span id="panel-status-text">Activa</span>
+            </span>
+          </div>
+
+          <!-- LISTA DE ATRIBUTOS -->
+          <div class="detail-meta-list">
+            <div class="detail-meta-row">
+              <span class="detail-meta-key">Banco</span>
+              <span class="detail-meta-val" id="panel-meta-bank">Interbank</span>
+            </div>
+            <div class="detail-meta-row">
+              <span class="detail-meta-key">Tipo de tarjeta</span>
+              <span class="detail-meta-val" id="panel-meta-type">Visa Débito</span>
+            </div>
+            <div class="detail-meta-row">
+              <span class="detail-meta-key">Titular</span>
+              <span class="detail-meta-val" id="panel-meta-holder">Joshua Villanueva</span>
+            </div>
+            <div class="detail-meta-row">
+              <span class="detail-meta-key">Número de tarjeta</span>
+              <span class="detail-meta-val" id="panel-meta-number" style="font-family: monospace;">1234 5678 9012 3456</span>
+            </div>
+            <div class="detail-meta-row">
+              <span class="detail-meta-key">Fecha de vencimiento</span>
+              <span class="detail-meta-val" id="panel-meta-expiry">12/28</span>
+            </div>
+          </div>
+
+          <!-- LÍMITES Y DISPONIBILIDAD -->
+          <div class="detail-limits-section">
+            <div class="limits-section-title">
+              <span>Límites y disponibilidad</span>
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+            </div>
+
+            <div class="detail-meta-row" style="margin-top: 4px;">
+              <span class="detail-meta-key">Límite total</span>
+              <span class="detail-meta-val" id="panel-limit-total">S/ 10,000.00</span>
+            </div>
+            <div class="detail-meta-row">
+              <span class="detail-meta-key">Límite utilizado</span>
+              <span class="detail-meta-val" id="panel-limit-used">S/ 1,500.00</span>
+            </div>
+
+            <div class="limit-progress-track">
+              <div class="limit-progress-fill" id="panel-limit-bar" style="width: 15%;"></div>
+            </div>
+
+            <div class="detail-available-highlight">
+              <span class="available-label">Límite disponible</span>
+              <span class="available-value" id="panel-limit-avail">S/ 8,500.00</span>
+            </div>
+          </div>
+
+          <!-- BOTONES DE ACCIÓN INFERIOR -->
+          <div class="detail-card-actions-row">
+            <button class="btn-card-lock" id="btn-lock-card">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              <span id="btn-lock-text">Bloquear tarjeta</span>
+            </button>
+            <button class="btn-card-delete" id="btn-delete-card">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+              <span>Eliminar tarjeta</span>
+            </button>
+          </div>
+        </aside>
+
+      </section>
+
+    </main>
+
+  </div>
+
+  <!-- MODAL PARA VINCULAR NUEVA TARJETA -->
+  <div class="modal-overlay" id="modal-new-card">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Vincular nueva tarjeta</h3>
+        <button class="modal-close-btn" id="modal-close-btn">&times;</button>
+      </div>
+
+      <form class="modal-form" id="form-new-card">
+        <div class="modal-input-group">
+          <label class="modal-label">Banco emisor</label>
+          <select class="modal-select" required>
+            <option value="Interbank">Interbank</option>
+            <option value="BBVA">BBVA</option>
+            <option value="BCP">BCP</option>
+            <option value="Scotiabank">Scotiabank</option>
+            <option value="BanBif">BanBif</option>
+          </select>
+        </div>
+
+        <div class="modal-input-group">
+          <label class="modal-label">Número de tarjeta</label>
+          <input type="text" class="modal-input" placeholder="•••• •••• •••• ••••" maxlength="19" required />
+        </div>
+
+        <div class="modal-input-group">
+          <label class="modal-label">Nombre del titular</label>
+          <input type="text" class="modal-input" placeholder="Como aparece en la tarjeta" required />
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div class="modal-input-group">
+            <label class="modal-label">Fecha de exp. (MM/AA)</label>
+            <input type="text" class="modal-input" placeholder="MM/AA" maxlength="5" required />
+          </div>
+          <div class="modal-input-group">
+            <label class="modal-label">CVV</label>
+            <input type="password" class="modal-input" placeholder="•••" maxlength="4" required />
+          </div>
+        </div>
+
+        <button type="submit" class="modal-btn-submit">Confirmar y vincular</button>
+      </form>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // 1. Cargar nombre de usuario desde localStorage
+    const savedUser = localStorage.getItem('capitalFest_user');
+    if (savedUser) {
+      try {
+        const parsed = JSON.parse(savedUser);
+        const name = parsed.firstName || 'Joshua';
+        const initial = name.charAt(0).toUpperCase();
+        
+        const sideAvatar = document.getElementById('sidebar-avatar-initial');
+        const headAvatar = document.getElementById('header-avatar-initial');
+        const sideName = document.getElementById('sidebar-user-fullname');
+        
+        if (sideAvatar) sideAvatar.textContent = initial;
+        if (headAvatar) headAvatar.textContent = initial;
+        if (sideName) sideName.innerHTML = `${name} V. <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>`;
+      } catch (e) {}
+    }
+
+    // 2. Toggle del Sidebar en Pantallas Pequeñas con Backdrop
+    const mobileBtn = document.getElementById('mobile-sidebar-btn');
+    const sidebar = document.getElementById('dash-sidebar');
+    const sidebarBackdrop = document.getElementById('sidebar-backdrop');
+
+    function toggleSidebar(open?: boolean) {
+      if (!sidebar) return;
+      const willOpen = open !== undefined ? open : !sidebar.classList.contains('open');
+      sidebar.classList.toggle('open', willOpen);
+      sidebarBackdrop?.classList.toggle('active', willOpen);
+    }
+
+    if (mobileBtn) {
+      mobileBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleSidebar();
+      });
+    }
+
+    if (sidebarBackdrop) {
+      sidebarBackdrop.addEventListener('click', () => toggleSidebar(false));
+    }
+
+    // 3. Cierre de Sesión
+    const logoutBtn = document.getElementById('logout-btn');
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', () => {
+        if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
+          localStorage.removeItem('capitalFest_user');
+          window.location.href = '/login';
+        }
+      });
+    }
+
+    // 4. Selección de Tarjetas e Interacción Dinámica
+    const cardBoxes = document.querySelectorAll('.card-item-box');
+    const panelCardPreview = document.getElementById('panel-card-preview');
+    const panelBankBrand = document.getElementById('panel-bank-brand');
+    const panelNetworkLogo = document.getElementById('panel-network-logo');
+    const panelFullNumber = document.getElementById('panel-full-number');
+    const panelMaskedDigits = document.getElementById('panel-masked-digits');
+    const panelHolderName = document.getElementById('panel-holder-name');
+    const panelExpiryDate = document.getElementById('panel-expiry-date');
+
+    const panelMetaBank = document.getElementById('panel-meta-bank');
+    const panelMetaType = document.getElementById('panel-meta-type');
+    const panelMetaHolder = document.getElementById('panel-meta-holder');
+    const panelMetaNumber = document.getElementById('panel-meta-number');
+    const panelMetaExpiry = document.getElementById('panel-meta-expiry');
+
+    const panelLimitTotal = document.getElementById('panel-limit-total');
+    const panelLimitUsed = document.getElementById('panel-limit-used');
+    const panelLimitBar = document.getElementById('panel-limit-bar');
+    const panelLimitAvail = document.getElementById('panel-limit-avail');
+
+    function selectCard(box: HTMLElement) {
+      cardBoxes.forEach(b => b.classList.remove('selected'));
+      box.classList.add('selected');
+
+      const bank = box.dataset.bank || 'Interbank';
+      const type = box.dataset.cardType || 'Visa Débito';
+      const fullNum = box.dataset.fullNumber || '1234 5678 9012 3456';
+      const masked = box.dataset.masked || '•••• 3456';
+      const holder = box.dataset.holder || 'Joshua Villanueva';
+      const expiry = box.dataset.expiry || '12/28';
+      const total = box.dataset.limitTotal || 'S/ 10,000.00';
+      const used = box.dataset.limitUsed || 'S/ 1,500.00';
+      const avail = box.dataset.limitAvail || 'S/ 8,500.00';
+      const percent = box.dataset.percent || '15%';
+      const theme = box.dataset.theme || 'interbank';
+
+      // Actualizar preview de tarjeta
+      if (panelFullNumber) panelFullNumber.textContent = fullNum;
+      if (panelMaskedDigits) panelMaskedDigits.textContent = masked;
+      if (panelHolderName) panelHolderName.textContent = holder.toUpperCase();
+      if (panelExpiryDate) panelExpiryDate.textContent = expiry;
+
+      if (panelBankBrand) {
+        if (bank === 'Interbank') {
+          panelBankBrand.innerHTML = '<span class="brand-sq-interbank"></span> <span>Interbank</span>';
+        } else if (bank === 'BBVA') {
+          panelBankBrand.innerHTML = '<span class="brand-txt-bbva">BBVA</span>';
+        } else if (bank === 'BCP') {
+          panelBankBrand.innerHTML = '<span class="brand-txt-bcp"><span>&gt;</span> BCP</span>';
+        }
+      }
+
+      if (panelNetworkLogo) {
+        if (type.includes('Mastercard')) {
+          panelNetworkLogo.innerHTML = '<span class="mc-circles"><span class="mc-c1"></span><span class="mc-c2"></span></span>';
+        } else {
+          panelNetworkLogo.innerHTML = '<span class="card-network-logo visa">VISA</span>';
+        }
+      }
+
+      if (panelCardPreview) {
+        panelCardPreview.className = 'detail-card-preview';
+        if (theme === 'interbank') panelCardPreview.style.background = 'linear-gradient(135deg, #0e1526 0%, #060914 100%)';
+        else if (theme === 'bbva') panelCardPreview.style.background = 'linear-gradient(135deg, #0b1120 0%, #060913 100%)';
+        else if (theme === 'bcp') panelCardPreview.style.background = 'linear-gradient(135deg, #130f20 0%, #07050e 100%)';
+      }
+
+      // Actualizar detalles del panel
+      if (panelMetaBank) panelMetaBank.textContent = bank;
+      if (panelMetaType) panelMetaType.textContent = type;
+      if (panelMetaHolder) panelMetaHolder.textContent = holder;
+      if (panelMetaNumber) panelMetaNumber.textContent = fullNum;
+      if (panelMetaExpiry) panelMetaExpiry.textContent = expiry;
+
+      // Límites
+      if (panelLimitTotal) panelLimitTotal.textContent = total;
+      if (panelLimitUsed) panelLimitUsed.textContent = used;
+      if (panelLimitAvail) panelLimitAvail.textContent = avail;
+      if (panelLimitBar) panelLimitBar.style.width = percent;
+    }
+
+    // 5. Abrir panel derecho de detalles al hacer click en "Ver detalles" o en la tarjeta
+    const cardDetailPanel = document.querySelector('.card-detail-panel') as HTMLElement;
+
+    function openCardDetails(box: HTMLElement) {
+      selectCard(box);
+      if (cardDetailPanel) {
+        cardDetailPanel.classList.remove('pulse-highlight');
+        void cardDetailPanel.offsetWidth; // trigger reflow
+        cardDetailPanel.classList.add('pulse-highlight');
+
+        if (window.innerWidth <= 1280) {
+          cardDetailPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      }
+    }
+
+    cardBoxes.forEach(box => {
+      box.addEventListener('click', (e) => {
+        if ((e.target as HTMLElement).closest('.card-more-menu-wrapper')) return;
+        openCardDetails(box as HTMLElement);
+      });
+
+      const detailsBtn = box.querySelector('.btn-card-details');
+      if (detailsBtn) {
+        detailsBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          openCardDetails(box as HTMLElement);
+        });
+      }
+    });
+
+    // 6. Menú de 3 puntos (•••) para Bloquear y Eliminar tarjeta
+    const allMoreBtns = document.querySelectorAll('.btn-card-more, .btn-detail-more');
+    allMoreBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const wrapper = (btn as HTMLElement).closest('.card-more-menu-wrapper');
+        const menu = wrapper?.querySelector('.card-dropdown-menu');
+        const isOpen = menu?.classList.contains('open');
+
+        // Cerrar otros menús abiertos
+        document.querySelectorAll('.card-dropdown-menu').forEach(m => m.classList.remove('open'));
+
+        if (!isOpen && menu) {
+          menu.classList.add('open');
+        }
+      });
+    });
+
+    // Cerrar menús al hacer click fuera
+    document.addEventListener('click', () => {
+      document.querySelectorAll('.card-dropdown-menu').forEach(m => m.classList.remove('open'));
+    });
+
+    // Función unificada para bloquear/desbloquear
+    let isLocked = false;
+    const lockBtn = document.getElementById('btn-lock-card');
+    const lockText = document.getElementById('btn-lock-text');
+    const statusText = document.getElementById('panel-status-text');
+
+    function toggleCardLock(bank: string, specificCardBox?: HTMLElement) {
+      isLocked = !isLocked;
+      if (lockText) lockText.textContent = isLocked ? 'Desbloquear tarjeta' : 'Bloquear tarjeta';
+      if (statusText) statusText.textContent = isLocked ? 'Bloqueada' : 'Activa';
+
+      const panelPill = document.getElementById('panel-status-pill');
+      if (panelPill) {
+        if (isLocked) {
+          panelPill.style.background = 'rgba(239, 68, 68, 0.15)';
+          panelPill.style.color = '#ef4444';
+          panelPill.style.borderColor = 'rgba(239, 68, 68, 0.3)';
+        } else {
+          panelPill.style.background = '';
+          panelPill.style.color = '';
+          panelPill.style.borderColor = '';
+        }
+      }
+
+      document.querySelectorAll('.dropdown-lock-text, #panel-dropdown-lock-text').forEach(t => {
+        t.textContent = isLocked ? 'Desbloquear tarjeta' : 'Bloquear tarjeta';
+      });
+
+      if (specificCardBox) {
+        const dot = specificCardBox.querySelector('.card-status-dot') as HTMLElement;
+        const text = specificCardBox.querySelector('.card-status-indicator span:last-child') as HTMLElement;
+        if (dot && text) {
+          if (isLocked) {
+            dot.style.background = '#ef4444';
+            dot.style.boxShadow = '0 0 6px #ef4444';
+            text.style.color = '#ef4444';
+            text.textContent = 'Bloqueada';
+          } else {
+            dot.style.background = '';
+            dot.style.boxShadow = '';
+            text.style.color = '';
+            text.textContent = 'Activa';
+          }
+        }
+      }
+
+      alert(isLocked ? `La tarjeta ${bank} ha sido bloqueada temporalmente.` : `La tarjeta ${bank} ha sido desbloqueada con éxito.`);
+    }
+
+    // Acción de Bloquear desde el panel inferior
+    if (lockBtn) {
+      lockBtn.addEventListener('click', () => {
+        const activeCard = document.querySelector('.card-item-box.selected') as HTMLElement;
+        const bank = activeCard?.dataset.bank || 'seleccionada';
+        toggleCardLock(bank, activeCard);
+      });
+    }
+
+    // Acción de Bloquear desde los dropdowns de 3 puntos
+    document.querySelectorAll('.dropdown-item.item-lock').forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.stopPropagation();
+        document.querySelectorAll('.card-dropdown-menu').forEach(m => m.classList.remove('open'));
+        const cardBox = (item as HTMLElement).closest('.card-item-box') as HTMLElement || document.querySelector('.card-item-box.selected') as HTMLElement;
+        const bank = cardBox?.dataset.bank || 'seleccionada';
+        toggleCardLock(bank, cardBox);
+      });
+    });
+
+    // Acción de Eliminar Tarjeta (panel + dropdowns)
+    function executeDeleteCard(bank: string) {
+      if (confirm(`¿Estás seguro de que deseas desvincular ${bank} de tu cuenta?`)) {
+        alert(`La tarjeta ${bank} ha sido desvinculada exitosamente.`);
+      }
+    }
+
+    const deleteBtn = document.getElementById('btn-delete-card');
+    if (deleteBtn) {
+      deleteBtn.addEventListener('click', () => {
+        const activeCard = document.querySelector('.card-item-box.selected') as HTMLElement;
+        const bank = activeCard?.dataset.bank || 'esta tarjeta';
+        executeDeleteCard(bank);
+      });
+    }
+
+    document.querySelectorAll('.dropdown-item.item-delete').forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.stopPropagation();
+        document.querySelectorAll('.card-dropdown-menu').forEach(m => m.classList.remove('open'));
+        const cardBox = (item as HTMLElement).closest('.card-item-box') as HTMLElement || document.querySelector('.card-item-box.selected') as HTMLElement;
+        const bank = cardBox?.dataset.bank || 'esta tarjeta';
+        executeDeleteCard(bank);
+      });
+    });
+
+    // 6. Modal Vincular Nueva Tarjeta
+    const openModalBtn = document.getElementById('btn-open-modal-link');
+    const closeModalBtn = document.getElementById('modal-close-btn');
+    const modal = document.getElementById('modal-new-card');
+    const formNewCard = document.getElementById('form-new-card');
+
+    if (openModalBtn && modal) {
+      openModalBtn.addEventListener('click', () => modal.classList.add('open'));
+    }
+    if (closeModalBtn && modal) {
+      closeModalBtn.addEventListener('click', () => modal.classList.remove('open'));
+    }
+    if (modal) {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) modal.classList.remove('open');
+      });
+    }
+    if (formNewCard && modal) {
+      formNewCard.addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert('¡Tarjeta vinculada exitosamente a tu cuenta!');
+        modal.classList.remove('open');
+      });
+    }
+  });
+</script>

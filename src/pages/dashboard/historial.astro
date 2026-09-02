@@ -1,0 +1,951 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import '../../styles/dashboard-historial.css';
+---
+
+<Layout title="Historial de Simulaciones | Capital Fest" hideHeaderFooter={true}>
+  <div class="historial-layout">
+    
+    <!-- Botón Toggle de Sidebar en Móviles -->
+    <button class="mobile-sidebar-toggle" id="mobile-sidebar-btn" aria-label="Abrir menú de navegación">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
+    <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
+    <!-- ==========================================
+         1. BARRA LATERAL (SIDEBAR NAVIGATION)
+         ========================================== -->
+    <aside class="dash-sidebar" id="dash-sidebar">
+      <div class="sidebar-top">
+        <!-- Logo Principal -->
+        <a href="/" class="sidebar-logo">
+          <img src="/assets/logo.svg" alt="Capital Fest Logo" class="sidebar-logo-img" />
+        </a>
+
+        <!-- Lista de Enlaces de Navegación -->
+        <nav>
+          <ul class="sidebar-nav">
+            <li class="nav-section-title">Dashboard</li>
+            
+            <li>
+              <a href="/dashboard" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+                  <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+                  <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
+                  <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+                </svg>
+                <span>Dashboard</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="/simulador" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <circle cx="12" cy="12" r="9"></circle>
+                  <polygon points="10 8 16 12 10 16 10 8" fill="currentColor"></polygon>
+                </svg>
+                <span>Nueva simulación</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="/dashboard/historial" class="nav-item active">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+                <span>Historial</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="/dashboard/tarjetas" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+                  <line x1="2" y1="10" x2="22" y2="10"></line>
+                </svg>
+                <span>Mis tarjetas</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <line x1="18" y1="20" x2="18" y2="10"></line>
+                  <line x1="12" y1="20" x2="12" y2="4"></line>
+                  <line x1="6" y1="20" x2="6" y2="14"></line>
+                </svg>
+                <span>Estadísticas</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="/beneficios" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+                <span>Beneficios</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="/ayuda" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="16" x2="12" y2="12"></line>
+                  <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+                <span>Soporte</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <circle cx="12" cy="12" r="3"></circle>
+                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                </svg>
+                <span>Configuración</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- Tarjeta de Información de Seguridad -->
+        <div class="sidebar-security-card">
+          <div class="security-header">
+            <div class="security-icon-box">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+            </div>
+            <span class="security-title">Tu seguridad es nuestra prioridad</span>
+          </div>
+          <p class="security-desc">Sistema 100% seguro y encriptado.</p>
+          <button class="security-btn-pill" aria-label="Más información">
+            <span>Más información</span>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Pie del Sidebar: Usuario y Cierre de Sesión -->
+      <div class="sidebar-bottom">
+        <div class="sidebar-user-row" id="user-profile-row">
+          <div class="user-avatar" id="sidebar-avatar-initial">J</div>
+          <div class="user-info">
+            <span class="user-name" id="sidebar-user-fullname">
+              Joshua V.
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </span>
+            <span class="user-link">Ver perfil</span>
+          </div>
+        </div>
+
+        <button class="sidebar-logout-btn" id="logout-btn">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+          <span>Cerrar sesión</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- ==========================================
+         2. CONTENIDO PRINCIPAL: HISTORIAL
+         ========================================== -->
+    <main class="historial-content">
+      
+      <!-- TOP BAR: Título + Acciones de Encabezado -->
+      <header class="historial-top-bar">
+        <div class="historial-title-box">
+          <h1 class="historial-page-title">Historial</h1>
+          <p class="historial-page-subtitle">Consulta todas tus simulaciones y retiros realizados en Capital Fest.</p>
+        </div>
+
+        <div class="historial-top-actions">
+          <button class="notification-btn" aria-label="Notificaciones">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+            <span class="notification-badge">3</span>
+          </button>
+          
+          <div class="top-user-avatar" id="header-avatar-initial">J</div>
+
+          <a href="/simulador" class="btn-new-sim">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            <span>Nueva simulación</span>
+          </a>
+        </div>
+      </header>
+
+      <!-- TARJETAS DE MÉTRICAS (4 CARDS) -->
+      <section class="historial-metrics-grid">
+        <!-- Total de simulaciones -->
+        <div class="metric-stat-card">
+          <div class="metric-circle-icon purple">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+          </div>
+          <div class="metric-stat-info">
+            <span class="metric-stat-label">Total de simulaciones</span>
+            <span class="metric-stat-value">24</span>
+            <span class="metric-stat-trend positive">↑ 3 este mes</span>
+          </div>
+        </div>
+
+        <!-- Completadas -->
+        <div class="metric-stat-card">
+          <div class="metric-circle-icon green">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+          </div>
+          <div class="metric-stat-info">
+            <span class="metric-stat-label">Completadas</span>
+            <span class="metric-stat-value">18</span>
+            <span class="metric-stat-trend positive">↑ 5 este mes</span>
+          </div>
+        </div>
+
+        <!-- Pendientes -->
+        <div class="metric-stat-card">
+          <div class="metric-circle-icon yellow">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+          </div>
+          <div class="metric-stat-info">
+            <span class="metric-stat-label">Pendientes</span>
+            <span class="metric-stat-value">4</span>
+            <span class="metric-stat-trend negative">↓ 1 este mes</span>
+          </div>
+        </div>
+
+        <!-- Canceladas -->
+        <div class="metric-stat-card">
+          <div class="metric-circle-icon red">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="15" y1="9" x2="9" y2="15"></line>
+              <line x1="9" y1="9" x2="15" y2="15"></line>
+            </svg>
+          </div>
+          <div class="metric-stat-info">
+            <span class="metric-stat-label">Canceladas</span>
+            <span class="metric-stat-value">2</span>
+            <span class="metric-stat-trend negative">↓ 1 este mes</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- BARRA DE BÚSQUEDA Y FILTROS -->
+      <section class="historial-filters-container">
+        <div class="filters-top-row">
+          <!-- Búsqueda -->
+          <div class="filter-search-box">
+            <label class="filter-field-label" for="search-input">Buscar operación</label>
+            <div class="search-input-wrapper">
+              <svg class="search-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <input type="text" id="search-input" class="historial-search-input" placeholder="Buscar por monto, banco o ID..." />
+            </div>
+          </div>
+
+          <!-- Filtro: Estado -->
+          <div class="filter-select-group">
+            <label class="filter-field-label" for="filter-status">Estado</label>
+            <div class="filter-select-wrapper">
+              <select id="filter-status" class="filter-select">
+                <option value="Todos">Todos</option>
+                <option value="Completada">Completada</option>
+                <option value="Pendiente">Pendiente</option>
+                <option value="Cancelada">Cancelada</option>
+              </select>
+              <svg class="filter-select-arrow" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+          </div>
+
+          <!-- Filtro: Banco -->
+          <div class="filter-select-group">
+            <label class="filter-field-label" for="filter-bank">Banco</label>
+            <div class="filter-select-wrapper">
+              <select id="filter-bank" class="filter-select">
+                <option value="Todos">Todos</option>
+                <option value="Interbank">Interbank</option>
+                <option value="BBVA">BBVA</option>
+                <option value="BCP">BCP</option>
+                <option value="Scotiabank">Scotiabank</option>
+              </select>
+              <svg class="filter-select-arrow" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+          </div>
+
+          <!-- Filtro: Periodo -->
+          <div class="filter-select-group">
+            <label class="filter-field-label" for="filter-period">Periodo</label>
+            <div class="filter-select-wrapper">
+              <select id="filter-period" class="filter-select">
+                <option value="30">Últimos 30 días</option>
+                <option value="60">Últimos 60 días</option>
+                <option value="365">Este año</option>
+              </select>
+              <svg class="filter-select-arrow" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+          </div>
+
+          <!-- Botón Filtrar -->
+          <button class="btn-filter-action" id="btn-apply-filters">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+            </svg>
+            <span>Filtrar</span>
+          </button>
+        </div>
+
+        <div class="filters-sub-row">
+          <span class="sort-label">Ordenar por</span>
+          <select id="sort-by" class="sort-select">
+            <option value="recent">Más recientes ⌵</option>
+            <option value="oldest">Más antiguos ⌵</option>
+            <option value="amount-high">Mayor monto ⌵</option>
+            <option value="amount-low">Menor monto ⌵</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- ÁREA PRINCIPAL DE TRABAJO: TABLA + PANEL DE DETALLES -->
+      <section class="historial-workspace" id="historial-workspace">
+        
+        <!-- PANEL IZQUIERDO: TABLA DE OPERACIONES -->
+        <div class="historial-table-container">
+          <div class="table-scroll-wrapper">
+            <table class="historial-data-table">
+              <thead>
+                <tr>
+                  <th>Fecha</th>
+                  <th>ID de operación</th>
+                  <th>Monto</th>
+                  <th>Banco</th>
+                  <th>Tarjeta</th>
+                  <th>Estado</th>
+                  <th>Acción</th>
+                </tr>
+              </thead>
+              <tbody id="operations-table-body">
+                <!-- Fila 1 -->
+                <tr class="historial-table-row selected" data-id="CF-00241" data-amount="S/ 2,000.00" data-bank="Interbank" data-card="Visa" data-date="25 Jul 2024 - 14:32" data-status="Completada" data-fee="S/ 0.00">
+                  <td>25 Jul 2024 - 14:32</td>
+                  <td class="cell-op-id">#CF-00241</td>
+                  <td class="cell-amount">S/ 2,000.00</td>
+                  <td>
+                    <div class="table-bank-cell">
+                      <span class="bank-badge-box interbank">
+                        <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2"></rect></svg>
+                      </span>
+                      <span>Interbank</span>
+                    </div>
+                  </td>
+                  <td><span class="card-badge visa">VISA</span></td>
+                  <td>
+                    <span class="status-pill completed">
+                      <span class="status-dot-bullet"></span> Completada
+                    </span>
+                  </td>
+                  <td>
+                    <button class="btn-view-details" aria-label="Ver detalles de la operación">
+                      Ver detalles →
+                    </button>
+                  </td>
+                </tr>
+
+                <!-- Fila 2 -->
+                <tr class="historial-table-row" data-id="CF-00240" data-amount="S/ 1,500.00" data-bank="BBVA" data-card="Mastercard" data-date="24 Jul 2024 - 11:15" data-status="Completada" data-fee="S/ 0.00">
+                  <td>24 Jul 2024 - 11:15</td>
+                  <td class="cell-op-id">#CF-00240</td>
+                  <td class="cell-amount">S/ 1,500.00</td>
+                  <td>
+                    <div class="table-bank-cell">
+                      <span class="bank-badge-box bbva">
+                        <span style="font-size: 8px; font-weight: 800; color: #fff;">BB</span>
+                      </span>
+                      <span>BBVA</span>
+                    </div>
+                  </td>
+                  <td>
+                    <span class="card-badge mastercard">
+                      <span class="mc-circles"><span class="mc-c1"></span><span class="mc-c2"></span></span>
+                    </span>
+                  </td>
+                  <td>
+                    <span class="status-pill completed">
+                      <span class="status-dot-bullet"></span> Completada
+                    </span>
+                  </td>
+                  <td>
+                    <button class="btn-view-details" aria-label="Ver detalles de la operación">
+                      Ver detalles →
+                    </button>
+                  </td>
+                </tr>
+
+                <!-- Fila 3 -->
+                <tr class="historial-table-row" data-id="CF-00239" data-amount="S/ 3,000.00" data-bank="BCP" data-card="Visa" data-date="22 Jul 2024 - 09:48" data-status="Pendiente" data-fee="S/ 0.00">
+                  <td>22 Jul 2024 - 09:48</td>
+                  <td class="cell-op-id">#CF-00239</td>
+                  <td class="cell-amount">S/ 3,000.00</td>
+                  <td>
+                    <div class="table-bank-cell">
+                      <span class="bank-badge-box bcp">
+                        <span style="font-size: 8px; font-weight: 800; color: #fff;">&gt;</span>
+                      </span>
+                      <span>BCP</span>
+                    </div>
+                  </td>
+                  <td><span class="card-badge visa">VISA</span></td>
+                  <td>
+                    <span class="status-pill pending">
+                      <span class="status-dot-bullet"></span> Pendiente
+                    </span>
+                  </td>
+                  <td>
+                    <button class="btn-view-details" aria-label="Ver detalles de la operación">
+                      Ver detalles →
+                    </button>
+                  </td>
+                </tr>
+
+                <!-- Fila 4 -->
+                <tr class="historial-table-row" data-id="CF-00238" data-amount="S/ 1,200.00" data-bank="Interbank" data-card="Visa" data-date="20 Jul 2024 - 16:20" data-status="Cancelada" data-fee="S/ 0.00">
+                  <td>20 Jul 2024 - 16:20</td>
+                  <td class="cell-op-id">#CF-00238</td>
+                  <td class="cell-amount">S/ 1,200.00</td>
+                  <td>
+                    <div class="table-bank-cell">
+                      <span class="bank-badge-box interbank">
+                        <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2"></rect></svg>
+                      </span>
+                      <span>Interbank</span>
+                    </div>
+                  </td>
+                  <td><span class="card-badge visa">VISA</span></td>
+                  <td>
+                    <span class="status-pill cancelled">
+                      <span class="status-dot-bullet"></span> Cancelada
+                    </span>
+                  </td>
+                  <td>
+                    <button class="btn-view-details" aria-label="Ver detalles de la operación">
+                      Ver detalles →
+                    </button>
+                  </td>
+                </tr>
+
+                <!-- Fila 5 -->
+                <tr class="historial-table-row" data-id="CF-00237" data-amount="S/ 2,500.00" data-bank="BBVA" data-card="Mastercard" data-date="18 Jul 2024 - 13:05" data-status="Completada" data-fee="S/ 0.00">
+                  <td>18 Jul 2024 - 13:05</td>
+                  <td class="cell-op-id">#CF-00237</td>
+                  <td class="cell-amount">S/ 2,500.00</td>
+                  <td>
+                    <div class="table-bank-cell">
+                      <span class="bank-badge-box bbva">
+                        <span style="font-size: 8px; font-weight: 800; color: #fff;">BB</span>
+                      </span>
+                      <span>BBVA</span>
+                    </div>
+                  </td>
+                  <td>
+                    <span class="card-badge mastercard">
+                      <span class="mc-circles"><span class="mc-c1"></span><span class="mc-c2"></span></span>
+                    </span>
+                  </td>
+                  <td>
+                    <span class="status-pill completed">
+                      <span class="status-dot-bullet"></span> Completada
+                    </span>
+                  </td>
+                  <td>
+                    <button class="btn-view-details" aria-label="Ver detalles de la operación">
+                      Ver detalles →
+                    </button>
+                  </td>
+                </tr>
+
+                <!-- Fila 6 -->
+                <tr class="historial-table-row" data-id="CF-00236" data-amount="S/ 800.00" data-bank="BCP" data-card="Visa" data-date="16 Jul 2024 - 10:22" data-status="Completada" data-fee="S/ 0.00">
+                  <td>16 Jul 2024 - 10:22</td>
+                  <td class="cell-op-id">#CF-00236</td>
+                  <td class="cell-amount">S/ 800.00</td>
+                  <td>
+                    <div class="table-bank-cell">
+                      <span class="bank-badge-box bcp">
+                        <span style="font-size: 8px; font-weight: 800; color: #fff;">&gt;</span>
+                      </span>
+                      <span>BCP</span>
+                    </div>
+                  </td>
+                  <td><span class="card-badge visa">VISA</span></td>
+                  <td>
+                    <span class="status-pill completed">
+                      <span class="status-dot-bullet"></span> Completada
+                    </span>
+                  </td>
+                  <td>
+                    <button class="btn-view-details" aria-label="Ver detalles de la operación">
+                      Ver detalles →
+                    </button>
+                  </td>
+                </tr>
+
+                <!-- Fila 7 -->
+                <tr class="historial-table-row" data-id="CF-00235" data-amount="S/ 1,000.00" data-bank="Interbank" data-card="Visa" data-date="14 Jul 2024 - 15:45" data-status="Pendiente" data-fee="S/ 0.00">
+                  <td>14 Jul 2024 - 15:45</td>
+                  <td class="cell-op-id">#CF-00235</td>
+                  <td class="cell-amount">S/ 1,000.00</td>
+                  <td>
+                    <div class="table-bank-cell">
+                      <span class="bank-badge-box interbank">
+                        <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2"></rect></svg>
+                      </span>
+                      <span>Interbank</span>
+                    </div>
+                  </td>
+                  <td><span class="card-badge visa">VISA</span></td>
+                  <td>
+                    <span class="status-pill pending">
+                      <span class="status-dot-bullet"></span> Pendiente
+                    </span>
+                  </td>
+                  <td>
+                    <button class="btn-view-details" aria-label="Ver detalles de la operación">
+                      Ver detalles →
+                    </button>
+                  </td>
+                </tr>
+
+                <!-- Fila 8 -->
+                <tr class="historial-table-row" data-id="CF-00234" data-amount="S/ 2,200.00" data-bank="BBVA" data-card="Mastercard" data-date="12 Jul 2024 - 12:11" data-status="Cancelada" data-fee="S/ 0.00">
+                  <td>12 Jul 2024 - 12:11</td>
+                  <td class="cell-op-id">#CF-00234</td>
+                  <td class="cell-amount">S/ 2,200.00</td>
+                  <td>
+                    <div class="table-bank-cell">
+                      <span class="bank-badge-box bbva">
+                        <span style="font-size: 8px; font-weight: 800; color: #fff;">BB</span>
+                      </span>
+                      <span>BBVA</span>
+                    </div>
+                  </td>
+                  <td>
+                    <span class="card-badge mastercard">
+                      <span class="mc-circles"><span class="mc-c1"></span><span class="mc-c2"></span></span>
+                    </span>
+                  </td>
+                  <td>
+                    <span class="status-pill cancelled">
+                      <span class="status-dot-bullet"></span> Cancelada
+                    </span>
+                  </td>
+                  <td>
+                    <button class="btn-view-details" aria-label="Ver detalles de la operación">
+                      Ver detalles →
+                    </button>
+                  </td>
+                </tr>
+
+                <!-- Fila 9 -->
+                <tr class="historial-table-row" data-id="CF-00233" data-amount="S/ 1,750.00" data-bank="BCP" data-card="Visa" data-date="10 Jul 2024 - 08:37" data-status="Completada" data-fee="S/ 0.00">
+                  <td>10 Jul 2024 - 08:37</td>
+                  <td class="cell-op-id">#CF-00233</td>
+                  <td class="cell-amount">S/ 1,750.00</td>
+                  <td>
+                    <div class="table-bank-cell">
+                      <span class="bank-badge-box bcp">
+                        <span style="font-size: 8px; font-weight: 800; color: #fff;">&gt;</span>
+                      </span>
+                      <span>BCP</span>
+                    </div>
+                  </td>
+                  <td><span class="card-badge visa">VISA</span></td>
+                  <td>
+                    <span class="status-pill completed">
+                      <span class="status-dot-bullet"></span> Completada
+                    </span>
+                  </td>
+                  <td>
+                    <button class="btn-view-details" aria-label="Ver detalles de la operación">
+                      Ver detalles →
+                    </button>
+                  </td>
+                </tr>
+
+                <!-- Fila 10 -->
+                <tr class="historial-table-row" data-id="CF-00232" data-amount="S/ 2,300.00" data-bank="Interbank" data-card="Visa" data-date="08 Jul 2024 - 17:30" data-status="Completada" data-fee="S/ 0.00">
+                  <td>08 Jul 2024 - 17:30</td>
+                  <td class="cell-op-id">#CF-00232</td>
+                  <td class="cell-amount">S/ 2,300.00</td>
+                  <td>
+                    <div class="table-bank-cell">
+                      <span class="bank-badge-box interbank">
+                        <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2"></rect></svg>
+                      </span>
+                      <span>Interbank</span>
+                    </div>
+                  </td>
+                  <td><span class="card-badge visa">VISA</span></td>
+                  <td>
+                    <span class="status-pill completed">
+                      <span class="status-dot-bullet"></span> Completada
+                    </span>
+                  </td>
+                  <td>
+                    <button class="btn-view-details" aria-label="Ver detalles de la operación">
+                      Ver detalles →
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Paginación de la Tabla -->
+          <div class="historial-table-footer">
+            <span id="showing-text">Mostrando 1-10 de 24 operaciones</span>
+            
+            <div class="table-pagination-controls">
+              <select class="page-size-select" aria-label="Operaciones por página">
+                <option>10 por página</option>
+                <option>20 por página</option>
+                <option>50 por página</option>
+              </select>
+
+              <div class="pagination-pages">
+                <button class="page-btn" aria-label="Página anterior" disabled>&lt;</button>
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <span style="color: var(--text-dim); padding: 0 4px;">...</span>
+                <button class="page-btn" aria-label="Página siguiente">&gt;</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PANEL DERECHO: DETALLE DE SIMULACIÓN SELECCIONADA -->
+        <aside class="historial-detail-panel" id="historial-detail-panel">
+          <div class="detail-panel-header">
+            <h3 class="detail-panel-title" id="detail-sim-title">Simulación #CF-00241</h3>
+            <button class="detail-close-btn" id="btn-close-detail" aria-label="Cerrar panel de detalles">
+              ✕
+            </button>
+          </div>
+
+          <!-- Badge de Estado -->
+          <div id="detail-status-wrapper">
+            <span class="detail-status-badge completed" id="detail-status-badge">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Completada</span>
+            </span>
+          </div>
+
+          <!-- Información de operación -->
+          <div class="detail-block">
+            <h4 class="detail-section-title">Información de operación</h4>
+            <div class="detail-key-values">
+              <div class="detail-row">
+                <span class="detail-key">Monto solicitado</span>
+                <span class="detail-val" id="detail-monto-solicitado">S/ 2,000.00</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-key">Banco</span>
+                <span class="detail-val" id="detail-banco-val">
+                  <span>Interbank</span>
+                  <span class="bank-badge-box interbank" style="width: 16px; height: 16px;">
+                    <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2"></rect></svg>
+                  </span>
+                </span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-key">Tipo de tarjeta</span>
+                <span class="detail-val" id="detail-tarjeta-val">
+                  <span>Visa</span>
+                  <span class="card-badge visa" style="font-size: 0.6rem; padding: 1px 4px;">VISA</span>
+                </span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-key">Fecha</span>
+                <span class="detail-val" id="detail-fecha-val">25 Jul 2024 - 14:32</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-key">ID de operación</span>
+                <span class="detail-val" id="detail-id-val" style="font-family: monospace;">CF-00241</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Resultado de la simulación -->
+          <div class="detail-block">
+            <h4 class="detail-section-title">Resultado de la simulación</h4>
+            <div class="detail-result-box">
+              <div class="detail-row">
+                <span class="detail-key">Monto disponible</span>
+                <span class="detail-val" id="detail-monto-disponible">S/ 2,000.00</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-key">Comisión</span>
+                <span class="detail-val" id="detail-comision-val">S/ 0.00</span>
+              </div>
+              <div class="detail-final-highlight">
+                <span class="final-amount-label">Monto final</span>
+                <span class="final-amount-value" id="detail-monto-final">S/ 2,000.00</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Botón de Descarga de Comprobante -->
+          <button class="btn-download-voucher" id="btn-download-voucher">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            <span>Descargar comprobante</span>
+          </button>
+        </aside>
+
+      </section>
+
+    </main>
+
+  </div>
+</Layout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // 1. Cargar nombre de usuario si existe
+    const savedUser = localStorage.getItem('capitalFest_user');
+    if (savedUser) {
+      try {
+        const parsed = JSON.parse(savedUser);
+        const name = parsed.firstName || 'Joshua';
+        const initial = name.charAt(0).toUpperCase();
+        
+        const sideAvatar = document.getElementById('sidebar-avatar-initial');
+        const headAvatar = document.getElementById('header-avatar-initial');
+        const sideName = document.getElementById('sidebar-user-fullname');
+        
+        if (sideAvatar) sideAvatar.textContent = initial;
+        if (headAvatar) headAvatar.textContent = initial;
+        if (sideName) sideName.innerHTML = `${name} V. <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>`;
+      } catch (e) {}
+    }
+
+    // 2. Toggle del Sidebar en Pantallas Pequeñas con Backdrop
+    const mobileBtn = document.getElementById('mobile-sidebar-btn');
+    const sidebar = document.getElementById('dash-sidebar');
+    const sidebarBackdrop = document.getElementById('sidebar-backdrop');
+
+    function toggleSidebar(open?: boolean) {
+      if (!sidebar) return;
+      const willOpen = open !== undefined ? open : !sidebar.classList.contains('open');
+      sidebar.classList.toggle('open', willOpen);
+      sidebarBackdrop?.classList.toggle('active', willOpen);
+    }
+
+    if (mobileBtn) {
+      mobileBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleSidebar();
+      });
+    }
+
+    if (sidebarBackdrop) {
+      sidebarBackdrop.addEventListener('click', () => toggleSidebar(false));
+    }
+
+    // 3. Cierre de Sesión
+    const logoutBtn = document.getElementById('logout-btn');
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', () => {
+        if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
+          localStorage.removeItem('capitalFest_user');
+          window.location.href = '/login';
+        }
+      });
+    }
+
+    // 4. Lógica de Selección de Filas e Interacción con el Panel de Detalles
+    const tableRows = document.querySelectorAll('.historial-table-row');
+    const workspace = document.getElementById('historial-workspace');
+    const detailPanel = document.getElementById('historial-detail-panel');
+    const closeDetailBtn = document.getElementById('btn-close-detail');
+
+    // Elementos del Panel de Detalles
+    const titleElem = document.getElementById('detail-sim-title');
+    const statusWrapper = document.getElementById('detail-status-wrapper');
+    const montoSolicitadoElem = document.getElementById('detail-monto-solicitado');
+    const bancoValElem = document.getElementById('detail-banco-val');
+    const tarjetaValElem = document.getElementById('detail-tarjeta-val');
+    const fechaValElem = document.getElementById('detail-fecha-val');
+    const idValElem = document.getElementById('detail-id-val');
+    const montoDisponibleElem = document.getElementById('detail-monto-disponible');
+    const comisionValElem = document.getElementById('detail-comision-val');
+    const montoFinalElem = document.getElementById('detail-monto-final');
+
+    function updateDetailPanel(row: HTMLElement) {
+      const id = row.dataset.id || 'CF-00241';
+      const amount = row.dataset.amount || 'S/ 2,000.00';
+      const bank = row.dataset.bank || 'Interbank';
+      const card = row.dataset.card || 'Visa';
+      const date = row.dataset.date || '25 Jul 2024 - 14:32';
+      const status = row.dataset.status || 'Completada';
+      const fee = row.dataset.fee || 'S/ 0.00';
+
+      if (titleElem) titleElem.textContent = `Simulación #${id}`;
+      if (montoSolicitadoElem) montoSolicitadoElem.textContent = amount;
+      if (fechaValElem) fechaValElem.textContent = date;
+      if (idValElem) idValElem.textContent = id;
+      if (montoDisponibleElem) montoDisponibleElem.textContent = amount;
+      if (comisionValElem) comisionValElem.textContent = fee;
+      if (montoFinalElem) montoFinalElem.textContent = amount;
+
+      // Status Badge
+      if (statusWrapper) {
+        let badgeClass = 'completed';
+        let iconSvg = '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+        if (status === 'Pendiente') {
+          badgeClass = 'pending';
+          iconSvg = '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>';
+        } else if (status === 'Cancelada') {
+          badgeClass = 'cancelled';
+          iconSvg = '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>';
+        }
+        statusWrapper.innerHTML = `
+          <span class="detail-status-badge ${badgeClass}">
+            ${iconSvg}
+            <span>${status}</span>
+          </span>
+        `;
+      }
+
+      // Banco
+      if (bancoValElem) {
+        let bankBadge = '<span class="bank-badge-box interbank" style="width: 16px; height: 16px;"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2"></rect></svg></span>';
+        if (bank === 'BBVA') {
+          bankBadge = '<span class="bank-badge-box bbva" style="width: 16px; height: 16px;"><span style="font-size: 7px; font-weight: 800; color: #fff;">BB</span></span>';
+        } else if (bank === 'BCP') {
+          bankBadge = '<span class="bank-badge-box bcp" style="width: 16px; height: 16px;"><span style="font-size: 7px; font-weight: 800; color: #fff;">&gt;</span></span>';
+        }
+        bancoValElem.innerHTML = `<span>${bank}</span> ${bankBadge}`;
+      }
+
+      // Tarjeta
+      if (tarjetaValElem) {
+        let cardBadge = '<span class="card-badge visa" style="font-size: 0.6rem; padding: 1px 4px;">VISA</span>';
+        if (card === 'Mastercard') {
+          cardBadge = '<span class="card-badge mastercard" style="padding: 2px 4px;"><span class="mc-circles"><span class="mc-c1" style="width: 8px; height: 8px;"></span><span class="mc-c2" style="width: 8px; height: 8px;"></span></span></span>';
+        }
+        tarjetaValElem.innerHTML = `<span>${card}</span> ${cardBadge}`;
+      }
+
+      // Mostrar panel si estaba oculto
+      if (workspace && detailPanel) {
+        workspace.classList.remove('details-closed');
+        detailPanel.style.display = 'flex';
+      }
+    }
+
+    tableRows.forEach(row => {
+      row.addEventListener('click', () => {
+        tableRows.forEach(r => r.classList.remove('selected'));
+        row.classList.add('selected');
+        updateDetailPanel(row as HTMLElement);
+      });
+    });
+
+    if (closeDetailBtn && workspace && detailPanel) {
+      closeDetailBtn.addEventListener('click', () => {
+        workspace.classList.add('details-closed');
+        detailPanel.style.display = 'none';
+      });
+    }
+
+    // 5. Filtros en Vivo (Búsqueda, Estado, Banco)
+    const searchInput = document.getElementById('search-input') as HTMLInputElement;
+    const filterStatus = document.getElementById('filter-status') as HTMLSelectElement;
+    const filterBank = document.getElementById('filter-bank') as HTMLSelectElement;
+    const filterBtn = document.getElementById('btn-apply-filters');
+    const showingText = document.getElementById('showing-text');
+
+    function applyFilterLogic() {
+      const q = searchInput?.value.toLowerCase().trim() || '';
+      const st = filterStatus?.value || 'Todos';
+      const bk = filterBank?.value || 'Todos';
+
+      let visibleCount = 0;
+      tableRows.forEach(r => {
+        const row = r as HTMLElement;
+        const id = (row.dataset.id || '').toLowerCase();
+        const amount = (row.dataset.amount || '').toLowerCase();
+        const bank = row.dataset.bank || '';
+        const status = row.dataset.status || '';
+
+        const matchQuery = !q || id.includes(q) || amount.includes(q) || bank.toLowerCase().includes(q);
+        const matchStatus = st === 'Todos' || status === st;
+        const matchBank = bk === 'Todos' || bank === bk;
+
+        if (matchQuery && matchStatus && matchBank) {
+          row.style.display = '';
+          visibleCount++;
+        } else {
+          row.style.display = 'none';
+        }
+      });
+
+      if (showingText) {
+        showingText.textContent = `Mostrando ${visibleCount} de 24 operaciones`;
+      }
+    }
+
+    if (searchInput) searchInput.addEventListener('input', applyFilterLogic);
+    if (filterStatus) filterStatus.addEventListener('change', applyFilterLogic);
+    if (filterBank) filterBank.addEventListener('change', applyFilterLogic);
+    if (filterBtn) filterBtn.addEventListener('click', applyFilterLogic);
+
+    // 6. Descargar comprobante simulación
+    const downloadBtn = document.getElementById('btn-download-voucher');
+    if (downloadBtn) {
+      downloadBtn.addEventListener('click', () => {
+        const id = (titleElem?.textContent || 'Comprobante').replace('#', '');
+        alert(`Descargando comprobante oficial para ${id}...`);
+      });
+    }
+  });
+</script>
