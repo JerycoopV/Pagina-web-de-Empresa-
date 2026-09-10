@@ -1,0 +1,43 @@
+---
+import Layout from '../layouts/Layout.astro';
+import '../styles/admin.css';
+const { title = 'Admin | Capital Fest', active = 'dashboard' } = Astro.props;
+---
+<Layout title={title} hideHeaderFooter={true}>
+  <div class="admin-layout">
+    <aside class="admin-sidebar">
+      <a class="admin-brand" href="/admin"><img src="/assets/logo.svg" alt="Capital Fest" /></a>
+      <span class="admin-kicker">ADMINISTRACION</span>
+      <nav class="admin-nav" aria-label="Navegacion administrativa">
+        <a class:list={{ active: active === 'dashboard' }} href="/admin">Resumen</a>
+        <a class:list={{ active: active === 'operations' }} href="/admin/operaciones">Operaciones</a>
+        <a class:list={{ active: active === 'users' }} href="/admin/usuarios">Usuarios</a>
+        <a class:list={{ active: active === 'validations' }} href="/admin/validaciones">Validaciones KYC</a>
+      </nav>
+      <div class="admin-sidebar-foot">
+        <a href="/dashboard">Volver al dashboard</a>
+        <button id="admin-logout" type="button">Cerrar sesion</button>
+      </div>
+    </aside>
+    <main class="admin-main">
+      <header class="admin-header">
+        <div><span class="admin-eyebrow">Capital Fest / Control central</span><h1>{title.replace(' | Capital Fest', '')}</h1></div>
+        <div class="admin-identity"><span class="admin-avatar" id="admin-avatar">A</span><span id="admin-name">Administrador</span></div>
+      </header>
+      <slot />
+    </main>
+  </div>
+</Layout>
+<script>
+  const token = localStorage.getItem('capitalFest_token');
+  const user = JSON.parse(localStorage.getItem('capitalFest_user') || '{}');
+  if (!token || user.roleId === 1 || user.role?.name?.toLowerCase() === 'user') window.location.href = '/login?redirect=/admin';
+  const name = document.getElementById('admin-name');
+  const avatar = document.getElementById('admin-avatar');
+  if (name && user.firstName) name.textContent = `${user.firstName} ${user.lastName || ''}`;
+  if (avatar && user.firstName) avatar.textContent = user.firstName[0].toUpperCase();
+  document.getElementById('admin-logout')?.addEventListener('click', async () => {
+    await fetch(`${import.meta.env.PUBLIC_API_URL}/auth/logout`, { method: 'POST', headers: { Authorization: `Bearer ${token}` } });
+    localStorage.removeItem('capitalFest_token'); localStorage.removeItem('capitalFest_user'); window.location.href = '/login';
+  });
+</script>

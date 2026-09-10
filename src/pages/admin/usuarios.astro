@@ -1,0 +1,11 @@
+---
+import AdminShell from '../../components/AdminShell.astro';
+---
+<AdminShell title="Usuarios" active="users">
+  <section class="admin-section"><div class="admin-section-head"><h2>Usuarios registrados</h2><div class="admin-actions"><input class="admin-input" id="user-search" placeholder="Buscar nombre o correo" /><button class="admin-button" id="user-filter">Buscar</button></div></div><table class="admin-table"><thead><tr><th>Usuario</th><th>Correo</th><th>Rol</th><th>Estado</th><th>Accion</th></tr></thead><tbody id="users-body"></tbody></table></section>
+</AdminShell>
+<script>
+  const token = localStorage.getItem('capitalFest_token'); const api = import.meta.env.PUBLIC_API_URL; const body = document.getElementById('users-body');
+  const load = async () => { const search = encodeURIComponent((document.getElementById('user-search')).value); const response = await fetch(`${api}/admin/users?limit=50&search=${search}`, { headers: { Authorization: `Bearer ${token}` } }); if (!response.ok) { body.innerHTML = '<tr><td colspan="5" class="admin-empty">No se pudieron cargar los usuarios.</td></tr>'; return; } const { items } = await response.json(); body.innerHTML = items.map(user => `<tr><td>${user.firstName} ${user.lastName}</td><td>${user.email}</td><td>${user.role?.name || 'User'}</td><td><span class="admin-status">${user.accountStatus}</span></td><td><select class="admin-select user-change" data-id="${user.id}"><option value="">Cambiar estado</option><option value="active">Activar</option><option value="blocked">Bloquear</option><option value="pending_verification">Pendiente</option></select></td></tr>`).join(''); document.querySelectorAll('.user-change').forEach(select => select.addEventListener('change', async event => { const target = event.currentTarget; if (!target.value) return; const response = await fetch(`${api}/admin/users/${target.dataset.id}/status`, { method: 'PATCH', headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ status: target.value }) }); if (response.ok) load(); else alert('No se pudo actualizar el usuario.'); })); };
+  document.getElementById('user-filter').addEventListener('click', load); load();
+</script>
