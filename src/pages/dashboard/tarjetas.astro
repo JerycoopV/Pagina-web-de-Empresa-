@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import '../../styles/dashboard-tarjetas.css';
+import { apiFetch, requireSession } from '../../utils/api';
 ---
 
 <Layout title="Mis Tarjetas | Capital Fest" hideHeaderFooter={true}>
@@ -820,6 +821,42 @@ import '../../styles/dashboard-tarjetas.css';
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
+    if (!requireSession()) return;
+
+    const cardsGrid = document.getElementById('cards-grid');
+    const transactionsBody = document.getElementById('card-tx-tbody');
+    document.querySelectorAll('.metric-stat-value').forEach(element => { element.textContent = '0'; });
+    document.querySelectorAll('.metric-stat-tag').forEach(element => { element.textContent = ''; });
+    document.querySelector('.cards-count-badge')?.replaceChildren(document.createTextNode('0 tarjetas'));
+    if (cardsGrid) cardsGrid.innerHTML = '<p class="dashboard-empty">Cargando tarjetas...</p>';
+    if (transactionsBody) transactionsBody.innerHTML = '<tr><td colspan="5" class="dashboard-empty">Aún no hay transacciones.</td></tr>';
+    ['panel-full-number', 'panel-masked-digits', 'panel-holder-name', 'panel-expiry-date', 'panel-meta-bank', 'panel-meta-type', 'panel-meta-holder', 'panel-meta-number', 'panel-meta-expiry', 'panel-limit-total', 'panel-limit-used', 'panel-limit-avail'].forEach(id => { const element = document.getElementById(id); if (element) element.textContent = 'Sin datos'; });
+
+    const renderCards = async () => {
+      try {
+        const cards = await apiFetch<any[]>('/cards');
+        if (cardsGrid) cardsGrid.innerHTML = cards.length ? cards.map((card, index) => {
+          const bank = card.bank || card.bankName || 'Banco';
+          const brand = card.brand || card.cardBrand || 'Tarjeta';
+          const lastFour = card.lastFourDigits || card.last4 || '----';
+          const holder = card.holderName || 'Titular';
+          const expiry = card.expirationMonth && card.expirationYear ? `${String(card.expirationMonth).padStart(2, '0')}/${String(card.expirationYear).slice(-2)}` : '--/--';
+          const available = Number(card.availableLimit ?? card.limitAvailable ?? 0);
+          const total = Number(card.creditLimit ?? card.limitTotal ?? 0);
+          const used = Number(card.usedLimit ?? card.limitUsed ?? 0);
+          const percent = total ? `${Math.min(100, Math.round((used / total) * 100))}%` : '0%';
+          return `<div class="card-item-box${index === 0 ? ' selected' : ''}" data-card-id="${card.id || ''}" data-bank="${bank}" data-card-type="${brand}" data-full-number="•••• •••• •••• ${lastFour}" data-masked="•••• ${lastFour}" data-holder="${holder}" data-expiry="${expiry}" data-limit-total="S/ ${total.toLocaleString('es-PE', { minimumFractionDigits: 2 })}" data-limit-used="S/ ${used.toLocaleString('es-PE', { minimumFractionDigits: 2 })}" data-limit-avail="S/ ${available.toLocaleString('es-PE', { minimumFractionDigits: 2 })}" data-percent="${percent}" data-theme="interbank"><div class="card-box-header"><span class="card-badge-placeholder"></span></div><div class="visual-bank-card interbank-card"><div class="card-top-logos"><div class="card-bank-brand"><span>${bank}</span></div><span class="card-network-logo visa">${brand}</span></div><div class="card-middle-numbers"><span class="card-full-number">•••• •••• •••• ${lastFour}</span><span class="card-masked-digits">•••• ${lastFour}</span></div><div class="card-footer-info"><span class="card-holder-name">${holder.toUpperCase()}</span><div class="card-expiration-date"><div>Vence</div><div>${expiry}</div></div></div></div><div class="card-item-meta"><div class="card-status-indicator"><span class="card-status-dot"></span><span>${card.status || 'Activa'}</span></div><div class="card-limit-row"><span class="limit-label">Límite disponible</span><span class="limit-amount">S/ ${available.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</span></div></div><div class="card-item-actions"><button class="btn-card-details">Ver detalles</button></div></div>`;
+        }).join('') : '<p class="dashboard-empty">Aún no tienes tarjetas vinculadas.</p>';
+        if (cards.length) {
+          document.querySelectorAll('.metric-stat-value')[0].textContent = String(cards.length);
+          document.querySelectorAll('.metric-stat-value')[1].textContent = String(cards.filter(card => card.status === 'active' || !card.status).length);
+        }
+        initializeCardInteractions();
+      } catch {
+        if (cardsGrid) cardsGrid.innerHTML = '<p class="dashboard-empty">No se pudieron cargar las tarjetas.</p>';
+      }
+    };
+
     // 1. Cargar nombre de usuario desde localStorage
     const savedUser = localStorage.getItem('capitalFest_user');
     if (savedUser) {
@@ -873,7 +910,7 @@ import '../../styles/dashboard-tarjetas.css';
     }
 
     // 4. Selección de Tarjetas e Interacción Dinámica
-    const cardBoxes = document.querySelectorAll('.card-item-box');
+    let cardBoxes = document.querySelectorAll('.card-item-box');
     const panelCardPreview = document.getElementById('panel-card-preview');
     const panelBankBrand = document.getElementById('panel-bank-brand');
     const panelNetworkLogo = document.getElementById('panel-network-logo');
@@ -970,7 +1007,9 @@ import '../../styles/dashboard-tarjetas.css';
       }
     }
 
-    cardBoxes.forEach(box => {
+    function initializeCardInteractions() {
+      cardBoxes = document.querySelectorAll('.card-item-box');
+      cardBoxes.forEach(box => {
       box.addEventListener('click', (e) => {
         if ((e.target as HTMLElement).closest('.card-more-menu-wrapper')) return;
         openCardDetails(box as HTMLElement);
@@ -983,7 +1022,8 @@ import '../../styles/dashboard-tarjetas.css';
           openCardDetails(box as HTMLElement);
         });
       }
-    });
+      });
+    }
 
     // 6. Menú de 3 puntos (•••) para Bloquear y Eliminar tarjeta
     const allMoreBtns = document.querySelectorAll('.btn-card-more, .btn-detail-more');
@@ -1102,6 +1142,7 @@ import '../../styles/dashboard-tarjetas.css';
         executeDeleteCard(bank);
       });
     });
+    renderCards();
 
     // 6. Modal Vincular Nueva Tarjeta
     const openModalBtn = document.getElementById('btn-open-modal-link');

@@ -173,8 +173,13 @@ import '../styles/login.css';
           const params = new URLSearchParams(window.location.search);
           const redirect = params.get('redirect');
           const monto = params.get('monto');
+          const role = data.user.role;
+          const roleName = typeof role === 'string' ? role : role?.name;
+          const isAdmin = [roleName, data.user.roleName, data.user.userRole].some(value => String(value || '').toLowerCase() === 'admin') || Number(data.user.roleId) === 2;
           
-          if (redirect) {
+          if (isAdmin) {
+            window.location.href = '/dashboard';
+          } else if (redirect) {
             let redirectUrl = redirect;
             if (monto) {
               redirectUrl += `?monto=${monto}`;

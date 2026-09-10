@@ -189,7 +189,7 @@ import '../styles/dashboard.css';
               <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
               <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
             </svg>
-            <span class="notification-badge">3</span>
+            <span class="notification-badge" id="notification-count">0</span>
           </button>
           
           <div class="top-user-avatar" id="header-avatar-initial">J</div>
@@ -207,10 +207,10 @@ import '../styles/dashboard.css';
                 <path d="M14.5 20.5A12 12 0 0 0 14.5 3.5"></path>
               </svg>
             </div>
-            <div class="card-number-dots">1234 5678 9012 3456</div>
+            <div class="card-number-dots" id="header-card-number">•••• •••• •••• ••••</div>
             <div class="card-bottom-info">
-              <span class="card-holder">TU TARJETA</span>
-              <span class="card-expiry">12/25</span>
+              <span class="card-holder" id="header-card-holder">SIN TARJETA</span>
+              <span class="card-expiry" id="header-card-expiry">--/--</span>
             </div>
           </div>
         </div>
@@ -231,13 +231,13 @@ import '../styles/dashboard.css';
               </svg>
             </div>
             <div class="metric-info">
-              <span class="metric-label">Monto disponible</span>
-              <span class="metric-value">S/ 35,000.00</span>
+                <span class="metric-label" id="available-label">Monto disponible</span>
+              <span class="metric-value" id="available-amount">S/ 0.00</span>
             </div>
           </div>
           <div class="metric-footer">
-            <span class="metric-footer-text">Línea de crédito disponible</span>
-            <span class="metric-tag positive">▲ 12%</span>
+            <span class="metric-footer-text" id="available-description">Línea de crédito disponible</span>
+            <span class="metric-tag positive" id="available-change"></span>
           </div>
         </div>
 
@@ -251,13 +251,13 @@ import '../styles/dashboard.css';
               </svg>
             </div>
             <div class="metric-info">
-              <span class="metric-label">Retiro máximo</span>
-              <span class="metric-value">S/ 4,500.00</span>
+                <span class="metric-label" id="maximum-label">Retiro máximo</span>
+              <span class="metric-value" id="maximum-withdrawal">S/ 0.00</span>
             </div>
           </div>
           <div class="metric-footer">
-            <span class="metric-footer-text">Monto máximo por retiro</span>
-            <span class="metric-tag positive">▲ 8%</span>
+            <span class="metric-footer-text" id="maximum-description">Monto máximo por retiro</span>
+            <span class="metric-tag positive" id="withdrawal-change"></span>
           </div>
         </div>
 
@@ -271,13 +271,13 @@ import '../styles/dashboard.css';
               </svg>
             </div>
             <div class="metric-info">
-              <span class="metric-label">Simulaciones realizadas</span>
-              <span class="metric-value">3</span>
+                <span class="metric-label" id="simulations-label">Simulaciones realizadas</span>
+              <span class="metric-value" id="simulations-count">0</span>
             </div>
           </div>
           <div class="metric-footer">
-            <span class="metric-footer-text">Este mes</span>
-            <span class="metric-tag positive">+2</span>
+            <span class="metric-footer-text" id="simulations-description">Este mes</span>
+            <span class="metric-tag positive" id="simulations-change"></span>
           </div>
         </div>
 
@@ -291,9 +291,9 @@ import '../styles/dashboard.css';
               </svg>
             </div>
             <div class="metric-info">
-              <span class="metric-label">Estado de cuenta</span>
-              <span class="metric-value status-verified">
-                Verificada
+                <span class="metric-label" id="account-label">Estado de cuenta</span>
+              <span class="metric-value status-verified" id="account-status">
+                Sin verificar
                 <svg class="verified-badge-icon" viewBox="0 0 20 20" width="18" height="18" fill="none">
                   <circle cx="10" cy="10" r="9.5" fill="#22c55e" />
                   <path d="M6 10.2L8.8 13L14.4 7.4" stroke="#0a0814" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
@@ -302,7 +302,7 @@ import '../styles/dashboard.css';
             </div>
           </div>
           <div class="metric-footer">
-            <span class="metric-footer-text">Cuenta en buen estado</span>
+            <span class="metric-footer-text" id="account-status-description">Estado actual de la cuenta</span>
           </div>
         </div>
       </section>
@@ -313,7 +313,7 @@ import '../styles/dashboard.css';
       <section class="dash-middle-grid">
         
         <!-- Panel Izquierdo: Simulaciones de Retiro (Gráfico) -->
-        <div class="dash-panel">
+        <div class="dash-panel" id="quick-simulation-panel">
           <div class="panel-header">
             <div class="panel-title-group">
               <h2 class="panel-title">Simulaciones de retiro</h2>
@@ -329,12 +329,9 @@ import '../styles/dashboard.css';
           <!-- Gráfico SVG Interactivo de Ondas Spline -->
           <div class="chart-container">
             <!-- Tooltip Flotante sobre 25 Jul -->
-            <div class="chart-tooltip-box">
-              <span class="chart-tooltip-amount">S/ 3,250</span>
-              <span class="chart-tooltip-date">25 Jul 2024</span>
-            </div>
+            <div class="chart-empty-state" id="chart-empty-state">Aún no hay simulaciones para mostrar.</div>
 
-            <svg class="chart-svg" viewBox="0 0 600 200" preserveAspectRatio="none">
+            <svg class="chart-svg" id="dashboard-chart" viewBox="0 0 600 200" preserveAspectRatio="none">
               <defs>
                 <linearGradient id="purple-chart-gradient" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="0%" stop-color="#a855f7" stop-opacity="0.45"></stop>
@@ -361,38 +358,7 @@ import '../styles/dashboard.css';
               <line x1="40" y1="190" x2="590" y2="190" class="chart-grid-line"></line>
               <text x="10" y="194" class="chart-axis-label">0</text>
 
-              <!-- Etiquetas del Eje X (Fechas) -->
-              <text x="50" y="200" class="chart-axis-label">25 Jun</text>
-              <text x="135" y="200" class="chart-axis-label">30 Jun</text>
-              <text x="220" y="200" class="chart-axis-label">5 Jul</text>
-              <text x="305" y="200" class="chart-axis-label">10 Jul</text>
-              <text x="390" y="200" class="chart-axis-label">15 Jul</text>
-              <text x="475" y="200" class="chart-axis-label">20 Jul</text>
-              <text x="550" y="200" class="chart-axis-label">25 Jul</text>
-
-              <!-- Relleno Sombreado bajo la Línea -->
-              <path d="M 50,150 
-                       C 80,110 110,140 145,130 
-                       C 180,120 200,145 230,135 
-                       C 260,125 290,160 325,120 
-                       C 350,90 375,40 400,60 
-                       C 425,80 445,120 470,110 
-                       C 495,100 520,70 560,95 
-                       L 560,190 L 50,190 Z" 
-                    class="chart-area-fill"></path>
-
-              <!-- Trazo de la Curva Principal Púrpura -->
-              <path d="M 50,150 
-                       C 80,110 110,140 145,130 
-                       C 180,120 200,145 230,135 
-                       C 260,125 290,160 325,120 
-                       C 350,90 375,40 400,60 
-                       C 425,80 445,120 470,110 
-                       C 495,100 520,70 560,95" 
-                    class="chart-path-line"></path>
-
-              <!-- Puntos Destacados -->
-              <circle cx="560" cy="95" class="chart-point"></circle>
+                <g id="chart-data"></g>
             </svg>
           </div>
         </div>
@@ -401,42 +367,37 @@ import '../styles/dashboard.css';
         <div class="dash-panel">
           <div class="panel-header">
             <div class="panel-title-group">
-              <h2 class="panel-title">Nueva simulación rápida</h2>
-              <p class="panel-subtitle">Simula tu retiro en segundos</p>
+              <h2 class="panel-title" id="quick-panel-title">Nueva simulación rápida</h2>
+              <p class="panel-subtitle" id="quick-panel-subtitle">Simula tu retiro en segundos</p>
             </div>
           </div>
 
           <form class="quick-sim-form" id="quick-sim-form">
             <div class="sim-input-group">
-              <label class="sim-input-label">Monto a retirar</label>
-              <input type="text" class="sim-amount-input" value="S/ 2,000.00" id="quick-sim-amount" />
+              <label class="sim-input-label" id="quick-amount-label">Monto a retirar</label>
+              <input type="number" min="1400" step="0.01" class="sim-amount-input" placeholder="Ingresa un monto" id="quick-sim-amount" />
             </div>
 
             <div class="sim-selectors-row">
               <!-- Selector 1: Banco -->
               <div class="custom-select-wrapper">
-                <label class="sim-input-label">Selecciona tu banco</label>
+                <label class="sim-input-label" id="quick-bank-label">Selecciona tu banco</label>
                 <select class="sim-select-box" id="quick-sim-bank">
-                  <option value="Interbank">Interbank</option>
-                  <option value="BBVA">BBVA</option>
-                  <option value="BCP">BCP</option>
-                  <option value="Scotiabank">Scotiabank</option>
+                  <option value="">Selecciona un banco</option>
                 </select>
               </div>
 
               <!-- Selector 2: Tipo de Tarjeta -->
               <div class="custom-select-wrapper">
-                <label class="sim-input-label">Tipo de tarjeta</label>
+                <label class="sim-input-label" id="quick-card-label">Tipo de tarjeta</label>
                 <select class="sim-select-box" id="quick-sim-card">
-                  <option value="Visa">Visa</option>
-                  <option value="Mastercard">Mastercard</option>
-                  <option value="Amex">American Express</option>
+                  <option value="">Selecciona una tarjeta</option>
                 </select>
               </div>
             </div>
 
             <button type="submit" class="sim-submit-btn" id="btn-quick-sim">
-              <span>Simular retiro</span>
+              <span id="quick-submit-label">Simular retiro</span>
               <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="5" y1="12" x2="19" y2="12"></line>
                 <polyline points="12 5 19 12 12 19"></polyline>
@@ -472,61 +433,7 @@ import '../styles/dashboard.css';
                   <th>Acciones</th>
                 </tr>
               </thead>
-              <tbody>
-                <!-- Fila 1 -->
-                <tr>
-                  <td>25 Jul 2026</td>
-                  <td style="font-weight: 600;">S/ 2,000.00</td>
-                  <td>
-                    <div class="table-bank-cell">
-                      <span class="bank-tag-green">I</span> Interbank
-                    </div>
-                  </td>
-                  <td><span class="visa-badge">VISA</span></td>
-                  <td>
-                    <span class="status-badge completed">
-                      <span class="status-dot completed"></span> Completada
-                    </span>
-                  </td>
-                  <td><span class="table-action-dots">•••</span></td>
-                </tr>
-
-                <!-- Fila 2 -->
-                <tr>
-                  <td>23 Jul 2026</td>
-                  <td style="font-weight: 600;">S/ 1,000.00</td>
-                  <td>
-                    <div class="table-bank-cell">
-                      <span class="bank-tag-green" style="background: #004481;">B</span> BBVA
-                    </div>
-                  </td>
-                  <td><span class="visa-badge" style="color: #eb001b;">MC</span></td>
-                  <td>
-                    <span class="status-badge completed">
-                      <span class="status-dot completed"></span> Completada
-                    </span>
-                  </td>
-                  <td><span class="table-action-dots">•••</span></td>
-                </tr>
-
-                <!-- Fila 3 -->
-                <tr>
-                  <td>21 Jul 2026</td>
-                  <td style="font-weight: 600;">S/ 3,000.00</td>
-                  <td>
-                    <div class="table-bank-cell">
-                      <span class="bank-tag-green" style="background: #ff6600;">B</span> BCP
-                    </div>
-                  </td>
-                  <td><span class="visa-badge">VISA</span></td>
-                  <td>
-                    <span class="status-badge pending">
-                      <span class="status-dot pending"></span> Pendiente
-                    </span>
-                  </td>
-                  <td><span class="table-action-dots">•••</span></td>
-                </tr>
-              </tbody>
+              <tbody id="recent-operations-body"><tr><td colspan="6" class="dashboard-empty">Aún no tienes operaciones.</td></tr></tbody>
             </table>
           </div>
 
@@ -543,65 +450,7 @@ import '../styles/dashboard.css';
             </div>
           </div>
 
-          <div class="activity-list">
-            <!-- Actividad 1 -->
-            <div class="activity-item">
-              <div class="activity-icon-circle">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-              </div>
-              <div class="activity-details">
-                <span class="activity-title">Simulación completada</span>
-                <span class="activity-desc">Retiro de S/ 2,000.00 en Interbank</span>
-              </div>
-              <span class="activity-time">Hace 2 min</span>
-            </div>
-
-            <!-- Actividad 2 -->
-            <div class="activity-item">
-              <div class="activity-icon-circle">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-              </div>
-              <div class="activity-details">
-                <span class="activity-title">Simulación completada</span>
-                <span class="activity-desc">Retiro de S/ 1,500.00 en BBVA</span>
-              </div>
-              <span class="activity-time">Hace 1 día</span>
-            </div>
-
-            <!-- Actividad 3 -->
-            <div class="activity-item">
-              <div class="activity-icon-circle">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
-                  <line x1="12" y1="5" x2="12" y2="19"></line>
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                </svg>
-              </div>
-              <div class="activity-details">
-                <span class="activity-title">Nueva simulación creada</span>
-                <span class="activity-desc">Retiro de S/ 3,000.00 en BCP</span>
-              </div>
-              <span class="activity-time">Hace 2 días</span>
-            </div>
-
-            <!-- Actividad 4 -->
-            <div class="activity-item">
-              <div class="activity-icon-circle success">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                </svg>
-              </div>
-              <div class="activity-details">
-                <span class="activity-title">Cuenta verificada</span>
-                <span class="activity-desc">Tu cuenta ha sido verificada exitosamente</span>
-              </div>
-              <span class="activity-time">Hace 3 días</span>
-            </div>
-          </div>
+          <div class="activity-list" id="recent-activity-list"><p class="dashboard-empty">Aún no hay actividad reciente.</p></div>
 
           <a href="#" class="panel-footer-link">
             Ver toda la actividad <span>→</span>
@@ -614,74 +463,101 @@ import '../styles/dashboard.css';
 </Layout>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    // 1. Obtener datos de usuario de localStorage si están disponibles
-    const userStr = localStorage.getItem('capitalFest_user');
-    const greetingNameEl = document.getElementById('greeting-name');
-    const sidebarUserFullname = document.getElementById('sidebar-user-fullname');
-    const sidebarAvatar = document.getElementById('sidebar-avatar-initial');
-    const headerAvatar = document.getElementById('header-avatar-initial');
+  const api = import.meta.env.PUBLIC_API_URL;
+  const token = localStorage.getItem('capitalFest_token');
+  const headers = { Authorization: `Bearer ${token}` };
+  const money = (value: number) => `S/ ${Number(value || 0).toLocaleString('es-PE', { minimumFractionDigits: 2 })}`;
+  const user = JSON.parse(localStorage.getItem('capitalFest_user') || '{}');
+  const role = user.role;
+  const roleName = typeof role === 'string' ? role : role?.name;
+  const isAdmin = [roleName, user.roleName, user.userRole].some(value => String(value || '').toLowerCase() === 'admin') || Number(user.roleId) === 2;
+  const firstName = user.firstName || 'Usuario';
+  const lastName = user.lastName || '';
+  const initial = firstName.charAt(0).toUpperCase();
+  document.getElementById('greeting-name').textContent = firstName;
+  document.getElementById('sidebar-user-fullname').textContent = `${firstName} ${lastName.charAt(0) ? `${lastName.charAt(0)}.` : ''}`;
+  document.getElementById('sidebar-avatar-initial').textContent = initial;
+  document.getElementById('header-avatar-initial').textContent = initial;
+  if (isAdmin) {
+    const navigation = document.querySelectorAll('.sidebar-nav .nav-item');
+    const adminLinks = [['/dashboard', 'Inicio'], ['/admin/resumen', 'Resumen'], ['/admin/operaciones', 'Operaciones'], ['/admin/usuarios', 'Usuarios'], ['/admin/validaciones', 'Validaciones KYC']];
+    adminLinks.forEach(([href, label], index) => { const link = navigation[index] as HTMLAnchorElement; if (link) { link.href = href; const text = link.querySelector('span'); if (text) text.textContent = label; } });
+    navigation.forEach((link, index) => { if (index >= adminLinks.length) (link.parentElement as HTMLElement).style.display = 'none'; });
+  }
 
-    if (userStr) {
-      try {
-        const user = JSON.parse(userStr);
-        const firstName = user.firstName || 'Joshua';
-        const lastName = user.lastName || 'V.';
-        const initial = firstName.charAt(0).toUpperCase();
-
-        if (greetingNameEl) greetingNameEl.textContent = `${firstName}`;
-        if (sidebarUserFullname) sidebarUserFullname.textContent = `${firstName} ${lastName.charAt(0)}.`;
-        if (sidebarAvatar) sidebarAvatar.textContent = initial;
-        if (headerAvatar) headerAvatar.textContent = initial;
-      } catch (e) {
-        console.error('Error parseando datos de usuario:', e);
-      }
+  const setText = (id: string, value: string) => { const element = document.getElementById(id); if (element) element.textContent = value; };
+  const statusLabel = (status: string) => ({ active: 'Verificada', verified: 'Verificada', pending_verification: 'Pendiente', pending: 'Pendiente', blocked: 'Bloqueada', rejected: 'Rechazada' }[status] || status || 'Sin datos');
+  const populateNormalDemo = () => {
+    setText('available-amount', 'S/ 35,000.00'); setText('maximum-withdrawal', 'S/ 4,500.00'); setText('simulations-count', '3'); setText('account-status', 'Verificada'); setText('account-status-description', 'Cuenta en buen estado');
+    setText('available-change', '▲ 12%'); setText('withdrawal-change', '▲ 8%'); setText('simulations-change', '+2');
+    setText('header-card-number', '1234 5678 9012 3456'); setText('header-card-holder', 'TU TARJETA'); setText('header-card-expiry', '12/25'); setText('notification-count', '3');
+    const chartData = document.getElementById('chart-data');
+    if (chartData) chartData.innerHTML = `<text x="50" y="200" class="chart-axis-label">25 Jun</text><text x="135" y="200" class="chart-axis-label">30 Jun</text><text x="220" y="200" class="chart-axis-label">5 Jul</text><text x="305" y="200" class="chart-axis-label">10 Jul</text><text x="390" y="200" class="chart-axis-label">15 Jul</text><text x="475" y="200" class="chart-axis-label">20 Jul</text><text x="550" y="200" class="chart-axis-label">25 Jul</text><path d="M 50,150 C 80,110 110,140 145,130 C 180,120 200,145 230,135 C 260,125 290,160 325,120 C 350,90 375,40 400,60 C 425,80 445,120 470,110 C 495,100 520,70 560,95 L 560,190 L 50,190 Z" class="chart-area-fill"></path><path d="M 50,150 C 80,110 110,140 145,130 C 180,120 200,145 230,135 C 260,125 290,160 325,120 C 350,90 375,40 400,60 C 425,80 445,120 470,110 C 495,100 520,70 560,95" class="chart-path-line"></path><circle cx="560" cy="95" class="chart-point"></circle>`;
+    const chartEmpty = document.getElementById('chart-empty-state'); if (chartEmpty) chartEmpty.remove();
+    const operationsBody = document.getElementById('recent-operations-body');
+    if (operationsBody) operationsBody.innerHTML = `<tr><td>25 Jul 2026</td><td style="font-weight:600;">S/ 2,000.00</td><td>Interbank</td><td><span class="visa-badge">VISA</span></td><td><span class="status-badge completed"><span class="status-dot completed"></span>Completada</span></td><td><span class="table-action-dots">•••</span></td></tr><tr><td>23 Jul 2026</td><td style="font-weight:600;">S/ 1,000.00</td><td>BBVA</td><td><span class="visa-badge">MC</span></td><td><span class="status-badge completed"><span class="status-dot completed"></span>Completada</span></td><td><span class="table-action-dots">•••</span></td></tr><tr><td>21 Jul 2026</td><td style="font-weight:600;">S/ 3,000.00</td><td>BCP</td><td><span class="visa-badge">VISA</span></td><td><span class="status-badge pending"><span class="status-dot pending"></span>Pendiente</span></td><td><span class="table-action-dots">•••</span></td></tr>`;
+    const activity = document.getElementById('recent-activity-list');
+    if (activity) activity.innerHTML = `<div class="activity-item"><div class="activity-icon-circle"><span>✓</span></div><div class="activity-details"><span class="activity-title">Simulación completada</span><span class="activity-desc">Retiro de S/ 2,000.00 en Interbank</span></div><span class="activity-time">Hace 2 min</span></div><div class="activity-item"><div class="activity-icon-circle"><span>✓</span></div><div class="activity-details"><span class="activity-title">Simulación completada</span><span class="activity-desc">Retiro de S/ 1,500.00 en BBVA</span></div><span class="activity-time">Hace 1 día</span></div><div class="activity-item"><div class="activity-icon-circle"><span>+</span></div><div class="activity-details"><span class="activity-title">Nueva simulación creada</span><span class="activity-desc">Retiro de S/ 3,000.00 en BCP</span></div><span class="activity-time">Hace 2 días</span></div>`;
+    const amount = document.getElementById('quick-sim-amount') as HTMLInputElement | null; if (amount) { amount.value = '2000'; amount.type = 'text'; }
+    const bank = document.getElementById('quick-sim-bank') as HTMLSelectElement | null; if (bank) bank.innerHTML = '<option value="Interbank">Interbank</option><option value="BBVA">BBVA</option><option value="BCP">BCP</option>';
+    const card = document.getElementById('quick-sim-card') as HTMLSelectElement | null; if (card) card.innerHTML = '<option value="Visa">Visa</option><option value="Mastercard">Mastercard</option>';
+  };
+  const loadDashboard = async () => {
+    if (!token) { window.location.href = '/login?redirect=/dashboard'; return; }
+    if (!isAdmin) { populateNormalDemo(); return; }
+    const basePath = isAdmin ? '/admin' : '';
+    const [summaryResponse, cardsResponse, notificationsResponse, operationsResponse] = await Promise.all([
+      fetch(`${api}${basePath}${isAdmin ? '/dashboard' : '/dashboard/summary'}`, { headers }),
+      fetch(`${api}/cards`, { headers }),
+      fetch(`${api}/notifications`, { headers }),
+      fetch(`${api}${isAdmin ? '/admin/operations?limit=5' : '/operations?limit=5'}`, { headers }),
+    ]);
+    if (!summaryResponse.ok) return;
+    const summary = await summaryResponse.json();
+    const metrics = summary.metrics;
+    if (isAdmin) {
+      setText('available-label', 'Volumen procesado'); setText('available-description', 'Volumen bruto acumulado');
+      setText('maximum-label', 'Operaciones pendientes'); setText('maximum-description', 'Solicitudes por revisar');
+      setText('simulations-label', 'Usuarios registrados'); setText('simulations-description', 'Usuarios activos en el sistema');
+      setText('account-label', 'Estado del sistema'); setText('account-status', 'Operativo'); setText('account-status-description', 'Panel administrativo conectado');
+      setText('available-amount', money(metrics.grossVolume)); setText('maximum-withdrawal', String(metrics.pendingOperations || 0)); setText('simulations-count', String(metrics.users || 0));
+      setText('quick-panel-title', 'Operaciones pendientes'); setText('quick-panel-subtitle', 'Revisa las solicitudes del sistema');
+      setText('quick-amount-label', 'Solicitudes por revisar'); setText('quick-bank-label', 'Estado'); setText('quick-card-label', 'Periodo'); setText('quick-submit-label', 'Ver operaciones');
+      const quickForm = document.getElementById('quick-sim-form');
+      quickForm?.querySelector('#quick-sim-amount')?.setAttribute('disabled', 'true');
+      quickForm?.querySelector('#quick-sim-bank')?.setAttribute('disabled', 'true');
+      quickForm?.querySelector('#quick-sim-card')?.setAttribute('disabled', 'true');
+      const quickAmount = document.getElementById('quick-sim-amount') as HTMLInputElement | null;
+      if (quickAmount) quickAmount.value = String(metrics.pendingOperations || 0);
+      const quickButton = document.getElementById('btn-quick-sim');
+      quickButton?.addEventListener('click', (event) => { event.preventDefault(); window.location.href = '/admin/operaciones'; });
+    } else {
+      setText('available-amount', money(metrics.availableAmount));
+      setText('maximum-withdrawal', money(metrics.maximumWithdrawal));
+      setText('simulations-count', String(metrics.simulationsThisMonth || 0));
+      setText('account-status', statusLabel(summary.accountStatus));
+      setText('account-status-description', summary.accountStatus === 'verified' || summary.accountStatus === 'active' ? 'Cuenta en buen estado' : 'Revisa el estado de tu cuenta');
     }
-
-    // 2. Lógica del Botón de Cierre de Sesión
-    const logoutBtn = document.getElementById('logout-btn');
-    if (logoutBtn) {
-      logoutBtn.addEventListener('click', () => {
-        localStorage.removeItem('capitalFest_token');
-        localStorage.removeItem('capitalFest_user');
-        window.location.href = '/login';
-      });
+    setText('available-change', ''); setText('withdrawal-change', ''); setText('simulations-change', '');
+    const operationPayload = operationsResponse.ok ? await operationsResponse.json() : { items: [] };
+    const operations = isAdmin ? (operationPayload.items || []) : (summary.recentOperations || []);
+    const operationsBody = document.getElementById('recent-operations-body');
+    if (operationsBody && operations.length) operationsBody.innerHTML = operations.map((operation: any) => `<tr><td>${new Date(operation.createdAt).toLocaleDateString('es-PE')}</td><td style="font-weight:600;">${money(operation.simulation?.grossAmount)}</td><td>${operation.simulation?.bank?.name || '-'}</td><td>****</td><td><span class="status-badge pending"><span class="status-dot pending"></span>${operation.status}</span></td><td><span class="table-action-dots">•••</span></td></tr>`).join('');
+    const activity = document.getElementById('recent-activity-list');
+    if (activity && operations.length) activity.innerHTML = operations.map((operation: any) => `<div class="activity-item"><div class="activity-icon-circle"><span>+</span></div><div class="activity-details"><span class="activity-title">Operación ${operation.status}</span><span class="activity-desc">${money(operation.simulation?.grossAmount)}${operation.simulation?.bank?.name ? ` en ${operation.simulation.bank.name}` : ''}</span></div><span class="activity-time">${new Date(operation.createdAt).toLocaleDateString('es-PE')}</span></div>`).join('');
+    if (!isAdmin && cardsResponse.ok) {
+      const cards = await cardsResponse.json(); const bankSelect = document.getElementById('quick-sim-bank') as HTMLSelectElement; const cardSelect = document.getElementById('quick-sim-card') as HTMLSelectElement;
+      const firstCard = cards[0];
+      setText('header-card-number', firstCard ? `•••• •••• •••• ${firstCard.lastFourDigits}` : '•••• •••• •••• ••••');
+      setText('header-card-holder', firstCard?.holderName?.toUpperCase() || 'SIN TARJETA');
+      setText('header-card-expiry', firstCard ? `${String(firstCard.expirationMonth).padStart(2, '0')}/${String(firstCard.expirationYear).slice(-2)}` : '--/--');
+      bankSelect.innerHTML = cards.length ? cards.map((card: any) => `<option value="${card.bankId || card.bank}">${card.bank}</option>`).join('') : '<option value="">Sin tarjetas vinculadas</option>';
+      cardSelect.innerHTML = cards.length ? cards.map((card: any) => `<option value="${card.id}">${card.brand || 'Tarjeta'} **** ${card.lastFourDigits}</option>`).join('') : '<option value="">Sin tarjetas vinculadas</option>';
     }
-
-    // 3. Toggle Sidebar Móvil con Backdrop
-    const mobileSidebarBtn = document.getElementById('mobile-sidebar-btn');
-    const dashSidebar = document.getElementById('dash-sidebar');
-    const sidebarBackdrop = document.getElementById('sidebar-backdrop');
-
-    function toggleSidebar(open?: boolean) {
-      if (!dashSidebar) return;
-      const willOpen = open !== undefined ? open : !dashSidebar.classList.contains('open');
-      dashSidebar.classList.toggle('open', willOpen);
-      sidebarBackdrop?.classList.toggle('active', willOpen);
-    }
-
-    if (mobileSidebarBtn) {
-      mobileSidebarBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        toggleSidebar();
-      });
-    }
-
-    if (sidebarBackdrop) {
-      sidebarBackdrop.addEventListener('click', () => toggleSidebar(false));
-    }
-
-    // 4. Formulario de Simulación Rápida
-    const quickSimForm = document.getElementById('quick-sim-form');
-    if (quickSimForm) {
-      quickSimForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const amount = (document.getElementById('quick-sim-amount') as HTMLInputElement).value;
-        const bank = (document.getElementById('quick-sim-bank') as HTMLSelectElement).value;
-        const card = (document.getElementById('quick-sim-card') as HTMLSelectElement).value;
-
-        alert(`¡Simulación iniciada!\nMonto: ${amount}\nBanco: ${bank}\nTarjeta: ${card}`);
-      });
-    }
-  });
+    if (notificationsResponse.ok) { const notifications = await notificationsResponse.json(); setText('notification-count', String(notifications.filter((notification: any) => !notification.readAt).length)); }
+  };
+  document.getElementById('logout-btn')?.addEventListener('click', () => { localStorage.removeItem('capitalFest_token'); localStorage.removeItem('capitalFest_user'); window.location.href = '/login'; });
+  document.getElementById('quick-sim-form')?.addEventListener('submit', async (event) => { event.preventDefault(); const amount = Number((document.getElementById('quick-sim-amount') as HTMLInputElement).value); const cardId = (document.getElementById('quick-sim-card') as HTMLSelectElement).value; const bankId = Number((document.getElementById('quick-sim-bank') as HTMLSelectElement).value); if (!amount || !cardId || !bankId) return; const response = await fetch(`${api}/simulations`, { method: 'POST', headers: { ...headers, 'Content-Type': 'application/json' }, body: JSON.stringify({ amount, cardId, bankId }) }); if (response.ok) window.location.reload(); });
+  const mobileSidebarBtn = document.getElementById('mobile-sidebar-btn'); const dashSidebar = document.getElementById('dash-sidebar'); const sidebarBackdrop = document.getElementById('sidebar-backdrop'); const toggleSidebar = (open?: boolean) => { const willOpen = open !== undefined ? open : !dashSidebar.classList.contains('open'); dashSidebar.classList.toggle('open', willOpen); sidebarBackdrop?.classList.toggle('active', willOpen); }; mobileSidebarBtn?.addEventListener('click', () => toggleSidebar()); sidebarBackdrop?.addEventListener('click', () => toggleSidebar(false));
+  loadDashboard();
 </script>

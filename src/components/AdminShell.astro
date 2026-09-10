@@ -9,13 +9,14 @@ const { title = 'Admin | Capital Fest', active = 'dashboard' } = Astro.props;
       <a class="admin-brand" href="/admin"><img src="/assets/logo.svg" alt="Capital Fest" /></a>
       <span class="admin-kicker">ADMINISTRACION</span>
       <nav class="admin-nav" aria-label="Navegacion administrativa">
-        <a class:list={{ active: active === 'dashboard' }} href="/admin">Resumen</a>
+        <a class:list={{ active: active === 'home' }} href="/dashboard">Inicio</a>
+        <a class:list={{ active: active === 'dashboard' }} href="/admin/resumen">Resumen</a>
         <a class:list={{ active: active === 'operations' }} href="/admin/operaciones">Operaciones</a>
         <a class:list={{ active: active === 'users' }} href="/admin/usuarios">Usuarios</a>
         <a class:list={{ active: active === 'validations' }} href="/admin/validaciones">Validaciones KYC</a>
       </nav>
       <div class="admin-sidebar-foot">
-        <a href="/dashboard">Volver al dashboard</a>
+        <a href="/dashboard">Dashboard resumen</a>
         <button id="admin-logout" type="button">Cerrar sesion</button>
       </div>
     </aside>
@@ -31,7 +32,10 @@ const { title = 'Admin | Capital Fest', active = 'dashboard' } = Astro.props;
 <script>
   const token = localStorage.getItem('capitalFest_token');
   const user = JSON.parse(localStorage.getItem('capitalFest_user') || '{}');
-  if (!token || user.roleId === 1 || user.role?.name?.toLowerCase() === 'user') window.location.href = '/login?redirect=/admin';
+  const role = user.role;
+  const roleName = typeof role === 'string' ? role : role?.name;
+  const isAdmin = [roleName, user.roleName, user.userRole].some(value => String(value || '').toLowerCase() === 'admin') || Number(user.roleId) === 2;
+  if (!token || !isAdmin) window.location.href = '/login?redirect=/admin';
   const name = document.getElementById('admin-name');
   const avatar = document.getElementById('admin-avatar');
   if (name && user.firstName) name.textContent = `${user.firstName} ${user.lastName || ''}`;
