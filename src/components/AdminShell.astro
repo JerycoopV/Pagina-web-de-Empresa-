@@ -9,11 +9,10 @@ const { title = 'Admin | Capital Fest', active = 'dashboard' } = Astro.props;
       <a class="admin-brand" href="/admin"><img src="/assets/logo.svg" alt="Capital Fest" /></a>
       <span class="admin-kicker">ADMINISTRACION</span>
       <nav class="admin-nav" aria-label="Navegacion administrativa">
-        <a class:list={{ active: active === 'home' }} href="/dashboard">Inicio</a>
+        <a class:list={{ active: active === 'home' }} href="/admin">Inicio</a>
         <a class:list={{ active: active === 'dashboard' }} href="/admin/resumen">Resumen</a>
-        <a class:list={{ active: active === 'operations' }} href="/admin/operaciones">Operaciones</a>
-        <a class:list={{ active: active === 'users' }} href="/admin/usuarios">Usuarios</a>
         <a class:list={{ active: active === 'validations' }} href="/admin/validaciones">Validaciones KYC</a>
+        <a class:list={{ active: active === 'users' }} href="/admin/usuarios">Usuarios</a>
       </nav>
       <div class="admin-sidebar-foot">
         <a href="/dashboard">Dashboard resumen</a>

@@ -1,12 +1,60 @@
 ---
-import AdminShell from '../../components/AdminShell.astro';
+import Layout from '../../layouts/Layout.astro';
+import '../../styles/dashboard.css';
 ---
-<AdminShell title="Resumen administrativo" active="dashboard">
-  <section class="admin-grid" id="admin-stats"><div class="admin-stat"><label>Usuarios registrados</label><strong>0</strong></div><div class="admin-stat"><label>Operaciones</label><strong>0</strong></div><div class="admin-stat"><label>Por revisar</label><strong>0</strong></div><div class="admin-stat"><label>Volumen procesado</label><strong>S/ 0.00</strong></div></section>
-  <section class="admin-section"><div class="admin-section-head"><div><h2>Centro de operaciones</h2><p class="admin-notice">Las cifras se actualizan desde la base de datos.</p></div><div class="admin-actions"><a class="admin-button" href="/admin/operaciones">Revisar operaciones</a><a class="admin-button" href="/admin/validaciones">Ver validaciones</a></div></div><div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Indicador</th><th>Valor</th><th>Accion</th></tr></thead><tbody id="admin-summary-rows"></tbody></table></div></section>
-</AdminShell>
+
+<Layout title="Inicio Admin | Capital Fest" hideHeaderFooter={true}>
+  <div class="dashboard-layout">
+    <button class="mobile-sidebar-toggle" id="mobile-sidebar-btn" aria-label="Abrir menu de navegacion">☰</button>
+    <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+    <aside class="dash-sidebar" id="dash-sidebar">
+      <div class="sidebar-top">
+        <a href="/admin" class="sidebar-logo"><img src="/assets/logo.svg" alt="Capital Fest Logo" class="sidebar-logo-img" /></a>
+        <nav>
+          <ul class="sidebar-nav">
+            <li class="nav-section-title">Dashboard</li>
+            <li><a href="/admin" class="nav-item active"><span>Inicio</span></a></li>
+            <li><a href="/admin/resumen" class="nav-item"><span>Resumen</span></a></li>
+            <li><a href="/admin/validaciones" class="nav-item"><span>Validaciones KYC</span></a></li>
+            <li><a href="/admin/usuarios" class="nav-item"><span>Usuarios</span></a></li>
+          </ul>
+        </nav>
+        <div class="sidebar-security-card">
+          <div class="security-header"><div class="security-icon-box">✓</div><span class="security-title">Tu seguridad es nuestra prioridad</span></div>
+          <p class="security-desc">Sistema 100% seguro y encriptado.</p>
+          <a class="security-btn-pill" href="/ayuda"><span>Mas informacion</span><span>→</span></a>
+        </div>
+      </div>
+      <div class="sidebar-bottom">
+        <div class="sidebar-user-row"><div class="user-avatar" id="sidebar-avatar-initial">A</div><div class="user-info"><span class="user-name" id="sidebar-user-fullname">Administrador</span><span class="user-link">Cuenta administrativa</span></div></div>
+        <button class="sidebar-logout-btn" id="logout-btn" type="button"><span>↪</span><span>Cerrar sesion</span></button>
+      </div>
+    </aside>
+    <main class="dash-content">
+      <header class="dash-top-bar">
+        <div class="dash-greeting-box"><h1 class="dash-greeting-title">¡Hola, <span class="highlight-name" id="greeting-name">Administrador</span>!</h1><p class="dash-greeting-subtitle">Bienvenido a tu panel de control</p></div>
+        <div class="dash-top-actions"><button class="notification-btn" aria-label="Notificaciones">♧<span class="notification-badge" id="notification-count">0</span></button><div class="top-user-avatar" id="header-avatar-initial">A</div></div>
+      </header>
+      <section class="dash-metrics-grid">
+        <div class="metric-card"><div class="metric-header"><div class="metric-icon-box">S/</div><div class="metric-info"><span class="metric-label">Volumen procesado</span><span class="metric-value" id="gross-volume">S/ 0.00</span></div></div><div class="metric-footer"><span class="metric-footer-text">Volumen bruto acumulado</span></div></div>
+        <div class="metric-card"><div class="metric-header"><div class="metric-icon-box">!</div><div class="metric-info"><span class="metric-label">Operaciones pendientes</span><span class="metric-value" id="pending-operations">0</span></div></div><div class="metric-footer"><span class="metric-footer-text">Solicitudes por revisar</span></div></div>
+        <div class="metric-card"><div class="metric-header"><div class="metric-icon-box">↗</div><div class="metric-info"><span class="metric-label">Usuarios registrados</span><span class="metric-value" id="registered-users">0</span></div></div><div class="metric-footer"><span class="metric-footer-text">Usuarios activos en el sistema</span></div></div>
+        <div class="metric-card"><div class="metric-header"><div class="metric-icon-box">✓</div><div class="metric-info"><span class="metric-label">Estado del sistema</span><span class="metric-value status-verified">Operativo</span></div></div><div class="metric-footer"><span class="metric-footer-text">Panel administrativo conectado</span></div></div>
+      </section>
+      <section class="dash-middle-grid">
+        <div class="dash-panel"><div class="panel-header"><div class="panel-title-group"><h2 class="panel-title">Actividad administrativa</h2><p class="panel-subtitle">Resumen de movimientos recientes</p></div></div><div class="chart-container"><div class="chart-empty-state" id="chart-empty-state">Aun no hay actividad para mostrar.</div><svg class="chart-svg" viewBox="0 0 600 200" preserveAspectRatio="none"><line x1="40" y1="20" x2="590" y2="20" class="chart-grid-line"></line><line x1="40" y1="90" x2="590" y2="90" class="chart-grid-line"></line><line x1="40" y1="160" x2="590" y2="160" class="chart-grid-line"></line></svg></div></div>
+        <div class="dash-panel"><div class="panel-header"><div class="panel-title-group"><h2 class="panel-title">Acciones rapidas</h2><p class="panel-subtitle">Gestiona el panel administrativo</p></div></div><div class="activity-list"><a class="panel-footer-link" href="/admin/validaciones">Revisar validaciones <span>→</span></a><a class="panel-footer-link" href="/admin/usuarios">Gestionar usuarios <span>→</span></a></div></div>
+      </section>
+      <section class="dash-bottom-grid"><div class="dash-panel"><div class="panel-header"><div class="panel-title-group"><h2 class="panel-title">Indicadores principales</h2><p class="panel-subtitle">Datos actuales del sistema</p></div></div><div class="table-responsive"><table class="history-table"><thead><tr><th>Indicador</th><th>Valor</th><th>Accion</th></tr></thead><tbody id="admin-summary-rows"></tbody></table></div></div><div class="dash-panel"><div class="panel-header"><div class="panel-title-group"><h2 class="panel-title">Actividad reciente</h2></div></div><div class="activity-list" id="recent-activity-list"><p class="dashboard-empty">Aun no hay actividad reciente.</p></div></div></section>
+    </main>
+  </div>
+</Layout>
 <script>
-  const token = localStorage.getItem('capitalFest_token'); const api = import.meta.env.PUBLIC_API_URL;
+  const token = localStorage.getItem('capitalFest_token'); const user = JSON.parse(localStorage.getItem('capitalFest_user') || '{}'); const api = import.meta.env.PUBLIC_API_URL;
+  const role = typeof user.role === 'string' ? user.role : user.role?.name; const isAdmin = [role, user.roleName, user.userRole].some(value => String(value || '').toLowerCase() === 'admin') || Number(user.roleId) === 2;
+  if (!token || !isAdmin) window.location.href = '/login?redirect=/admin';
+  const firstName = user.firstName || 'Administrador'; const lastName = user.lastName || ''; document.getElementById('greeting-name').textContent = firstName; document.getElementById('sidebar-user-fullname').textContent = `${firstName} ${lastName.charAt(0) ? `${lastName.charAt(0)}.` : ''}`; document.getElementById('sidebar-avatar-initial').textContent = firstName[0].toUpperCase(); document.getElementById('header-avatar-initial').textContent = firstName[0].toUpperCase();
   const response = await fetch(`${api}/admin/dashboard`, { headers: { Authorization: `Bearer ${token}` } });
-  if (response.ok) { const { metrics } = await response.json(); const values = [['Usuarios registrados', metrics.users, '/admin/usuarios'], ['Usuarios pendientes', metrics.pendingUsers, '/admin/validaciones'], ['Operaciones pendientes', metrics.pendingOperations, '/admin/operaciones'], ['Tarjetas activas', metrics.activeCards, '/admin/usuarios'], ['Volumen bruto', `S/ ${metrics.grossVolume.toLocaleString('es-PE')}`, '/admin/operaciones']]; document.getElementById('admin-stats').innerHTML = values.slice(0,4).map(([label,value]) => `<div class="admin-stat"><label>${label}</label><strong>${value}</strong><small>Base de datos en tiempo real</small></div>`).join(''); document.getElementById('admin-summary-rows').innerHTML = values.map(([label,value,href]) => `<tr><td>${label}</td><td>${value}</td><td><a class="admin-button" href="${href}">Abrir</a></td></tr>`).join(''); }
+  if (response.ok) { const { metrics } = await response.json(); const money = `S/ ${Number(metrics.grossVolume || 0).toLocaleString('es-PE', { minimumFractionDigits: 2 })}`; document.getElementById('gross-volume').textContent = money; document.getElementById('pending-operations').textContent = String(metrics.pendingOperations || 0); document.getElementById('registered-users').textContent = String(metrics.users || 0); const values = [['Usuarios registrados', metrics.users, '/admin/usuarios'], ['Usuarios pendientes', metrics.pendingUsers, '/admin/validaciones'], ['Tarjetas activas', metrics.activeCards, '/admin/usuarios']]; document.getElementById('admin-summary-rows').innerHTML = values.map(([label, value, href]) => `<tr><td>${label}</td><td>${value || 0}</td><td><a class="panel-footer-link" href="${href}">Abrir <span>→</span></a></td></tr>`).join(''); }
+  document.getElementById('logout-btn')?.addEventListener('click', () => { localStorage.removeItem('capitalFest_token'); localStorage.removeItem('capitalFest_user'); window.location.href = '/login'; }); const sidebar = document.getElementById('dash-sidebar'); document.getElementById('mobile-sidebar-btn')?.addEventListener('click', () => sidebar.classList.toggle('open')); document.getElementById('sidebar-backdrop')?.addEventListener('click', () => sidebar.classList.remove('open'));
 </script>
