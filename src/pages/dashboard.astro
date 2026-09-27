@@ -506,31 +506,31 @@ import '../styles/dashboard.css';
     if (!token) { window.location.href = '/login?redirect=/dashboard'; return; }
     if (!isAdmin) { populateNormalDemo(); return; }
     const basePath = isAdmin ? '/admin' : '';
-    const [summaryResponse, cardsResponse, notificationsResponse, operationsResponse] = await Promise.all([
+    const [summaryResponse, cardsResponse, notificationsResponse] = await Promise.all([
       fetch(`${api}${basePath}${isAdmin ? '/dashboard' : '/dashboard/summary'}`, { headers }),
       fetch(`${api}/cards`, { headers }),
       fetch(`${api}/notifications`, { headers }),
-      fetch(`${api}${isAdmin ? '/admin/operations?limit=5' : '/operations?limit=5'}`, { headers }),
+      Promise.resolve({ ok: false, json: async () => ({ items: [] }) }),
     ]);
     if (!summaryResponse.ok) return;
     const summary = await summaryResponse.json();
     const metrics = summary.metrics;
     if (isAdmin) {
       setText('available-label', 'Volumen procesado'); setText('available-description', 'Volumen bruto acumulado');
-      setText('maximum-label', 'Operaciones pendientes'); setText('maximum-description', 'Solicitudes por revisar');
+      setText('maximum-label', 'Usuarios pendientes'); setText('maximum-description', 'Cuentas por revisar');
       setText('simulations-label', 'Usuarios registrados'); setText('simulations-description', 'Usuarios activos en el sistema');
       setText('account-label', 'Estado del sistema'); setText('account-status', 'Operativo'); setText('account-status-description', 'Panel administrativo conectado');
-      setText('available-amount', money(metrics.grossVolume)); setText('maximum-withdrawal', String(metrics.pendingOperations || 0)); setText('simulations-count', String(metrics.users || 0));
-      setText('quick-panel-title', 'Operaciones pendientes'); setText('quick-panel-subtitle', 'Revisa las solicitudes del sistema');
-      setText('quick-amount-label', 'Solicitudes por revisar'); setText('quick-bank-label', 'Estado'); setText('quick-card-label', 'Periodo'); setText('quick-submit-label', 'Ver operaciones');
+      setText('available-amount', money(metrics.grossVolume)); setText('maximum-withdrawal', String(metrics.pendingUsers || 0)); setText('simulations-count', String(metrics.users || 0));
+      setText('quick-panel-title', 'Usuarios pendientes'); setText('quick-panel-subtitle', 'Revisa las cuentas del sistema');
+      setText('quick-amount-label', 'Cuentas por revisar'); setText('quick-bank-label', 'Estado'); setText('quick-card-label', 'Periodo'); setText('quick-submit-label', 'Ver usuarios');
       const quickForm = document.getElementById('quick-sim-form');
       quickForm?.querySelector('#quick-sim-amount')?.setAttribute('disabled', 'true');
       quickForm?.querySelector('#quick-sim-bank')?.setAttribute('disabled', 'true');
       quickForm?.querySelector('#quick-sim-card')?.setAttribute('disabled', 'true');
       const quickAmount = document.getElementById('quick-sim-amount') as HTMLInputElement | null;
-      if (quickAmount) quickAmount.value = String(metrics.pendingOperations || 0);
+      if (quickAmount) quickAmount.value = String(metrics.pendingUsers || 0);
       const quickButton = document.getElementById('btn-quick-sim');
-      quickButton?.addEventListener('click', (event) => { event.preventDefault(); window.location.href = '/admin/operaciones'; });
+      quickButton?.addEventListener('click', (event) => { event.preventDefault(); window.location.href = '/admin/usuarios'; });
     } else {
       setText('available-amount', money(metrics.availableAmount));
       setText('maximum-withdrawal', money(metrics.maximumWithdrawal));
@@ -539,7 +539,7 @@ import '../styles/dashboard.css';
       setText('account-status-description', summary.accountStatus === 'verified' || summary.accountStatus === 'active' ? 'Cuenta en buen estado' : 'Revisa el estado de tu cuenta');
     }
     setText('available-change', ''); setText('withdrawal-change', ''); setText('simulations-change', '');
-    const operationPayload = operationsResponse.ok ? await operationsResponse.json() : { items: [] };
+    const operationPayload = { items: [] };
     const operations = isAdmin ? (operationPayload.items || []) : (summary.recentOperations || []);
     const operationsBody = document.getElementById('recent-operations-body');
     if (operationsBody && operations.length) operationsBody.innerHTML = operations.map((operation: any) => `<tr><td>${new Date(operation.createdAt).toLocaleDateString('es-PE')}</td><td style="font-weight:600;">${money(operation.simulation?.grossAmount)}</td><td>${operation.simulation?.bank?.name || '-'}</td><td>****</td><td><span class="status-badge pending"><span class="status-dot pending"></span>${operation.status}</span></td><td><span class="table-action-dots">•••</span></td></tr>`).join('');
