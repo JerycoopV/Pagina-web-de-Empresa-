@@ -1,0 +1,58 @@
+---
+import AdminShell from '../../components/AdminShell.astro';
+---
+
+<AdminShell title="Tarjetas" active="cards">
+  <section class="admin-section admin-card-page">
+    <div class="admin-section-head">
+      <div><h2>Tarjetas vinculadas</h2><p class="admin-notice">Consulta las tarjetas de todos los usuarios registrados.</p></div>
+      <div class="admin-actions"><input class="admin-input" id="card-search" placeholder="Buscar usuario, correo o banco" /><button class="admin-button" id="card-filter" type="button">Buscar</button></div>
+    </div>
+    <div class="admin-card-summary"><span id="card-users-count">0 usuarios</span><span id="card-total-count">0 tarjetas</span></div>
+    <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Usuario</th><th>Correo</th><th>Tarjeta</th><th>Banco</th><th>Estado</th><th>Accion</th></tr></thead><tbody id="cards-body"><tr><td colspan="6" class="admin-empty">Cargando tarjetas...</td></tr></tbody></table></div>
+  </section>
+
+  <div class="admin-card-modal" id="card-modal" aria-hidden="true">
+    <div class="admin-card-modal-backdrop" data-close-card-modal></div>
+    <section class="admin-card-modal-panel" role="dialog" aria-modal="true" aria-labelledby="card-modal-title">
+      <button class="admin-card-modal-close" type="button" data-close-card-modal aria-label="Cerrar detalles">×</button>
+      <h2 id="card-modal-title">Detalle de tarjeta</h2>
+      <div class="admin-visual-card"><div class="admin-visual-card-top"><span id="detail-bank">Banco</span><strong id="detail-brand">VISA</strong></div><strong class="admin-visual-card-number" id="detail-number">•••• •••• •••• ----</strong><div class="admin-visual-card-bottom"><span id="detail-holder">Titular</span><span id="detail-expiry">--/--</span></div></div>
+      <dl class="admin-card-details"><div><dt>Usuario</dt><dd id="detail-user">-</dd></div><div><dt>Correo</dt><dd id="detail-email">-</dd></div><div><dt>Estado</dt><dd id="detail-status">-</dd></div><div><dt>Limite disponible</dt><dd id="detail-limit">-</dd></div></dl>
+    </section>
+  </div>
+</AdminShell>
+
+<style>
+  .admin-card-summary{display:flex;gap:24px;color:var(--admin-muted);font-size:13px;margin:-8px 0 18px}.admin-card-summary span{border-left:2px solid var(--admin-purple);padding-left:10px}.admin-card-page .admin-table-wrap{overflow-x:auto}.admin-card-page .admin-table{min-width:850px}.admin-card-modal{display:none;position:fixed;inset:0;z-index:20;align-items:center;justify-content:center;padding:24px}.admin-card-modal.is-open{display:flex}.admin-card-modal-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.72)}.admin-card-modal-panel{position:relative;width:min(520px,100%);background:var(--admin-panel-2);border:1px solid var(--admin-line);border-radius:16px;padding:28px;box-shadow:0 24px 80px rgba(0,0,0,.5)}.admin-card-modal-panel h2{margin:0 0 20px}.admin-card-modal-close{position:absolute;right:16px;top:12px;border:0;background:transparent;color:#fff;font-size:26px;cursor:pointer}.admin-visual-card{min-height:190px;border-radius:16px;padding:24px;background:linear-gradient(135deg,#17142f,#391364 55%,#ea580c);display:flex;flex-direction:column;justify-content:space-between;color:#fff;box-shadow:0 18px 35px rgba(124,58,237,.2)}.admin-visual-card-top,.admin-visual-card-bottom{display:flex;justify-content:space-between;gap:16px}.admin-visual-card-number{font-size:20px;letter-spacing:.08em}.admin-card-details{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0 0}.admin-card-details div{border-top:1px solid rgba(255,255,255,.1);padding-top:10px}.admin-card-details dt{color:var(--admin-muted);font-size:11px}.admin-card-details dd{margin:4px 0 0;color:#fff;overflow-wrap:anywhere}.admin-card-details dd,.admin-visual-card{font-size:13px}@media (max-width:700px){.admin-card-details{grid-template-columns:1fr}.admin-card-modal{padding:14px}.admin-card-modal-panel{padding:22px}}
+</style>
+
+<script>
+  const token = localStorage.getItem('capitalFest_token');
+  const api = import.meta.env.PUBLIC_API_URL;
+  const body = document.getElementById('cards-body');
+  const searchInput = document.getElementById('card-search');
+  let records = [];
+  let visibleRecords = [];
+  const escapeHTML = (value) => String(value ?? '').replace(/[&<>'"]/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[character]);
+  const cardValue = (card, ...keys) => keys.map(key => card?.[key]).find(value => value !== undefined && value !== null && value !== '');
+  const normalize = (payload) => {
+    const source = payload.items || payload.users || [];
+    return source.flatMap(item => {
+      const owner = item.user || item;
+      const cards = item.cards || (item.card ? [item.card] : (item.lastFourDigits || item.last4 ? [item] : []));
+      return cards.map(card => ({ user: owner, card }));
+    }).filter(record => String(record.user?.role?.name || record.user?.role || 'user').toLowerCase() !== 'admin');
+  };
+  const render = () => {
+    const query = searchInput.value.trim().toLowerCase();
+    visibleRecords = records.filter(({ user, card }) => `${user.firstName || ''} ${user.lastName || ''} ${user.email || ''} ${cardValue(card, 'bank', 'bankName') || ''}`.toLowerCase().includes(query));
+    document.getElementById('card-users-count').textContent = `${new Set(visibleRecords.map(({ user }) => user.id || user.email)).size} usuarios`;
+    document.getElementById('card-total-count').textContent = `${visibleRecords.length} tarjetas`;
+    body.innerHTML = visibleRecords.length ? visibleRecords.map(({ user, card }, index) => { const lastFour = cardValue(card, 'lastFourDigits', 'last4') || '----'; const status = card.status || 'Activa'; return `<tr><td>${escapeHTML(`${user.firstName || ''} ${user.lastName || ''}`)}</td><td>${escapeHTML(user.email || '-')}</td><td>•••• ${escapeHTML(lastFour)}</td><td>${escapeHTML(cardValue(card, 'bank', 'bankName') || 'Banco')}</td><td><span class="admin-status">${escapeHTML(status)}</span></td><td><button class="admin-button card-details-button" data-index="${index}" type="button">Ver mas detalles</button></td></tr>`; }).join('') : '<tr><td colspan="6" class="admin-empty">No hay tarjetas que coincidan con la busqueda.</td></tr>';
+    document.querySelectorAll('.card-details-button').forEach(button => button.addEventListener('click', () => openDetails(Number(button.dataset.index))));
+  };
+  const openDetails = (index) => { const { user, card } = visibleRecords[index]; const bank = cardValue(card, 'bank', 'bankName') || 'Banco'; const lastFour = cardValue(card, 'lastFourDigits', 'last4') || '----'; const expiry = card.expirationMonth && card.expirationYear ? `${String(card.expirationMonth).padStart(2, '0')}/${String(card.expirationYear).slice(-2)}` : '--/--'; document.getElementById('detail-bank').textContent = bank; document.getElementById('detail-brand').textContent = cardValue(card, 'brand', 'cardBrand') || 'Tarjeta'; document.getElementById('detail-number').textContent = `•••• •••• •••• ${lastFour}`; document.getElementById('detail-holder').textContent = card.holderName || `${user.firstName || ''} ${user.lastName || ''}`; document.getElementById('detail-expiry').textContent = expiry; document.getElementById('detail-user').textContent = `${user.firstName || ''} ${user.lastName || ''}`; document.getElementById('detail-email').textContent = user.email || '-'; document.getElementById('detail-status').textContent = card.status || 'Activa'; document.getElementById('detail-limit').textContent = `S/ ${Number(card.availableLimit ?? card.limitAvailable ?? 0).toLocaleString('es-PE', { minimumFractionDigits: 2 })}`; document.getElementById('card-modal').classList.add('is-open'); document.getElementById('card-modal').setAttribute('aria-hidden', 'false'); };
+  const load = async () => { let response = await fetch(`${api}/admin/cards?limit=100`, { headers: { Authorization: `Bearer ${token}` } }); if (!response.ok) response = await fetch(`${api}/admin/users?limit=100&includeCards=true`, { headers: { Authorization: `Bearer ${token}` } }); if (!response.ok) { body.innerHTML = '<tr><td colspan="6" class="admin-empty">No se pudieron cargar las tarjetas. El backend debe exponer /admin/cards o incluir cards en /admin/users.</td></tr>'; return; } records = normalize(await response.json()); render(); };
+  document.getElementById('card-filter').addEventListener('click', render); searchInput.addEventListener('keydown', event => { if (event.key === 'Enter') render(); }); document.querySelectorAll('[data-close-card-modal]').forEach(element => element.addEventListener('click', () => { document.getElementById('card-modal').classList.remove('is-open'); document.getElementById('card-modal').setAttribute('aria-hidden', 'true'); })); load();
+</script>

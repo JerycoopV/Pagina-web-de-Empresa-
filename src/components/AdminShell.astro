@@ -13,9 +13,10 @@ const { title = 'Admin | Capital Fest', active = 'dashboard' } = Astro.props;
         <a class:list={{ active: active === 'dashboard' }} href="/admin/resumen">Resumen</a>
         <a class:list={{ active: active === 'validations' }} href="/admin/validaciones">Validaciones KYC</a>
         <a class:list={{ active: active === 'users' }} href="/admin/usuarios">Usuarios</a>
+        <a class:list={{ active: active === 'cards' }} href="/admin/tarjetas">Tarjetas</a>
       </nav>
       <div class="admin-sidebar-foot">
-        <a href="/dashboard">Dashboard resumen</a>
+        <a href="/admin">Inicio administrativo</a>
         <button id="admin-logout" type="button">Cerrar sesion</button>
       </div>
     </aside>

@@ -1,33 +1,26 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import '../../styles/dashboard.css';
+import '../../styles/admin.css';
 ---
 
 <Layout title="Inicio Admin | Capital Fest" hideHeaderFooter={true}>
   <div class="dashboard-layout">
     <button class="mobile-sidebar-toggle" id="mobile-sidebar-btn" aria-label="Abrir menu de navegacion">☰</button>
     <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
-    <aside class="dash-sidebar" id="dash-sidebar">
-      <div class="sidebar-top">
-        <a href="/admin" class="sidebar-logo"><img src="/assets/logo.svg" alt="Capital Fest Logo" class="sidebar-logo-img" /></a>
-        <nav>
-          <ul class="sidebar-nav">
-            <li class="nav-section-title">Dashboard</li>
-            <li><a href="/admin" class="nav-item active"><span>Inicio</span></a></li>
-            <li><a href="/admin/resumen" class="nav-item"><span>Resumen</span></a></li>
-            <li><a href="/admin/validaciones" class="nav-item"><span>Validaciones KYC</span></a></li>
-            <li><a href="/admin/usuarios" class="nav-item"><span>Usuarios</span></a></li>
-          </ul>
-        </nav>
-        <div class="sidebar-security-card">
-          <div class="security-header"><div class="security-icon-box">✓</div><span class="security-title">Tu seguridad es nuestra prioridad</span></div>
-          <p class="security-desc">Sistema 100% seguro y encriptado.</p>
-          <a class="security-btn-pill" href="/ayuda"><span>Mas informacion</span><span>→</span></a>
-        </div>
-      </div>
-      <div class="sidebar-bottom">
-        <div class="sidebar-user-row"><div class="user-avatar" id="sidebar-avatar-initial">A</div><div class="user-info"><span class="user-name" id="sidebar-user-fullname">Administrador</span><span class="user-link">Cuenta administrativa</span></div></div>
-        <button class="sidebar-logout-btn" id="logout-btn" type="button"><span>↪</span><span>Cerrar sesion</span></button>
+    <aside class="admin-sidebar dash-sidebar" id="admin-sidebar">
+      <a class="admin-brand" href="/admin"><img src="/assets/logo.svg" alt="Capital Fest" /></a>
+      <span class="admin-kicker">ADMINISTRACION</span>
+      <nav class="admin-nav" aria-label="Navegacion administrativa">
+        <a class="active" href="/admin">Inicio</a>
+        <a href="/admin/resumen">Resumen</a>
+        <a href="/admin/validaciones">Validaciones KYC</a>
+        <a href="/admin/usuarios">Usuarios</a>
+        <a href="/admin/tarjetas">Tarjetas</a>
+      </nav>
+      <div class="admin-sidebar-foot">
+        <a href="/admin">Inicio administrativo</a>
+        <button id="logout-btn" type="button">Cerrar sesion</button>
       </div>
     </aside>
     <main class="dash-content">
@@ -52,11 +45,11 @@ import '../../styles/dashboard.css';
   const token = localStorage.getItem('capitalFest_token'); const user = JSON.parse(localStorage.getItem('capitalFest_user') || '{}'); const api = import.meta.env.PUBLIC_API_URL;
   const role = typeof user.role === 'string' ? user.role : user.role?.name; const isAdmin = [role, user.roleName, user.userRole].some(value => String(value || '').toLowerCase() === 'admin') || Number(user.roleId) === 2;
   if (!token || !isAdmin) window.location.href = '/login?redirect=/admin';
-  const firstName = user.firstName || 'Administrador'; const lastName = user.lastName || ''; document.getElementById('greeting-name').textContent = firstName; document.getElementById('sidebar-user-fullname').textContent = `${firstName} ${lastName.charAt(0) ? `${lastName.charAt(0)}.` : ''}`; document.getElementById('sidebar-avatar-initial').textContent = firstName[0].toUpperCase(); document.getElementById('header-avatar-initial').textContent = firstName[0].toUpperCase();
+  const firstName = user.firstName || 'Administrador'; document.getElementById('greeting-name').textContent = firstName; document.getElementById('header-avatar-initial').textContent = firstName[0].toUpperCase();
   const response = await fetch(`${api}/admin/dashboard`, { headers: { Authorization: `Bearer ${token}` } });
   if (response.ok) { const { metrics } = await response.json(); const money = `S/ ${Number(metrics.grossVolume || 0).toLocaleString('es-PE', { minimumFractionDigits: 2 })}`; document.getElementById('gross-volume').textContent = money; document.getElementById('pending-operations').textContent = String(metrics.pendingOperations || 0); document.getElementById('registered-users').textContent = String(metrics.users || 0); const values = [['Usuarios registrados', metrics.users, '/admin/usuarios'], ['Usuarios pendientes', metrics.pendingUsers, '/admin/validaciones'], ['Tarjetas activas', metrics.activeCards, '/admin/usuarios']]; document.getElementById('admin-summary-rows').innerHTML = values.map(([label, value, href]) => `<tr><td>${label}</td><td>${value || 0}</td><td><a class="panel-footer-link" href="${href}">Abrir <span>→</span></a></td></tr>`).join(''); }
   const usersResponse = await fetch(`${api}/admin/users?limit=8`, { headers: { Authorization: `Bearer ${token}` } });
   const usersHistory = document.getElementById('registered-users-history');
   if (usersHistory && usersResponse.ok) { const { items } = await usersResponse.json(); usersHistory.innerHTML = items.length ? items.map(user => `<tr><td>${user.firstName || ''} ${user.lastName || ''}</td><td>${user.email}</td><td>${user.role?.name || 'User'}</td><td><span class="status-badge pending"><span class="status-dot pending"></span>${user.accountStatus || 'Sin datos'}</span></td><td>${user.createdAt ? new Date(user.createdAt).toLocaleDateString('es-PE') : '-'}</td></tr>`).join('') : '<tr><td colspan="5" class="dashboard-empty">Aun no hay usuarios registrados.</td></tr>'; }
-  document.getElementById('logout-btn')?.addEventListener('click', () => { localStorage.removeItem('capitalFest_token'); localStorage.removeItem('capitalFest_user'); window.location.href = '/login'; }); const sidebar = document.getElementById('dash-sidebar'); document.getElementById('mobile-sidebar-btn')?.addEventListener('click', () => sidebar.classList.toggle('open')); document.getElementById('sidebar-backdrop')?.addEventListener('click', () => sidebar.classList.remove('open'));
+  document.getElementById('logout-btn')?.addEventListener('click', () => { localStorage.removeItem('capitalFest_token'); localStorage.removeItem('capitalFest_user'); window.location.href = '/login'; }); const sidebar = document.getElementById('admin-sidebar'); document.getElementById('mobile-sidebar-btn')?.addEventListener('click', () => sidebar.classList.toggle('open')); document.getElementById('sidebar-backdrop')?.addEventListener('click', () => sidebar.classList.remove('open'));
 </script>
