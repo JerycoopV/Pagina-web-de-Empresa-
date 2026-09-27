@@ -7,7 +7,7 @@ import AdminShell from '../../components/AdminShell.astro';
 </AdminShell>
 <script>
   const token = localStorage.getItem('capitalFest_token');
-  const api = import.meta.env.PUBLIC_API_URL;
+  const apiRoot = import.meta.env.PUBLIC_API_URL.replace(/\/$/, ''); const api = apiRoot.endsWith('/api') ? apiRoot : `${apiRoot}/api`;
   const response = await fetch(`${api}/admin/dashboard`, { headers: { Authorization: `Bearer ${token}` } });
   if (response.ok) {
     const { metrics } = await response.json();

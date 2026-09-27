@@ -30,6 +30,24 @@ const { title = 'Admin | Capital Fest', active = 'dashboard' } = Astro.props;
   </div>
 </Layout>
 <script>
+  const apiRoot = import.meta.env.PUBLIC_API_URL.replace(/\/$/, '');
+  const api = apiRoot.endsWith('/api') ? apiRoot : `${apiRoot}/api`;
+  const nativeFetch = window.fetch.bind(window);
+  window.fetch = async (...args) => {
+    try {
+      const requestUrl = new URL(typeof args[0] === 'string' ? args[0] : args[0].url, window.location.origin);
+      if (requestUrl.pathname.endsWith('/admin/users')) {
+        const roleFilter = document.getElementById('user-role-filter'); const statusFilter = document.getElementById('user-status-filter');
+        if (roleFilter) requestUrl.searchParams.set('role', roleFilter.value); if (statusFilter) requestUrl.searchParams.set('status', statusFilter.value); args[0] = requestUrl.toString();
+      }
+    } catch {}
+    const response = await nativeFetch(...args);
+    if (response.status === 401) {
+      localStorage.removeItem('capitalFest_token'); localStorage.removeItem('capitalFest_user'); window.location.href = `/login?redirect=${encodeURIComponent(window.location.pathname)}`;
+    }
+    if (response.status === 403) window.dispatchEvent(new CustomEvent('admin-forbidden'));
+    return response;
+  };
   const token = localStorage.getItem('capitalFest_token');
   const user = JSON.parse(localStorage.getItem('capitalFest_user') || '{}');
   const role = user.role;
@@ -41,7 +59,7 @@ const { title = 'Admin | Capital Fest', active = 'dashboard' } = Astro.props;
   if (name && user.firstName) name.textContent = `${user.firstName} ${user.lastName || ''}`;
   if (avatar && user.firstName) avatar.textContent = user.firstName[0].toUpperCase();
   document.getElementById('admin-logout')?.addEventListener('click', async () => {
-    await fetch(`${import.meta.env.PUBLIC_API_URL}/auth/logout`, { method: 'POST', headers: { Authorization: `Bearer ${token}` } });
+    await fetch(`${api}/auth/logout`, { method: 'POST', headers: { Authorization: `Bearer ${token}` } });
     localStorage.removeItem('capitalFest_token'); localStorage.removeItem('capitalFest_user'); window.location.href = '/login';
   });
 </script>
