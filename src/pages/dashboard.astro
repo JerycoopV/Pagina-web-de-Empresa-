@@ -471,6 +471,7 @@ import '../styles/dashboard.css';
   const role = user.role;
   const roleName = typeof role === 'string' ? role : role?.name;
   const isAdmin = [roleName, user.roleName, user.userRole].some(value => String(value || '').toLowerCase() === 'admin') || Number(user.roleId) === 2;
+  if (isAdmin) window.location.replace('/admin');
   const firstName = user.firstName || 'Usuario';
   const lastName = user.lastName || '';
   const initial = firstName.charAt(0).toUpperCase();
