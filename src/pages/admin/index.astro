@@ -2,27 +2,20 @@
 import Layout from '../../layouts/Layout.astro';
 import '../../styles/dashboard.css';
 import '../../styles/admin.css';
+import AdminSidebar from '../../components/AdminSidebar.astro';
 ---
 
 <Layout title="Inicio Admin | Capital Fest" hideHeaderFooter={true}>
   <div class="dashboard-layout">
-    <button class="mobile-sidebar-toggle" id="mobile-sidebar-btn" aria-label="Abrir menu de navegacion">☰</button>
+    <button class="mobile-sidebar-toggle" id="mobile-sidebar-btn" aria-label="Abrir menú de navegación">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
     <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
-    <aside class="admin-sidebar dash-sidebar" id="admin-sidebar">
-      <a class="admin-brand" href="/admin"><img src="/assets/logo.svg" alt="Capital Fest" /></a>
-      <span class="admin-kicker">ADMINISTRACION</span>
-      <nav class="admin-nav" aria-label="Navegacion administrativa">
-        <a class="active" href="/admin">Inicio</a>
-        <a href="/admin/resumen">Resumen</a>
-        <a href="/admin/validaciones">Validaciones KYC</a>
-        <a href="/admin/usuarios">Usuarios</a>
-        <a href="/admin/tarjetas">Tarjetas</a>
-      </nav>
-      <div class="admin-sidebar-foot">
-        <a href="/admin">Inicio administrativo</a>
-        <button id="logout-btn" type="button">Cerrar sesion</button>
-      </div>
-    </aside>
+    <AdminSidebar active="home" />
     <main class="dash-content">
       <header class="dash-top-bar">
         <div class="dash-greeting-box"><h1 class="dash-greeting-title">¡Hola, <span class="highlight-name" id="greeting-name">Administrador</span>!</h1><p class="dash-greeting-subtitle">Bienvenido a tu panel de control</p></div>
@@ -53,5 +46,5 @@ import '../../styles/admin.css';
   const usersHistory = document.getElementById('registered-users-history');
   if (usersHistory && usersResponse.ok) { const { items } = await usersResponse.json(); usersHistory.innerHTML = items.length ? items.map(user => `<tr><td>${user.firstName || ''} ${user.lastName || ''}</td><td>${user.email}</td><td>${user.role?.name || 'User'}</td><td><span class="status-badge pending"><span class="status-dot pending"></span>${user.accountStatus || 'Sin datos'}</span></td><td>${user.createdAt ? new Date(user.createdAt).toLocaleDateString('es-PE') : '-'}</td></tr>`).join('') : '<tr><td colspan="5" class="dashboard-empty">Aun no hay usuarios registrados.</td></tr>'; }
   const recentActivity = document.getElementById('recent-activity-list'); const activityResponse = await fetch(`${api}/admin/activity?limit=8`, { headers: { Authorization: `Bearer ${token}` } }); if (recentActivity && activityResponse.ok) { const { items = [] } = await activityResponse.json(); recentActivity.innerHTML = items.length ? items.map(activity => `<div class="activity-item"><div class="activity-icon-circle"><span>✓</span></div><div class="activity-details"><span class="activity-title">${activity.title || activity.action || 'Actividad administrativa'}</span><span class="activity-desc">${activity.description || ''}</span></div><span class="activity-time">${activity.createdAt ? new Date(activity.createdAt).toLocaleString('es-PE') : '-'}</span></div>`).join('') : '<p class="dashboard-empty">Aun no hay actividad reciente.</p>'; }
-  document.getElementById('logout-btn')?.addEventListener('click', () => { localStorage.removeItem('capitalFest_token'); localStorage.removeItem('capitalFest_user'); window.location.href = '/login'; }); const sidebar = document.getElementById('admin-sidebar'); document.getElementById('mobile-sidebar-btn')?.addEventListener('click', () => sidebar.classList.toggle('open')); document.getElementById('sidebar-backdrop')?.addEventListener('click', () => sidebar.classList.remove('open'));
+  const sidebar = document.getElementById('dash-sidebar') || document.getElementById('admin-sidebar'); document.getElementById('mobile-sidebar-btn')?.addEventListener('click', () => sidebar?.classList.toggle('open')); document.getElementById('sidebar-backdrop')?.addEventListener('click', () => sidebar?.classList.remove('open'));
 </script>

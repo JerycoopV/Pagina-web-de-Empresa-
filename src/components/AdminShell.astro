@@ -1,25 +1,24 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import '../styles/dashboard.css';
 import '../styles/admin.css';
+import AdminSidebar from './AdminSidebar.astro';
+
 const { title = 'Admin | Capital Fest', active = 'dashboard' } = Astro.props;
 ---
 <Layout title={title} hideHeaderFooter={true}>
   <div class="admin-layout">
-    <aside class="admin-sidebar">
-      <a class="admin-brand" href="/admin"><img src="/assets/logo.svg" alt="Capital Fest" /></a>
-      <span class="admin-kicker">ADMINISTRACION</span>
-      <nav class="admin-nav" aria-label="Navegacion administrativa">
-        <a class:list={{ active: active === 'home' }} href="/admin">Inicio</a>
-        <a class:list={{ active: active === 'dashboard' }} href="/admin/resumen">Resumen</a>
-        <a class:list={{ active: active === 'validations' }} href="/admin/validaciones">Validaciones KYC</a>
-        <a class:list={{ active: active === 'users' }} href="/admin/usuarios">Usuarios</a>
-        <a class:list={{ active: active === 'cards' }} href="/admin/tarjetas">Tarjetas</a>
-      </nav>
-      <div class="admin-sidebar-foot">
-        <a href="/admin">Inicio administrativo</a>
-        <button id="admin-logout" type="button">Cerrar sesion</button>
-      </div>
-    </aside>
+    <button class="mobile-sidebar-toggle" id="mobile-sidebar-btn" aria-label="Abrir menú de navegación">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
+    <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
+    <AdminSidebar active={active} />
+
     <main class="admin-main">
       <header class="admin-header">
         <div><span class="admin-eyebrow">Capital Fest / Control central</span><h1>{title.replace(' | Capital Fest', '')}</h1></div>
@@ -58,8 +57,11 @@ const { title = 'Admin | Capital Fest', active = 'dashboard' } = Astro.props;
   const avatar = document.getElementById('admin-avatar');
   if (name && user.firstName) name.textContent = `${user.firstName} ${user.lastName || ''}`;
   if (avatar && user.firstName) avatar.textContent = user.firstName[0].toUpperCase();
-  document.getElementById('admin-logout')?.addEventListener('click', async () => {
-    await fetch(`${api}/auth/logout`, { method: 'POST', headers: { Authorization: `Bearer ${token}` } });
+  const logoutBtn = document.getElementById('admin-logout') || document.getElementById('sidebar-admin-logout');
+  logoutBtn?.addEventListener('click', async () => {
+    try {
+      await fetch(`${api}/auth/logout`, { method: 'POST', headers: { Authorization: `Bearer ${token}` } });
+    } catch {}
     localStorage.removeItem('capitalFest_token'); localStorage.removeItem('capitalFest_user'); window.location.href = '/login';
   });
 </script>
