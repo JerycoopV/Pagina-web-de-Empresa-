@@ -6,42 +6,6 @@ import AdminShell from '../../components/AdminShell.astro';
 </AdminShell>
 <script>
   const token = localStorage.getItem('capitalFest_token'); const apiRoot = import.meta.env.PUBLIC_API_URL.replace(/\/$/, ''); const api = apiRoot.endsWith('/api') ? apiRoot : `${apiRoot}/api`; const body = document.getElementById('validations-body'); const recordAdminActivity = () => {};
-
-  const demoValidations = [
-    { id: 'val-1', user: { id: 'u-1', firstName: 'Lucía', lastName: 'Torres', email: 'lucia.torres@outlook.com' }, documentFrontUrl: 'doc1.jpg', documentBackUrl: 'doc2.jpg', selfieWithDocumentUrl: 'selfie.jpg', createdAt: '2026-03-26T14:20:00Z' },
-    { id: 'val-2', user: { id: 'u-2', firstName: 'Mariana', lastName: 'Flores', email: 'mariana.flores@gmail.com' }, documentFrontUrl: 'doc1.jpg', documentBackUrl: 'doc2.jpg', selfieWithDocumentUrl: 'selfie.jpg', createdAt: '2026-03-24T11:05:00Z' },
-    { id: 'val-3', user: { id: 'u-3', firstName: 'Renato', lastName: 'Salas', email: 'renato.salas@yahoo.com' }, documentFrontUrl: 'doc1.jpg', documentBackUrl: 'doc2.jpg', selfieWithDocumentUrl: null, createdAt: '2026-03-23T16:45:00Z' }
-  ];
-
-  const renderValidations = (items) => {
-    if (!body) return;
-    body.innerHTML = items.length ? items.map(item => `<tr><td>${item.user.firstName} ${item.user.lastName}</td><td>${item.user.email}</td><td>${[item.documentFrontUrl, item.documentBackUrl, item.selfieWithDocumentUrl].filter(Boolean).length || 2} archivos</td><td>${new Date(item.createdAt).toLocaleDateString('es-PE')}</td><td><button class="admin-button validation-action" data-id="${item.id}" data-user-id="${item.user.id}" data-status="approved" data-account-status="active" type="button">Aceptar</button> <button class="admin-button validation-action" data-id="${item.id}" data-user-id="${item.user.id}" data-status="rejected" data-account-status="blocked" type="button">Bloquear</button></td></tr>`).join('') : '<tr><td colspan="5" class="admin-empty">No hay validaciones pendientes.</td></tr>';
-    document.querySelectorAll('.validation-action').forEach(button => button.addEventListener('click', async event => {
-      const target = event.currentTarget;
-      const userName = target.closest('tr')?.querySelector('td')?.textContent?.trim() || 'Usuario';
-      const isApprove = target.dataset.status === 'approved';
-      if (token) {
-        try {
-          await fetch(`${api}/admin/validations/${target.dataset.id}`, { method: 'PATCH', headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ status: target.dataset.status }) });
-        } catch {}
-      }
-      alert(isApprove ? `Identidad de ${userName} aceptada con éxito.` : `Documentación de ${userName} rechazada.`);
-      target.closest('tr')?.remove();
-    }));
-  };
-
-  const load = async () => {
-    try {
-      const response = await fetch(`${api}/admin/validations?limit=50`, { headers: { Authorization: `Bearer ${token}` } });
-      if (response.ok) {
-        const { items = [] } = await response.json();
-        renderValidations(items.length ? items : demoValidations);
-      } else {
-        renderValidations(demoValidations);
-      }
-    } catch {
-      renderValidations(demoValidations);
-    }
-  };
+  const load = async () => { const response = await fetch(`${api}/admin/validations?limit=50`, { headers: { Authorization: `Bearer ${token}` } }); if (!response.ok) { body.innerHTML = '<tr><td colspan="5" class="admin-empty">No se pudieron cargar las validaciones.</td></tr>'; return; } const { items } = await response.json(); body.innerHTML = items.length ? items.map(item => `<tr><td>${item.user.firstName} ${item.user.lastName}</td><td>${item.user.email}</td><td>${[item.documentFrontUrl, item.documentBackUrl, item.selfieWithDocumentUrl].filter(Boolean).length} archivos</td><td>${new Date(item.createdAt).toLocaleDateString('es-PE')}</td><td><button class="admin-button validation-action" data-id="${item.id}" data-user-id="${item.user.id}" data-status="approved" data-account-status="active" type="button">Aceptar</button> <button class="admin-button validation-action" data-id="${item.id}" data-user-id="${item.user.id}" data-status="rejected" data-account-status="blocked" type="button">Bloquear</button></td></tr>`).join('') : '<tr><td colspan="5" class="admin-empty">No hay validaciones pendientes.</td></tr>'; document.querySelectorAll('.validation-action').forEach(button => button.addEventListener('click', async event => { const target = event.currentTarget; const userName = target.closest('tr').querySelector('td').textContent.trim(); const reason = target.dataset.status === 'rejected' ? 'Documentación no válida' : undefined; const validationResponse = await fetch(`${api}/admin/validations/${target.dataset.id}`, { method: 'PATCH', headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ status: target.dataset.status, reason }) }); if (!validationResponse.ok) { alert('No se pudo actualizar la validación.'); return; } const userResponse = await fetch(`${api}/admin/users/${target.dataset.userId}/status`, { method: 'PATCH', headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ status: target.dataset.accountStatus }) }); if (userResponse.ok) { recordAdminActivity(target.dataset.accountStatus === 'active' ? 'Cuenta aceptada' : 'Cuenta bloqueada', `${target.dataset.accountStatus === 'active' ? 'Aceptaste' : 'Bloqueaste'} la cuenta de ${userName}`); load(); } else alert('La validación se actualizó, pero no se pudo actualizar el estado del usuario.'); })); };
   load();
 </script>

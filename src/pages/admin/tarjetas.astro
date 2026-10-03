@@ -45,25 +45,6 @@ import AdminShell from '../../components/AdminShell.astro';
       return cards.map(card => ({ user: owner, card }));
     }).filter(record => String(record.user?.role?.name || record.user?.role || 'user').toLowerCase() !== 'admin');
   };
-  const demoRecords = [
-    {
-      user: { id: 'u-1', firstName: 'Carlos', lastName: 'Mendoza', email: 'carlos.mendoza@gmail.com' },
-      card: { id: 'c-1', bank: 'Interbank', brand: 'Visa', lastFourDigits: '8942', holderName: 'CARLOS MENDOZA', expirationMonth: 8, expirationYear: 2028, status: 'Activa', availableLimit: 12500 }
-    },
-    {
-      user: { id: 'u-2', firstName: 'Lucía', lastName: 'Torres', email: 'lucia.torres@outlook.com' },
-      card: { id: 'c-2', bank: 'BCP', brand: 'Mastercard', lastFourDigits: '3104', holderName: 'LUCÍA TORRES', expirationMonth: 11, expirationYear: 2027, status: 'Activa', availableLimit: 8200 }
-    },
-    {
-      user: { id: 'u-3', firstName: 'Jorge', lastName: 'Herrera', email: 'jorge.h@hotmail.com' },
-      card: { id: 'c-3', bank: 'BBVA', brand: 'Visa', lastFourDigits: '5521', holderName: 'JORGE HERRERA', expirationMonth: 5, expirationYear: 2029, status: 'Activa', availableLimit: 15000 }
-    },
-    {
-      user: { id: 'u-4', firstName: 'Mariana', lastName: 'Flores', email: 'mariana.flores@gmail.com' },
-      card: { id: 'c-4', bank: 'Scotiabank', brand: 'Mastercard', lastFourDigits: '9083', holderName: 'MARIANA FLORES', expirationMonth: 3, expirationYear: 2026, status: 'Bloqueada', availableLimit: 4500 }
-    }
-  ];
-
   const render = () => {
     const query = searchInput.value.trim().toLowerCase();
     visibleRecords = records.filter(({ user, card }) => `${user.firstName || ''} ${user.lastName || ''} ${user.email || ''} ${cardValue(card, 'bank', 'bankName') || ''}`.toLowerCase().includes(query));
@@ -72,52 +53,7 @@ import AdminShell from '../../components/AdminShell.astro';
     body.innerHTML = visibleRecords.length ? visibleRecords.map(({ user, card }, index) => { const lastFour = cardValue(card, 'lastFourDigits', 'last4') || '----'; const status = card.status || 'Activa'; return `<tr><td>${escapeHTML(`${user.firstName || ''} ${user.lastName || ''}`)}</td><td>${escapeHTML(user.email || '-')}</td><td>•••• ${escapeHTML(lastFour)}</td><td>${escapeHTML(cardValue(card, 'bank', 'bankName') || 'Banco')}</td><td><span class="admin-status">${escapeHTML(status)}</span></td><td><button class="admin-button card-details-button" data-index="${index}" type="button">Ver mas detalles</button></td></tr>`; }).join('') : '<tr><td colspan="6" class="admin-empty">No hay tarjetas que coincidan con la busqueda.</td></tr>';
     document.querySelectorAll('.card-details-button').forEach(button => button.addEventListener('click', () => openDetails(Number(button.dataset.index))));
   };
-
-  const openDetails = async (index) => {
-    const { user, card } = visibleRecords[index];
-    if (!card) return;
-    let detailCard = card;
-    let detailUser = user;
-    if (token) {
-      try {
-        const response = await fetch(`${api}/admin/cards/${encodeURIComponent(card.id)}`, { headers: { Authorization: `Bearer ${token}` } });
-        if (response.ok) {
-          const payload = await response.json();
-          detailCard = payload.item || payload || card;
-          detailUser = detailCard.user || user;
-        }
-      } catch {}
-    }
-    const bank = cardValue(detailCard, 'bank', 'bankName') || 'Banco';
-    const lastFour = cardValue(detailCard, 'lastFourDigits', 'last4') || '----';
-    const expiry = detailCard.expirationMonth && detailCard.expirationYear ? `${String(detailCard.expirationMonth).padStart(2, '0')}/${String(detailCard.expirationYear).slice(-2)}` : '--/--';
-    document.getElementById('detail-bank').textContent = bank;
-    document.getElementById('detail-brand').textContent = cardValue(detailCard, 'brand', 'cardBrand') || 'Tarjeta';
-    document.getElementById('detail-number').textContent = `•••• •••• •••• ${lastFour}`;
-    document.getElementById('detail-holder').textContent = detailCard.holderName || `${detailUser.firstName || ''} ${detailUser.lastName || ''}`;
-    document.getElementById('detail-expiry').textContent = expiry;
-    document.getElementById('detail-user').textContent = `${detailUser.firstName || ''} ${detailUser.lastName || ''}`;
-    document.getElementById('detail-email').textContent = detailUser.email || '-';
-    document.getElementById('detail-status').textContent = detailCard.status || 'Activa';
-    document.getElementById('detail-limit').textContent = `S/ ${Number(detailCard.availableLimit ?? detailCard.limitAvailable ?? 0).toLocaleString('es-PE', { minimumFractionDigits: 2 })}`;
-    document.getElementById('card-modal').classList.add('is-open');
-    document.getElementById('card-modal').setAttribute('aria-hidden', 'false');
-  };
-
-  const load = async () => {
-    try {
-      const search = encodeURIComponent(searchInput.value.trim());
-      const response = await fetch(`${api}/admin/cards?limit=100&search=${search}`, { headers: { Authorization: `Bearer ${token}` } });
-      if (response.ok) {
-        records = normalize(await response.json());
-        if (!records.length && !search) records = demoRecords;
-      } else {
-        records = demoRecords;
-      }
-    } catch {
-      records = demoRecords;
-    }
-    render();
-  };
+  const openDetails = async (index) => { const { user, card } = visibleRecords[index]; if (!card.id) return; const response = await fetch(`${api}/admin/cards/${encodeURIComponent(card.id)}`, { headers: { Authorization: `Bearer ${token}` } }); if (!response.ok) { alert('No se pudo cargar el detalle de la tarjeta.'); return; } const payload = await response.json(); const detailCard = payload.item || payload; const detailUser = detailCard.user || user; const bank = cardValue(detailCard, 'bank', 'bankName') || 'Banco'; const lastFour = cardValue(detailCard, 'lastFourDigits', 'last4') || '----'; const expiry = detailCard.expirationMonth && detailCard.expirationYear ? `${String(detailCard.expirationMonth).padStart(2, '0')}/${String(detailCard.expirationYear).slice(-2)}` : '--/--'; document.getElementById('detail-bank').textContent = bank; document.getElementById('detail-brand').textContent = cardValue(detailCard, 'brand', 'cardBrand') || 'Tarjeta'; document.getElementById('detail-number').textContent = `•••• •••• •••• ${lastFour}`; document.getElementById('detail-holder').textContent = detailCard.holderName || `${detailUser.firstName || ''} ${detailUser.lastName || ''}`; document.getElementById('detail-expiry').textContent = expiry; document.getElementById('detail-user').textContent = `${detailUser.firstName || ''} ${detailUser.lastName || ''}`; document.getElementById('detail-email').textContent = detailUser.email || '-'; document.getElementById('detail-status').textContent = detailCard.status || 'Activa'; document.getElementById('detail-limit').textContent = `S/ ${Number(detailCard.availableLimit ?? detailCard.limitAvailable ?? 0).toLocaleString('es-PE', { minimumFractionDigits: 2 })}`; document.getElementById('card-modal').classList.add('is-open'); document.getElementById('card-modal').setAttribute('aria-hidden', 'false'); };
+  const load = async () => { const search = encodeURIComponent(searchInput.value.trim()); const response = await fetch(`${api}/admin/cards?limit=100&search=${search}`, { headers: { Authorization: `Bearer ${token}` } }); if (!response.ok) { body.innerHTML = '<tr><td colspan="6" class="admin-empty">No se pudieron cargar las tarjetas.</td></tr>'; return; } records = normalize(await response.json()); render(); };
   document.getElementById('card-filter').addEventListener('click', load); searchInput.addEventListener('keydown', event => { if (event.key === 'Enter') load(); }); document.querySelectorAll('[data-close-card-modal]').forEach(element => element.addEventListener('click', () => { document.getElementById('card-modal').classList.remove('is-open'); document.getElementById('card-modal').setAttribute('aria-hidden', 'true'); })); load();
 </script>

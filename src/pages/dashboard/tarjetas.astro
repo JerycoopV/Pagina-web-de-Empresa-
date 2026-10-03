@@ -781,116 +781,48 @@ import { apiFetch, requireSession } from '../../utils/api';
     if (transactionsBody) transactionsBody.innerHTML = '<tr><td colspan="5" class="dashboard-empty">Aún no hay transacciones.</td></tr>';
     ['panel-full-number', 'panel-masked-digits', 'panel-holder-name', 'panel-expiry-date', 'panel-meta-bank', 'panel-meta-type', 'panel-meta-holder', 'panel-meta-number', 'panel-meta-expiry', 'panel-limit-total', 'panel-limit-used', 'panel-limit-avail'].forEach(id => { const element = document.getElementById(id); if (element) element.textContent = 'Sin datos'; });
 
-    const demoTransactionsHTML = `
-      <tr>
-        <td>28 Mar 2026</td>
-        <td>Retiro de efectivo</td>
-        <td style="font-weight: 600;">S/ 2,500.00</td>
-        <td>Interbank **** 8942</td>
-        <td><span class="status-badge completed"><span class="status-dot completed"></span>Completada</span></td>
-      </tr>
-      <tr>
-        <td>25 Mar 2026</td>
-        <td>Retiro de efectivo</td>
-        <td style="font-weight: 600;">S/ 1,800.00</td>
-        <td>BCP **** 3104</td>
-        <td><span class="status-badge completed"><span class="status-dot completed"></span>Completada</span></td>
-      </tr>
-      <tr>
-        <td>20 Mar 2026</td>
-        <td>Simulación procesada</td>
-        <td style="font-weight: 600;">S/ 3,100.00</td>
-        <td>Interbank **** 8942</td>
-        <td><span class="status-badge completed"><span class="status-dot completed"></span>Completada</span></td>
-      </tr>
-    `;
-
-    const demoCards = [
-      {
-        id: 'card-1',
-        bank: 'Interbank',
-        brand: 'Visa Débito',
-        lastFourDigits: '8942',
-        holderName: 'JOSHUA VALVERDE',
-        expirationMonth: 8,
-        expirationYear: 2028,
-        availableLimit: 12500,
-        creditLimit: 20000,
-        usedLimit: 7500,
-        status: 'active'
-      },
-      {
-        id: 'card-2',
-        bank: 'BCP',
-        brand: 'Mastercard Crédito',
-        lastFourDigits: '3104',
-        holderName: 'JOSHUA VALVERDE',
-        expirationMonth: 11,
-        expirationYear: 2027,
-        availableLimit: 8200,
-        creditLimit: 15000,
-        usedLimit: 6800,
-        status: 'active'
-      }
-    ];
-
-    const renderCardItems = (cards: any[]) => {
-      if (cardsGrid) cardsGrid.innerHTML = cards.map((card, index) => {
-        const bank = card.bank || card.bankName || 'Banco';
-        const brand = card.brand || card.cardBrand || 'Tarjeta';
-        const lastFour = card.lastFourDigits || card.last4 || '----';
-        const holder = card.holderName || 'Titular';
-        const expiry = card.expirationMonth && card.expirationYear ? `${String(card.expirationMonth).padStart(2, '0')}/${String(card.expirationYear).slice(-2)}` : '--/--';
-        const available = Number(card.availableLimit ?? card.limitAvailable ?? 0);
-        const total = Number(card.creditLimit ?? card.limitTotal ?? 0);
-        const used = Number(card.usedLimit ?? card.limitUsed ?? 0);
-        const percent = total ? `${Math.min(100, Math.round((used / total) * 100))}%` : '0%';
-        const theme = String(bank).toLowerCase().includes('bcp') ? 'bcp' : String(bank).toLowerCase().includes('bbva') ? 'bbva' : 'interbank';
-        return `<div class="card-item-box${index === 0 ? ' selected' : ''}" data-card-id="${card.id || ''}" data-bank="${bank}" data-card-type="${brand}" data-full-number="•••• •••• •••• ${lastFour}" data-masked="•••• ${lastFour}" data-holder="${holder}" data-expiry="${expiry}" data-limit-total="S/ ${total.toLocaleString('es-PE', { minimumFractionDigits: 2 })}" data-limit-used="S/ ${used.toLocaleString('es-PE', { minimumFractionDigits: 2 })}" data-limit-avail="S/ ${available.toLocaleString('es-PE', { minimumFractionDigits: 2 })}" data-percent="${percent}" data-theme="${theme}"><div class="card-box-header"><span class="card-badge-placeholder"></span></div><div class="visual-bank-card ${theme}-card"><div class="card-top-logos"><div class="card-bank-brand"><span>${bank}</span></div><span class="card-network-logo visa">${brand}</span></div><div class="card-middle-numbers"><span class="card-full-number">•••• •••• •••• ${lastFour}</span><span class="card-masked-digits">•••• ${lastFour}</span></div><div class="card-footer-info"><span class="card-holder-name">${holder.toUpperCase()}</span><div class="card-expiration-date"><div>Vence</div><div>${expiry}</div></div></div></div><div class="card-item-meta"><div class="card-status-indicator"><span class="card-status-dot"></span><span>${card.status === 'active' || !card.status ? 'Activa' : card.status}</span></div><div class="card-limit-row"><span class="limit-label">Límite disponible</span><span class="limit-amount">S/ ${available.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</span></div></div><div class="card-item-actions"><button class="btn-card-details">Ver detalles</button></div></div>`;
-      }).join('');
-      
-      const stats = document.querySelectorAll('.metric-stat-value');
-      if (stats[0]) stats[0].textContent = String(cards.length);
-      if (stats[1]) stats[1].textContent = String(cards.filter(c => c.status === 'active' || !c.status).length);
-      const badge = document.querySelector('.cards-count-badge');
-      if (badge) badge.textContent = `${cards.length} tarjetas`;
-      if (transactionsBody) transactionsBody.innerHTML = demoTransactionsHTML;
-
-      initializeCardInteractions();
-      const firstCard = document.querySelector('.card-item-box') as HTMLElement;
-      if (firstCard) selectCard(firstCard);
-    };
-
     const renderCards = async () => {
       try {
         const cards = await apiFetch<any[]>('/cards');
-        if (cards && cards.length) {
-          renderCardItems(cards);
-        } else {
-          renderCardItems(demoCards);
+        if (cardsGrid) cardsGrid.innerHTML = cards.length ? cards.map((card, index) => {
+          const bank = card.bank || card.bankName || 'Banco';
+          const brand = card.brand || card.cardBrand || 'Tarjeta';
+          const lastFour = card.lastFourDigits || card.last4 || '----';
+          const holder = card.holderName || 'Titular';
+          const expiry = card.expirationMonth && card.expirationYear ? `${String(card.expirationMonth).padStart(2, '0')}/${String(card.expirationYear).slice(-2)}` : '--/--';
+          const available = Number(card.availableLimit ?? card.limitAvailable ?? 0);
+          const total = Number(card.creditLimit ?? card.limitTotal ?? 0);
+          const used = Number(card.usedLimit ?? card.limitUsed ?? 0);
+          const percent = total ? `${Math.min(100, Math.round((used / total) * 100))}%` : '0%';
+          return `<div class="card-item-box${index === 0 ? ' selected' : ''}" data-card-id="${card.id || ''}" data-bank="${bank}" data-card-type="${brand}" data-full-number="•••• •••• •••• ${lastFour}" data-masked="•••• ${lastFour}" data-holder="${holder}" data-expiry="${expiry}" data-limit-total="S/ ${total.toLocaleString('es-PE', { minimumFractionDigits: 2 })}" data-limit-used="S/ ${used.toLocaleString('es-PE', { minimumFractionDigits: 2 })}" data-limit-avail="S/ ${available.toLocaleString('es-PE', { minimumFractionDigits: 2 })}" data-percent="${percent}" data-theme="interbank"><div class="card-box-header"><span class="card-badge-placeholder"></span></div><div class="visual-bank-card interbank-card"><div class="card-top-logos"><div class="card-bank-brand"><span>${bank}</span></div><span class="card-network-logo visa">${brand}</span></div><div class="card-middle-numbers"><span class="card-full-number">•••• •••• •••• ${lastFour}</span><span class="card-masked-digits">•••• ${lastFour}</span></div><div class="card-footer-info"><span class="card-holder-name">${holder.toUpperCase()}</span><div class="card-expiration-date"><div>Vence</div><div>${expiry}</div></div></div></div><div class="card-item-meta"><div class="card-status-indicator"><span class="card-status-dot"></span><span>${card.status || 'Activa'}</span></div><div class="card-limit-row"><span class="limit-label">Límite disponible</span><span class="limit-amount">S/ ${available.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</span></div></div><div class="card-item-actions"><button class="btn-card-details">Ver detalles</button></div></div>`;
+        }).join('') : '<p class="dashboard-empty">Aún no tienes tarjetas vinculadas.</p>';
+        if (cards.length) {
+          document.querySelectorAll('.metric-stat-value')[0].textContent = String(cards.length);
+          document.querySelectorAll('.metric-stat-value')[1].textContent = String(cards.filter(card => card.status === 'active' || !card.status).length);
         }
+        initializeCardInteractions();
       } catch {
-        renderCardItems(demoCards);
+        if (cardsGrid) cardsGrid.innerHTML = '<p class="dashboard-empty">No se pudieron cargar las tarjetas.</p>';
       }
     };
 
     // 1. Cargar nombre de usuario desde localStorage
     const savedUser = localStorage.getItem('capitalFest_user');
-    let name = 'Joshua';
     if (savedUser) {
       try {
         const parsed = JSON.parse(savedUser);
-        if (parsed.firstName) name = parsed.firstName;
+        const name = parsed.firstName || 'Joshua';
+        const initial = name.charAt(0).toUpperCase();
+        
+        const sideAvatar = document.getElementById('sidebar-avatar-initial');
+        const headAvatar = document.getElementById('header-avatar-initial');
+        const sideName = document.getElementById('sidebar-user-fullname');
+        
+        if (sideAvatar) sideAvatar.textContent = initial;
+        if (headAvatar) headAvatar.textContent = initial;
+        if (sideName) sideName.innerHTML = `${name} V. <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>`;
       } catch (e) {}
     }
-    const initial = name.charAt(0).toUpperCase();
-    const sideAvatar = document.getElementById('sidebar-avatar-initial');
-    const headAvatar = document.getElementById('header-avatar-initial');
-    const sideName = document.getElementById('sidebar-user-fullname');
-    
-    if (sideAvatar) sideAvatar.textContent = initial;
-    if (headAvatar) headAvatar.textContent = initial;
-    if (sideName) sideName.innerHTML = `${name} V. <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>`;
 
     // 2. Toggle del Sidebar en Pantallas Pequeñas con Backdrop
     const mobileBtn = document.getElementById('mobile-sidebar-btn');

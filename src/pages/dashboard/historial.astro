@@ -707,47 +707,29 @@ import { apiFetch, requireSession } from '../../utils/api';
     const statusLabel = (status: string) => ({ completed: 'Completada', approved: 'Aprobada', pending: 'Pendiente', reviewing: 'En revisión', cancelled: 'Cancelada', rejected: 'Rechazada' }[status] || status || 'Sin estado');
 
     if (operationsBody) operationsBody.innerHTML = '<tr><td colspan="7" class="dashboard-empty">Cargando operaciones...</td></tr>';
-    const demoOperations = [
-      { simulation: { operationCode: 'CF-84920', grossAmount: 2500, bank: { name: 'Interbank' }, card: { brand: 'Visa' }, fee: 125 }, status: 'completed', createdAt: '2026-03-28T14:30:00Z' },
-      { simulation: { operationCode: 'CF-84919', grossAmount: 1800, bank: { name: 'BCP' }, card: { brand: 'Mastercard' }, fee: 90 }, status: 'completed', createdAt: '2026-03-25T11:15:00Z' },
-      { simulation: { operationCode: 'CF-84918', grossAmount: 4200, bank: { name: 'BBVA' }, card: { brand: 'Visa' }, fee: 210 }, status: 'pending', createdAt: '2026-03-24T09:40:00Z' },
-      { simulation: { operationCode: 'CF-84917', grossAmount: 3100, bank: { name: 'Scotiabank' }, card: { brand: 'Mastercard' }, fee: 155 }, status: 'completed', createdAt: '2026-03-20T16:20:00Z' },
-      { simulation: { operationCode: 'CF-84916', grossAmount: 1500, bank: { name: 'Interbank' }, card: { brand: 'Visa' }, fee: 75 }, status: 'completed', createdAt: '2026-03-18T10:05:00Z' }
-    ];
-
-    const renderOperationsList = (items: any[]) => {
-      if (!operationsBody) return;
-      operationsBody.innerHTML = items.map(operation => {
-        const simulation = operation.simulation || operation;
-        const status = operation.status || 'pending';
-        const date = operation.createdAt ? new Date(operation.createdAt) : null;
-        const id = simulation.operationCode || operation.operationCode || operation.id || '-';
-        const bank = simulation.bank?.name || simulation.bank || '-';
-        const card = simulation.card?.brand || simulation.cardBrand || '-';
-        const amount = money(simulation.grossAmount ?? simulation.amount);
-        const dateLabel = date ? date.toLocaleString('es-PE', { dateStyle: 'medium', timeStyle: 'short' }) : '-';
-        return `<tr class="historial-table-row" data-id="${id}" data-amount="${amount}" data-bank="${bank}" data-card="${card}" data-date="${dateLabel}" data-status="${statusLabel(status)}" data-fee="${money(simulation.fee)}"><td>${dateLabel}</td><td class="cell-op-id">#${id}</td><td class="cell-amount">${amount}</td><td>${bank}</td><td>${card}</td><td><span class="status-pill ${statusClass(status)}"><span class="status-dot-bullet"></span>${statusLabel(status)}</span></td><td><button class="btn-view-details" aria-label="Ver detalles de la operación">Ver detalles →</button></td></tr>`;
-      }).join('');
-      const statValues = document.querySelectorAll('.metric-stat-value');
-      if (statValues[0]) statValues[0].textContent = '24';
-      if (statValues[1]) statValues[1].textContent = '18';
-      if (statValues[2]) statValues[2].textContent = '4';
-      if (statValues[3]) statValues[3].textContent = '2';
-      initializeHistoryInteractions();
-    };
+    document.querySelectorAll('.metric-stat-value').forEach(element => { element.textContent = '0'; });
+    document.querySelectorAll('.metric-stat-trend').forEach(element => { element.textContent = ''; });
 
     const loadOperations = async () => {
       try {
         const result = await apiFetch<{ items?: any[] } | any[]>('/operations?limit=50');
-        const items = Array.isArray(result) ? result : result?.items || [];
-        if (items.length) {
-          renderOperationsList(items);
-        } else {
-          renderOperationsList(demoOperations);
-        }
+        const items = Array.isArray(result) ? result : result.items || [];
+        if (!operationsBody) return;
+        operationsBody.innerHTML = items.length ? items.map(operation => {
+          const simulation = operation.simulation || operation;
+          const status = operation.status || 'pending';
+          const date = operation.createdAt ? new Date(operation.createdAt) : null;
+          const id = simulation.operationCode || operation.operationCode || operation.id || '-';
+          const bank = simulation.bank?.name || simulation.bank || '-';
+          const card = simulation.card?.brand || simulation.cardBrand || '-';
+          const amount = money(simulation.grossAmount ?? simulation.amount);
+          const dateLabel = date ? date.toLocaleString('es-PE', { dateStyle: 'medium', timeStyle: 'short' }) : '-';
+          return `<tr class="historial-table-row" data-id="${id}" data-amount="${amount}" data-bank="${bank}" data-card="${card}" data-date="${dateLabel}" data-status="${statusLabel(status)}" data-fee="${money(simulation.fee)}"><td>${dateLabel}</td><td class="cell-op-id">#${id}</td><td class="cell-amount">${amount}</td><td>${bank}</td><td>${card}</td><td><span class="status-pill ${statusClass(status)}"><span class="status-dot-bullet"></span>${statusLabel(status)}</span></td><td><button class="btn-view-details" aria-label="Ver detalles de la operación">Ver detalles →</button></td></tr>`;
+        }).join('') : '<tr><td colspan="7" class="dashboard-empty">Aún no tienes operaciones.</td></tr>';
+        if (showingText) showingText.textContent = `Mostrando ${items.length} de ${items.length} operaciones`;
+        initializeHistoryInteractions();
       } catch {
-        // En modo demo sin backend o error de token, muestra datos de demostración
-        renderOperationsList(demoOperations);
+        if (operationsBody) operationsBody.innerHTML = '<tr><td colspan="7" class="dashboard-empty">No se pudieron cargar las operaciones.</td></tr>';
       }
     };
 
