@@ -42,7 +42,8 @@ const { title = 'Admin | Capital Fest', active = 'dashboard' } = Astro.props;
     } catch {}
     const response = await nativeFetch(...args);
     if (response.status === 401) {
-      localStorage.removeItem('capitalFest_token'); localStorage.removeItem('capitalFest_user'); window.location.href = `/login?redirect=${encodeURIComponent(window.location.pathname)}`;
+      // TEMPORAL: Modo demo sin redirección forzada
+      // localStorage.removeItem('capitalFest_token'); localStorage.removeItem('capitalFest_user'); window.location.href = `/login?redirect=${encodeURIComponent(window.location.pathname)}`;
     }
     if (response.status === 403) window.dispatchEvent(new CustomEvent('admin-forbidden'));
     return response;
@@ -52,11 +53,15 @@ const { title = 'Admin | Capital Fest', active = 'dashboard' } = Astro.props;
   const role = user.role;
   const roleName = typeof role === 'string' ? role : role?.name;
   const isAdmin = [roleName, user.roleName, user.userRole].some(value => String(value || '').toLowerCase() === 'admin') || Number(user.roleId) === 2;
-  if (!token || !isAdmin) window.location.href = '/login?redirect=/admin';
+  
+  // TEMPORAL: Modo demo - acceso permitido a rutas admin para pruebas con cliente
+  // if (!token || !isAdmin) window.location.href = '/login?redirect=/admin';
+  
   const name = document.getElementById('admin-name');
   const avatar = document.getElementById('admin-avatar');
-  if (name && user.firstName) name.textContent = `${user.firstName} ${user.lastName || ''}`;
-  if (avatar && user.firstName) avatar.textContent = user.firstName[0].toUpperCase();
+  const adminFirst = user.firstName || 'Administrador';
+  if (name) name.textContent = `${adminFirst} ${user.lastName || ''}`;
+  if (avatar) avatar.textContent = adminFirst[0].toUpperCase();
   const logoutBtn = document.getElementById('admin-logout') || document.getElementById('sidebar-admin-logout');
   logoutBtn?.addEventListener('click', async () => {
     try {

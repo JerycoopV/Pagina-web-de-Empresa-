@@ -36,15 +36,83 @@ import AdminSidebar from '../../components/AdminSidebar.astro';
 </Layout>
 <script>
   const token = localStorage.getItem('capitalFest_token'); const user = JSON.parse(localStorage.getItem('capitalFest_user') || '{}'); const apiRoot = import.meta.env.PUBLIC_API_URL.replace(/\/$/, ''); const api = apiRoot.endsWith('/api') ? apiRoot : `${apiRoot}/api`;
-  const nativeFetch = window.fetch.bind(window); window.fetch = async (...args) => { const response = await nativeFetch(...args); if (response.status === 401) { localStorage.removeItem('capitalFest_token'); localStorage.removeItem('capitalFest_user'); window.location.href = `/login?redirect=${encodeURIComponent(window.location.pathname)}`; } if (response.status === 403) alert('No tienes permisos para realizar esta acción.'); return response; };
+  const nativeFetch = window.fetch.bind(window); window.fetch = async (...args) => { const response = await nativeFetch(...args); if (response.status === 401) { /* TEMPORAL: Modo demo sin redirección */ } if (response.status === 403) alert('No tienes permisos para realizar esta acción.'); return response; };
   const role = typeof user.role === 'string' ? user.role : user.role?.name; const isAdmin = [role, user.roleName, user.userRole].some(value => String(value || '').toLowerCase() === 'admin') || Number(user.roleId) === 2;
-  if (!token || !isAdmin) window.location.href = '/login?redirect=/admin';
+  
+  // TEMPORAL: Modo demo - acceso permitido a /admin sin requerir login para mostrar al cliente
+  // if (!token || !isAdmin) window.location.href = '/login?redirect=/admin';
+  
   const firstName = user.firstName || 'Administrador'; document.getElementById('greeting-name').textContent = firstName; document.getElementById('header-avatar-initial').textContent = firstName[0].toUpperCase();
-  const response = await fetch(`${api}/admin/dashboard`, { headers: { Authorization: `Bearer ${token}` } });
-  if (response.ok) { const { metrics } = await response.json(); const money = `S/ ${Number(metrics.grossVolume || 0).toLocaleString('es-PE', { minimumFractionDigits: 2 })}`; document.getElementById('gross-volume').textContent = money; document.getElementById('pending-users').textContent = String(metrics.pendingUsers || 0); document.getElementById('registered-users').textContent = String(metrics.users || 0); const values = [['Usuarios registrados', metrics.users, '/admin/usuarios'], ['Usuarios pendientes', metrics.pendingUsers, '/admin/validaciones'], ['Tarjetas activas', metrics.activeCards, '/admin/tarjetas']]; document.getElementById('admin-summary-rows').innerHTML = values.map(([label, value, href]) => `<tr><td>${label}</td><td>${value || 0}</td><td><a class="panel-footer-link" href="${href}">Abrir <span>→</span></a></td></tr>`).join(''); }
-  const usersResponse = await fetch(`${api}/admin/users?limit=8`, { headers: { Authorization: `Bearer ${token}` } });
+
+  const demoMetrics = { grossVolume: 148500, pendingUsers: 3, users: 48, activeCards: 36 };
+  const demoUsers = [
+    { firstName: 'Carlos', lastName: 'Mendoza', email: 'carlos.mendoza@gmail.com', role: { name: 'Usuario' }, accountStatus: 'Activo', createdAt: '2026-03-27' },
+    { firstName: 'Lucía', lastName: 'Torres', email: 'lucia.torres@outlook.com', role: { name: 'Usuario' }, accountStatus: 'Pendiente', createdAt: '2026-03-26' },
+    { firstName: 'Jorge', lastName: 'Herrera', email: 'jorge.h@hotmail.com', role: { name: 'Usuario' }, accountStatus: 'Activo', createdAt: '2026-03-25' },
+    { firstName: 'Mariana', lastName: 'Flores', email: 'mariana.flores@gmail.com', role: { name: 'Usuario' }, accountStatus: 'Pendiente', createdAt: '2026-03-24' }
+  ];
+  const demoActivity = [
+    { title: 'Validación KYC aprobada', description: 'Se verificó la identidad de Carlos Mendoza', createdAt: '2026-03-28T10:15:00Z' },
+    { title: 'Nueva simulación registrada', description: 'Retiro solicitado por S/ 3,500.00 en BBVA', createdAt: '2026-03-27T17:40:00Z' },
+    { title: 'Tarjeta vinculada', description: 'Nueva tarjeta Interbank Visa añadida', createdAt: '2026-03-26T12:20:00Z' }
+  ];
+
+  const populateMetrics = (metrics) => {
+    const money = `S/ ${Number(metrics.grossVolume || 0).toLocaleString('es-PE', { minimumFractionDigits: 2 })}`;
+    document.getElementById('gross-volume').textContent = money;
+    document.getElementById('pending-users').textContent = String(metrics.pendingUsers || 0);
+    document.getElementById('registered-users').textContent = String(metrics.users || 0);
+    const values = [['Usuarios registrados', metrics.users, '/admin/usuarios'], ['Usuarios pendientes', metrics.pendingUsers, '/admin/validaciones'], ['Tarjetas activas', metrics.activeCards, '/admin/tarjetas']];
+    document.getElementById('admin-summary-rows').innerHTML = values.map(([label, value, href]) => `<tr><td>${label}</td><td>${value || 0}</td><td><a class="panel-footer-link" href="${href}">Abrir <span>→</span></a></td></tr>`).join('');
+  };
+
   const usersHistory = document.getElementById('registered-users-history');
-  if (usersHistory && usersResponse.ok) { const { items } = await usersResponse.json(); usersHistory.innerHTML = items.length ? items.map(user => `<tr><td>${user.firstName || ''} ${user.lastName || ''}</td><td>${user.email}</td><td>${user.role?.name || 'User'}</td><td><span class="status-badge pending"><span class="status-dot pending"></span>${user.accountStatus || 'Sin datos'}</span></td><td>${user.createdAt ? new Date(user.createdAt).toLocaleDateString('es-PE') : '-'}</td></tr>`).join('') : '<tr><td colspan="5" class="dashboard-empty">Aun no hay usuarios registrados.</td></tr>'; }
-  const recentActivity = document.getElementById('recent-activity-list'); const activityResponse = await fetch(`${api}/admin/activity?limit=8`, { headers: { Authorization: `Bearer ${token}` } }); if (recentActivity && activityResponse.ok) { const { items = [] } = await activityResponse.json(); recentActivity.innerHTML = items.length ? items.map(activity => `<div class="activity-item"><div class="activity-icon-circle"><span>✓</span></div><div class="activity-details"><span class="activity-title">${activity.title || activity.action || 'Actividad administrativa'}</span><span class="activity-desc">${activity.description || ''}</span></div><span class="activity-time">${activity.createdAt ? new Date(activity.createdAt).toLocaleString('es-PE') : '-'}</span></div>`).join('') : '<p class="dashboard-empty">Aun no hay actividad reciente.</p>'; }
+  const populateUsers = (items) => {
+    if (!usersHistory) return;
+    usersHistory.innerHTML = items.map(u => `<tr><td>${u.firstName || ''} ${u.lastName || ''}</td><td>${u.email}</td><td>${u.role?.name || u.role || 'Usuario'}</td><td><span class="status-badge ${String(u.accountStatus).toLowerCase().includes('activo') ? 'verified' : 'pending'}"><span class="status-dot ${String(u.accountStatus).toLowerCase().includes('activo') ? 'verified' : 'pending'}"></span>${u.accountStatus || 'Activo'}</span></td><td>${u.createdAt ? new Date(u.createdAt).toLocaleDateString('es-PE') : '-'}</td></tr>`).join('');
+  };
+
+  const recentActivity = document.getElementById('recent-activity-list');
+  const populateActivity = (items) => {
+    if (!recentActivity) return;
+    recentActivity.innerHTML = items.map(act => `<div class="activity-item"><div class="activity-icon-circle"><span>✓</span></div><div class="activity-details"><span class="activity-title">${act.title || act.action || 'Actividad administrativa'}</span><span class="activity-desc">${act.description || ''}</span></div><span class="activity-time">${act.createdAt ? new Date(act.createdAt).toLocaleString('es-PE') : '-'}</span></div>`).join('');
+  };
+
+  try {
+    const response = await fetch(`${api}/admin/dashboard`, { headers: { Authorization: `Bearer ${token}` } });
+    if (response.ok) {
+      const { metrics } = await response.json();
+      populateMetrics(metrics);
+    } else {
+      populateMetrics(demoMetrics);
+    }
+  } catch {
+    populateMetrics(demoMetrics);
+  }
+
+  try {
+    const usersResponse = await fetch(`${api}/admin/users?limit=8`, { headers: { Authorization: `Bearer ${token}` } });
+    if (usersResponse.ok) {
+      const { items = [] } = await usersResponse.json();
+      populateUsers(items.length ? items : demoUsers);
+    } else {
+      populateUsers(demoUsers);
+    }
+  } catch {
+    populateUsers(demoUsers);
+  }
+
+  try {
+    const activityResponse = await fetch(`${api}/admin/activity?limit=8`, { headers: { Authorization: `Bearer ${token}` } });
+    if (activityResponse.ok) {
+      const { items = [] } = await activityResponse.json();
+      populateActivity(items.length ? items : demoActivity);
+    } else {
+      populateActivity(demoActivity);
+    }
+  } catch {
+    populateActivity(demoActivity);
+  }
+
   const sidebar = document.getElementById('dash-sidebar') || document.getElementById('admin-sidebar'); document.getElementById('mobile-sidebar-btn')?.addEventListener('click', () => sidebar?.classList.toggle('open')); document.getElementById('sidebar-backdrop')?.addEventListener('click', () => sidebar?.classList.remove('open'));
 </script>

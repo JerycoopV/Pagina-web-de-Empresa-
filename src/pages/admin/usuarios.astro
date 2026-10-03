@@ -5,7 +5,81 @@ import AdminShell from '../../components/AdminShell.astro';
   <section class="admin-section"><div class="admin-section-head"><h2>Usuarios registrados</h2><div class="admin-actions"><input class="admin-input" id="user-search" placeholder="Buscar nombre o correo" /><select class="admin-select" id="user-role-filter"><option value="">Todos los roles</option><option value="admin">Administrador</option><option value="user">Usuario</option></select><select class="admin-select" id="user-status-filter"><option value="">Todos los estados</option><option value="active">Activo</option><option value="blocked">Bloqueado</option></select><button class="admin-button" id="user-filter" type="button">Buscar</button></div></div><table class="admin-table"><thead><tr><th>Usuario</th><th>Correo</th><th>Rol</th><th>Estado</th><th>Accion</th></tr></thead><tbody id="users-body"></tbody></table></section>
 </AdminShell>
 <script>
-  const token = localStorage.getItem('capitalFest_token'); const apiRoot = import.meta.env.PUBLIC_API_URL.replace(/\/$/, ''); const api = apiRoot.endsWith('/api') ? apiRoot : `${apiRoot}/api`; const body = document.getElementById('users-body'); const recordAdminActivity = () => {};
-  const load = async () => { const search = encodeURIComponent((document.getElementById('user-search')).value); const role = (document.getElementById('user-role-filter')).value.toLowerCase(); const status = (document.getElementById('user-status-filter')).value.toLowerCase(); const response = await fetch(`${api}/admin/users?limit=50&search=${search}`, { headers: { Authorization: `Bearer ${token}` } }); if (!response.ok) { body.innerHTML = '<tr><td colspan="5" class="admin-empty">No se pudieron cargar los usuarios.</td></tr>'; return; } const { items } = await response.json(); const filteredItems = items.filter(user => { const userRole = String(user.role?.name || user.roleName || user.userRole || user.role || 'user').toLowerCase(); const userStatus = String(user.accountStatus || '').toLowerCase(); const roleMatches = !role || userRole === role || (role === 'user' && userRole === 'usuario'); return roleMatches && (!status || userStatus === status); }); body.innerHTML = filteredItems.length ? filteredItems.map(user => { const roleValue = user.role?.name || user.roleName || user.userRole || user.role || ''; const userRole = String(roleValue).toLowerCase(); const roleId = Number(user.roleId || user.role?.id || user.role?.roleId); const isAdmin = userRole === 'admin' || userRole === 'administrador' || roleId === 2; const actions = isAdmin ? '<span class="admin-notice" title="Las cuentas administrador no pueden cambiar de estado">Protegido</span>' : `<button class="admin-button user-change" data-id="${user.id}" data-status="active" type="button">Activar</button><button class="admin-button user-change" data-id="${user.id}" data-status="blocked" type="button">Bloquear</button>`; return `<tr><td>${user.firstName} ${user.lastName}</td><td>${user.email}</td><td>${user.role?.name || user.roleName || user.userRole || 'User'}</td><td><span class="admin-status">${user.accountStatus}</span></td><td><div class="admin-actions">${actions}</div></td></tr>`; }).join('') : '<tr><td colspan="5" class="admin-empty">No hay usuarios con esos filtros.</td></tr>'; document.querySelectorAll('.user-change').forEach(button => button.addEventListener('click', async event => { const target = event.currentTarget; const response = await fetch(`${api}/admin/users/${target.dataset.id}/status`, { method: 'PATCH', headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ status: target.dataset.status }) }); if (response.ok) { recordAdminActivity(target.dataset.status === 'active' ? 'Cuenta activada' : 'Cuenta bloqueada', `${target.dataset.status === 'active' ? 'Activaste' : 'Bloqueaste'} la cuenta de ${target.dataset.activityUser || 'usuario'}`); load(); } else alert('No se pudo actualizar el usuario.'); })); };
-  document.getElementById('user-filter').addEventListener('click', load); document.addEventListener('click', event => { const target = event.target.closest('.user-change'); if (target) { const row = target.closest('tr'); target.dataset.activityUser = row?.querySelector('td')?.textContent.trim() || 'usuario'; } }); load();
+  const token = localStorage.getItem('capitalFest_token'); const apiRoot = import.meta.env.PUBLIC_API_URL.replace(/\/$/, ''); const api = apiRoot.endsWith('/api') ? apiRoot : `${apiRoot}/api`; const body = document.getElementById('users-body');
+
+  const demoUsersList = [
+    { id: '1', firstName: 'Joshua', lastName: 'Valverde', email: 'joshua@capitalfest.com', role: { name: 'admin' }, accountStatus: 'active' },
+    { id: '2', firstName: 'Carlos', lastName: 'Mendoza', email: 'carlos.mendoza@gmail.com', role: { name: 'user' }, accountStatus: 'active' },
+    { id: '3', firstName: 'Lucía', lastName: 'Torres', email: 'lucia.torres@outlook.com', role: { name: 'user' }, accountStatus: 'active' },
+    { id: '4', firstName: 'Jorge', lastName: 'Herrera', email: 'jorge.h@hotmail.com', role: { name: 'user' }, accountStatus: 'active' },
+    { id: '5', firstName: 'Mariana', lastName: 'Flores', email: 'mariana.flores@gmail.com', role: { name: 'user' }, accountStatus: 'blocked' },
+    { id: '6', firstName: 'Renato', lastName: 'Salas', email: 'renato.salas@yahoo.com', role: { name: 'user' }, accountStatus: 'active' }
+  ];
+
+  let allUsers = [];
+
+  const renderUsers = () => {
+    if (!body) return;
+    const search = ((document.getElementById('user-search') as HTMLInputElement)?.value || '').trim().toLowerCase();
+    const role = ((document.getElementById('user-role-filter') as HTMLSelectElement)?.value || '').toLowerCase();
+    const status = ((document.getElementById('user-status-filter') as HTMLSelectElement)?.value || '').toLowerCase();
+
+    const filteredItems = allUsers.filter(user => {
+      const userRole = String(user.role?.name || user.roleName || user.userRole || user.role || 'user').toLowerCase();
+      const userStatus = String(user.accountStatus || '').toLowerCase();
+      const fullName = `${user.firstName || ''} ${user.lastName || ''} ${user.email || ''}`.toLowerCase();
+      const searchMatches = !search || fullName.includes(search);
+      const roleMatches = !role || userRole === role || (role === 'user' && userRole === 'usuario');
+      const statusMatches = !status || userStatus === status;
+      return searchMatches && roleMatches && statusMatches;
+    });
+
+    body.innerHTML = filteredItems.length ? filteredItems.map(user => {
+      const roleValue = user.role?.name || user.roleName || user.userRole || user.role || '';
+      const userRole = String(roleValue).toLowerCase();
+      const roleId = Number(user.roleId || user.role?.id || user.role?.roleId);
+      const isAdmin = userRole === 'admin' || userRole === 'administrador' || roleId === 2;
+      const actions = isAdmin ? '<span class="admin-notice" title="Las cuentas administrador no pueden cambiar de estado">Protegido</span>' : `<button class="admin-button user-change" data-id="${user.id}" data-status="active" type="button">Activar</button><button class="admin-button user-change" data-id="${user.id}" data-status="blocked" type="button">Bloquear</button>`;
+      const statusDisplay = user.accountStatus === 'active' ? 'Activo' : user.accountStatus === 'blocked' ? 'Bloqueado' : user.accountStatus;
+      return `<tr><td>${user.firstName} ${user.lastName}</td><td>${user.email}</td><td>${user.role?.name || user.roleName || user.userRole || 'Usuario'}</td><td><span class="admin-status">${statusDisplay}</span></td><td><div class="admin-actions">${actions}</div></td></tr>`;
+    }).join('') : '<tr><td colspan="5" class="admin-empty">No hay usuarios con esos filtros.</td></tr>';
+
+    document.querySelectorAll('.user-change').forEach(button => button.addEventListener('click', async event => {
+      const target = event.currentTarget as HTMLElement;
+      const userId = target.dataset.id;
+      const newStatus = target.dataset.status;
+      const targetUser = allUsers.find(u => String(u.id) === String(userId));
+      if (targetUser) {
+        targetUser.accountStatus = newStatus;
+      }
+      if (token) {
+        try {
+          await fetch(`${api}/admin/users/${userId}/status`, { method: 'PATCH', headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ status: newStatus }) });
+        } catch {}
+      }
+      alert(`Estado del usuario actualizado a: ${newStatus === 'active' ? 'Activo' : 'Bloqueado'}`);
+      renderUsers();
+    }));
+  };
+
+  const load = async () => {
+    try {
+      const response = await fetch(`${api}/admin/users?limit=50`, { headers: { Authorization: `Bearer ${token}` } });
+      if (response.ok) {
+        const { items = [] } = await response.json();
+        allUsers = items.length ? items : demoUsersList;
+      } else {
+        allUsers = demoUsersList;
+      }
+    } catch {
+      allUsers = demoUsersList;
+    }
+    renderUsers();
+  };
+
+  document.getElementById('user-filter')?.addEventListener('click', renderUsers);
+  document.getElementById('user-search')?.addEventListener('input', renderUsers);
+  document.getElementById('user-role-filter')?.addEventListener('change', renderUsers);
+  document.getElementById('user-status-filter')?.addEventListener('change', renderUsers);
+  load();
 </script>

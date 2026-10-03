@@ -8,10 +8,11 @@ export async function apiFetch<T>(path: string, options: RequestInit = {}): Prom
 
   const response = await fetch(`${apiUrl}${path}`, { ...options, headers });
   if (response.status === 401) {
-    localStorage.removeItem('capitalFest_token');
-    localStorage.removeItem('capitalFest_user');
-    window.location.href = `/login?redirect=${encodeURIComponent(window.location.pathname)}`;
-    throw new Error('Sesión expirada');
+    // TEMPORAL: Modo demo sin redirección forzada
+    // localStorage.removeItem('capitalFest_token');
+    // localStorage.removeItem('capitalFest_user');
+    // window.location.href = `/login?redirect=${encodeURIComponent(window.location.pathname)}`;
+    throw new Error('Sesión expirada o no autenticada');
   }
 
   if (!response.ok) throw new Error(`API ${response.status}`);
@@ -19,9 +20,10 @@ export async function apiFetch<T>(path: string, options: RequestInit = {}): Prom
 }
 
 export function requireSession() {
-  if (!localStorage.getItem('capitalFest_token')) {
-    window.location.href = `/login?redirect=${encodeURIComponent(window.location.pathname)}`;
-    return false;
-  }
+  // TEMPORAL: Modo demo - acceso permitido sin sesión para previsualización con cliente
+  // if (!localStorage.getItem('capitalFest_token')) {
+  //   window.location.href = `/login?redirect=${encodeURIComponent(window.location.pathname)}`;
+  //   return false;
+  // }
   return true;
 }

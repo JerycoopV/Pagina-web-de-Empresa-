@@ -410,9 +410,10 @@ import '../styles/dashboard.css';
   const role = user.role;
   const roleName = typeof role === 'string' ? role : role?.name;
   const isAdmin = [roleName, user.roleName, user.userRole].some(value => String(value || '').toLowerCase() === 'admin') || Number(user.roleId) === 2;
-  if (isAdmin) window.location.replace('/admin');
-  const firstName = user.firstName || 'Usuario';
-  const lastName = user.lastName || '';
+  // TEMPORAL: Desactivada redirección automática de admin para poder probar dashboard de usuario libremente
+  // if (isAdmin) window.location.replace('/admin');
+  const firstName = user.firstName || 'Joshua';
+  const lastName = user.lastName || 'Valverde';
   const initial = firstName.charAt(0).toUpperCase();
   document.getElementById('greeting-name').textContent = firstName;
   document.getElementById('sidebar-user-fullname').textContent = `${firstName} ${lastName.charAt(0) ? `${lastName.charAt(0)}.` : ''}`;
@@ -443,7 +444,8 @@ import '../styles/dashboard.css';
     const card = document.getElementById('quick-sim-card') as HTMLSelectElement | null; if (card) card.innerHTML = '<option value="Visa">Visa</option><option value="Mastercard">Mastercard</option>';
   };
   const loadDashboard = async () => {
-    if (!token) { window.location.href = '/login?redirect=/dashboard'; return; }
+    // TEMPORAL: Modo demo - si no hay token o no es admin, carga datos demo de inmediato
+    if (!token) { populateNormalDemo(); return; }
     if (!isAdmin) { populateNormalDemo(); return; }
     const basePath = isAdmin ? '/admin' : '';
     const [summaryResponse, cardsResponse, notificationsResponse] = await Promise.all([
